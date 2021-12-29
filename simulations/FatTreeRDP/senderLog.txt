@@ -1,0 +1,1018 @@
+
+Running configuration General, run #2290...
+Scenario: $FatTreeSize=8, $0="randTM", $numShortFlows=100, $1=8, $repetition=0
+Assigned runID=General-2290-20211121-20:43:01-55901
+Setting up network "FatTreeNdp"...
+Initializing...
+
+Running simulation...
+0.054344748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 1500
+0.054344748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 1500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054356748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 3000
+0.054356748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 3000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054368748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 4500
+0.054368748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 4500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054380748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 6000
+0.054380748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 6000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054392748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 7500
+0.054392748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 7500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054404748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 9000
+0.054404748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 9000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054416748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 10500
+0.054416748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 10500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054428748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 12000
+0.054428748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 12000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054440748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 13500
+0.054440748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 13500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054452748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 15000
+0.054452748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 15000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054464748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 16500
+0.054464748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 16500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054476748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 18000
+0.054476748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 18000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054488748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 19500
+0.054488748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 19500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054500748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 21000
+0.054500748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 21000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054512748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 22500
+0.054512748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 22500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054524748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 24000
+0.054524748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 24000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054536748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 25500
+0.054536748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 25500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054548748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 27000
+0.054548748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 27000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054560748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 28500
+0.054560748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 28500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054572748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 30000
+0.054572748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 30000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054584748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 31500
+0.054584748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 31500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054596748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 33000
+0.054596748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 33000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054620748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 34500
+0.054620748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 34500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054632748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 36000
+0.054632748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 36000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054644748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 37500
+0.054644748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 37500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054656748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 39000
+0.054656748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 39000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054668748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 40500
+0.054668748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 40500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054680748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 42000
+0.054680748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 42000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054692748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 43500
+0.054692748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 43500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054704748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 45000
+0.054704748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 45000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054716748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 46500
+0.054716748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 46500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054728748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 48000
+0.054728748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 48000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054740748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 49500
+0.054740748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 49500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054752748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 51000
+0.054752748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 51000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054764748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 52500
+0.054764748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 52500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054776748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 54000
+0.054776748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 54000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054788748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 55500
+0.054788748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 55500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054800748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 57000
+0.054800748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 57000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054812748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 58500
+0.054812748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 58500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054824748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 60000
+0.054824748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 60000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054836748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 61500
+0.054836748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 61500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054848748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 63000
+0.054848748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 63000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054860748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 64500
+0.054860748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 64500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054872748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 66000
+0.054872748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 66000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054884748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 67500
+0.054884748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 67500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054896748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 69000
+0.054896748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 69000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054908748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 70500
+0.054908748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 70500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054920748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 72000
+0.054920748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 72000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054932748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 73500
+0.054932748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 73500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054944748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 75000
+0.054944748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 75000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054956748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 76500
+0.054956748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 76500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054968748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 78000
+0.054968748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 78000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054980748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 79500
+0.054980748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 79500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.054992748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 81000
+0.054992748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 81000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055004748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 82500
+0.055004748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 82500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055016748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 84000
+0.055016748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 84000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055028748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 85500
+0.055028748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 85500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055040748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 87000
+0.055040748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 87000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055052748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 88500
+0.055052748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 88500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055064748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 90000
+0.055064748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 90000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055076748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 91500
+0.055076748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 91500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055088748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 93000
+0.055088748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 93000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055100748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 94500
+0.055100748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 94500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055112748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 96000
+0.055112748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 96000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055124748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 97500
+0.055124748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 97500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055136748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 99000
+0.055136748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 99000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055148748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 100500
+0.055148748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 100500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055160748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 102000
+0.055160748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 102000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055172748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 103500
+0.055172748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 103500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055184748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 105000
+0.055184748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 105000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055196748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 106500
+0.055196748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 106500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055208748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 108000
+0.055208748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 108000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055220748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 109500
+0.055220748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 109500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055232748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 111000
+0.055232748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 111000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055244748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 112500
+0.055244748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 112500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055256748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 114000
+0.055256748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 114000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055268748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 115500
+0.055268748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 115500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055280748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 117000
+0.055280748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 117000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055292748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 118500
+0.055292748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 118500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055304748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 120000
+0.055304748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 120000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055316748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 121500
+0.055316748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 121500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055328748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 123000
+0.055328748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 123000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055340748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 124500
+0.055340748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 124500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055352748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 126000
+0.055352748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 126000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055364748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 127500
+0.055364748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 127500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055376748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 129000
+0.055376748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 129000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055388748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 130500
+0.055388748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 130500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055400748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 132000
+0.055400748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 132000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055412748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 133500
+0.055412748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 133500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055424748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 135000
+0.055424748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 135000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055436748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 136500
+0.055436748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 136500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055448748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 138000
+0.055448748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 138000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055460748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 139500
+0.055460748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 139500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055472748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 141000
+0.055472748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 141000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055484748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 142500
+0.055484748851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 142500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055507998309 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 144000
+0.055507998309 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 144000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055522252851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 145500
+0.055522252851 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 145500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055536101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 147000
+0.055536101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 147000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055548101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 148500
+0.055548101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 148500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055560101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 150000
+0.055560101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 150000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055572101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 151500
+0.055572101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 151500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055584101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 153000
+0.055584101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 153000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055596101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 154500
+0.055596101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 154500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055608101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 156000
+0.055608101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 156000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055620101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 157500
+0.055620101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 157500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055632101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 159000
+0.055632101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 159000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055644101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 160500
+0.055644101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 160500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055656101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 162000
+0.055656101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 162000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055668101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 163500
+0.055668101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 163500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055680101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 165000
+0.055680101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 165000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055692101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 166500
+0.055692101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 166500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055704101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 168000
+0.055704101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 168000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055716101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 169500
+0.055716101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 169500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055728101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 171000
+0.055728101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 171000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055740101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 172500
+0.055740101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 172500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055752101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 174000
+0.055752101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 174000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055764101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 175500
+0.055764101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 175500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055776101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 177000
+0.055776101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 177000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055788101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 178500
+0.055788101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 178500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055800101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 180000
+0.055800101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 180000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055812101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 181500
+0.055812101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 181500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055824101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 183000
+0.055824101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 183000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055836101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 184500
+0.055836101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 184500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055848101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 186000
+0.055848101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 186000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055860101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 187500
+0.055860101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 187500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055872101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 189000
+0.055872101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 189000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055884101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 190500
+0.055884101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 190500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055896101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 192000
+0.055896101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 192000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055908101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 193500
+0.055908101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 193500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055920101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 195000
+0.055920101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 195000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055932101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 196500
+0.055932101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 196500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055944101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 198000
+0.055944101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 198000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055956101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 199500
+0.055956101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 199500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055968101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 201000
+0.055968101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 201000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055980101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 202500
+0.055980101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 202500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.055992101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 204000
+0.055992101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 204000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056004101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 205500
+0.056004101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 205500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056016101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 207000
+0.056016101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 207000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056028101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 208500
+0.056028101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 208500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056040101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 210000
+0.056040101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 210000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056052101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 211500
+0.056052101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 211500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056064101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 213000
+0.056064101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 213000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056076101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 214500
+0.056076101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 214500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056088101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 216000
+0.056088101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 216000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056100101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 217500
+0.056100101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 217500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056112101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 219000
+0.056112101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 219000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056124101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 220500
+0.056124101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 220500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056136101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 222000
+0.056136101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 222000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056148101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 223500
+0.056148101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 223500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056160101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 225000
+0.056160101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 225000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056172101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 226500
+0.056172101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 226500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056184101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 228000
+0.056184101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 228000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056196101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 229500
+0.056196101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 229500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056208101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 231000
+0.056208101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 231000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056220101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 232500
+0.056220101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 232500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056232101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 234000
+0.056232101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 234000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056244101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 235500
+0.056244101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 235500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056256101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 237000
+0.056256101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 237000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056268101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 238500
+0.056268101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 238500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056280101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 240000
+0.056280101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 240000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056292101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 241500
+0.056292101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 241500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056304101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 243000
+0.056304101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 243000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056316101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 244500
+0.056316101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 244500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056328101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 246000
+0.056328101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 246000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056340101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 247500
+0.056340101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 247500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056352101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 249000
+0.056352101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 249000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056364101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 250500
+0.056364101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 250500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056376101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 252000
+0.056376101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 252000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056388101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 253500
+0.056388101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 253500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056400101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 255000
+0.056400101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 255000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056412101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 256500
+0.056412101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 256500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056424101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 258000
+0.056424101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 258000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056436101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 259500
+0.056436101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 259500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056448101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 261000
+0.056448101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 261000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056460101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 262500
+0.056460101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 262500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056472101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 264000
+0.056472101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 264000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056484101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 265500
+0.056484101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 265500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056496101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 267000
+0.056496101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 267000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056508101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 268500
+0.056508101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 268500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056520101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 270000
+0.056520101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 270000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056532101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 271500
+0.056532101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 271500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056544101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 273000
+0.056544101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 273000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056556101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 274500
+0.056556101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 274500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056568101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 276000
+0.056568101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 276000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056580101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 277500
+0.056580101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 277500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056592101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 279000
+0.056592101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 279000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056604101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 280500
+0.056604101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 280500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056616101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 282000
+0.056616101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 282000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056628101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 283500
+0.056628101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 283500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056640101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 285000
+0.056640101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 285000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056652101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 286500
+0.056652101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 286500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056664101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 288000
+0.056664101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 288000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056676101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 289500
+0.056676101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 289500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056688101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 291000
+0.056688101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 291000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056700101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 292500
+0.056700101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 292500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056712101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 294000
+0.056712101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 294000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056724101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 295500
+0.056724101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 295500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056736101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 297000
+0.056736101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 297000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056748101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 298500
+0.056748101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 298500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056760101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 300000
+0.056760101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 300000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056772101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 301500
+0.056772101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 301500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056784101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 303000
+0.056784101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 303000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056796101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 304500
+0.056796101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 304500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056808101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 306000
+0.056808101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 306000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056820101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 307500
+0.056820101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 307500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056832101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 309000
+0.056832101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 309000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056844101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 310500
+0.056844101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 310500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056856101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 312000
+0.056856101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 312000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056868101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 313500
+0.056868101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 313500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056880101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 315000
+0.056880101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 315000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056892101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 316500
+0.056892101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 316500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056904101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 318000
+0.056904101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 318000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056916101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 319500
+0.056916101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 319500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056928101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 321000
+0.056928101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 321000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056940101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 322500
+0.056940101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 322500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056952101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 324000
+0.056952101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 324000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056964101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 325500
+0.056964101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 325500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056976101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 327000
+0.056976101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 327000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.056988101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 328500
+0.056988101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 328500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057000101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 330000
+0.057000101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 330000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057012101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 331500
+0.057012101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 331500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057024101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 333000
+0.057024101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 333000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057036101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 334500
+0.057036101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 334500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057048101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 336000
+0.057048101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 336000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057060101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 337500
+0.057060101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 337500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057072101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 339000
+0.057072101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 339000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057084101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 340500
+0.057084101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 340500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057096101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 342000
+0.057096101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 342000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057108101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 343500
+0.057108101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 343500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057120101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 345000
+0.057120101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 345000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057132101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 346500
+0.057132101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 346500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057144101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 348000
+0.057144101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 348000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057156101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 349500
+0.057156101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 349500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057168101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 351000
+0.057168101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 351000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057180101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 352500
+0.057180101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 352500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057192101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 354000
+0.057192101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 354000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057204101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 355500
+0.057204101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 355500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057216101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 357000
+0.057216101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 357000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057228101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 358500
+0.057228101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 358500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057240101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 360000
+0.057240101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 360000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057252101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 361500
+0.057252101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 361500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057264101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 363000
+0.057264101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 363000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057276101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 364500
+0.057276101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 364500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057288101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 366000
+0.057288101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 366000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057300101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 367500
+0.057300101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 367500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057312101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 369000
+0.057312101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 369000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057324101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 370500
+0.057324101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 370500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057336101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 372000
+0.057336101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 372000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057348101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 373500
+0.057348101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 373500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057360101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 375000
+0.057360101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 375000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057372101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 376500
+0.057372101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 376500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057384101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 378000
+0.057384101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 378000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057396101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 379500
+0.057396101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 379500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057408101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 381000
+0.057408101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 381000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057420101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 382500
+0.057420101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 382500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057432101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 384000
+0.057432101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 384000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057444101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 385500
+0.057444101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 385500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057456101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 387000
+0.057456101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 387000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057468101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 388500
+0.057468101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 388500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057480101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 390000
+0.057480101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 390000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057492101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 391500
+0.057492101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 391500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057504101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 393000
+0.057504101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 393000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057516101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 394500
+0.057516101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 394500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057528101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 396000
+0.057528101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 396000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057540101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 397500
+0.057540101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 397500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057552101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 399000
+0.057552101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 399000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057564101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 400500
+0.057564101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 400500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057576101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 402000
+0.057576101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 402000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057588101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 403500
+0.057588101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 403500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057600101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 405000
+0.057600101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 405000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057612101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 406500
+0.057612101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 406500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057624101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 408000
+0.057624101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 408000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057636101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 409500
+0.057636101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 409500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057648101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 411000
+0.057648101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 411000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057660101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 412500
+0.057660101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 412500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057672101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 414000
+0.057672101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 414000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057684101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 415500
+0.057684101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 415500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057696101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 417000
+0.057696101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 417000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057708101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 418500
+0.057708101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 418500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057720101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 420000
+0.057720101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 420000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057732101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 421500
+0.057732101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 421500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057744101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 423000
+0.057744101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 423000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057756101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 424500
+0.057756101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 424500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057768101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 426000
+0.057768101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 426000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057780101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 427500
+0.057780101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 427500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057792101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 429000
+0.057792101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 429000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057804101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 430500
+0.057804101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 430500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057816101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 432000
+0.057816101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 432000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057828101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 433500
+0.057828101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 433500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057840101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 435000
+0.057840101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 435000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057852101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 436500
+0.057852101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 436500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057864101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 438000
+0.057864101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 438000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057876101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 439500
+0.057876101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 439500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057888101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 441000
+0.057888101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 441000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057900101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 442500
+0.057900101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 442500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057912101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 444000
+0.057912101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 444000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057924101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 445500
+0.057924101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 445500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057936101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 447000
+0.057936101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 447000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057948101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 448500
+0.057948101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 448500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057960101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 450000
+0.057960101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 450000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057972101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 451500
+0.057972101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 451500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057984101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 453000
+0.057984101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 453000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.057996101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 454500
+0.057996101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 454500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058008101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 456000
+0.058008101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 456000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058020101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 457500
+0.058020101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 457500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058032101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 459000
+0.058032101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 459000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058044101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 460500
+0.058044101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 460500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058056101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 462000
+0.058056101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 462000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058068101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 463500
+0.058068101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 463500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058080101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 465000
+0.058080101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 465000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058092101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 466500
+0.058092101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 466500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058104101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 468000
+0.058104101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 468000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058116101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 469500
+0.058116101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 469500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058128101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 471000
+0.058128101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 471000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058140101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 472500
+0.058140101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 472500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058152101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 474000
+0.058152101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 474000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058164101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 475500
+0.058164101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 475500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058176101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 477000
+0.058176101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 477000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058188101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 478500
+0.058188101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 478500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058200101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 480000
+0.058200101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 480000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058212101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 481500
+0.058212101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 481500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058224101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 483000
+0.058224101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 483000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058236101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 484500
+0.058236101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 484500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058248101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 486000
+0.058248101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 486000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058260101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 487500
+0.058260101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 487500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058272101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 489000
+0.058272101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 489000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058284101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 490500
+0.058284101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 490500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058296101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 492000
+0.058296101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 492000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058308101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 493500
+0.058308101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 493500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058320101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 495000
+0.058320101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 495000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058332101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 496500
+0.058332101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 496500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058344101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 498000
+0.058344101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 498000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058356101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 499500
+0.058356101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 499500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058368101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 501000
+0.058368101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 501000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058380101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 502500
+0.058380101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 502500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058392101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 504000
+0.058392101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 504000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058404101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 505500
+0.058404101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 505500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058416101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 507000
+0.058416101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 507000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058428101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 508500
+0.058428101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 508500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058440101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 510000
+0.058440101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 510000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058452101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 511500
+0.058452101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 511500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058464101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 513000
+0.058464101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 513000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058476101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 514500
+0.058476101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 514500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058488101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 516000
+0.058488101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 516000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058500101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 517500
+0.058500101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 517500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058512101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 519000
+0.058512101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 519000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058524101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 520500
+0.058524101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 520500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058536101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 522000
+0.058536101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 522000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058548101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 523500
+0.058548101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 523500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058560101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 525000
+0.058560101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 525000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058572101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 526500
+0.058572101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 526500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058584101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 528000
+0.058584101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 528000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058596101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 529500
+0.058596101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 529500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058608101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 531000
+0.058608101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 531000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058620101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 532500
+0.058620101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 532500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058632101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 534000
+0.058632101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 534000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058644101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 535500
+0.058644101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 535500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058656101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 537000
+0.058656101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 537000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058668101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 538500
+0.058668101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 538500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058680101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 540000
+0.058680101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 540000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058692101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 541500
+0.058692101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 541500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058704101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 543000
+0.058704101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 543000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058716101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 544500
+0.058716101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 544500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058728101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 546000
+0.058728101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 546000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058740101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 547500
+0.058740101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 547500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058752101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 549000
+0.058752101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 549000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058764101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 550500
+0.058764101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 550500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058776101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 552000
+0.058776101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 552000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058788101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 553500
+0.058788101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 553500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058800101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 555000
+0.058800101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 555000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058812101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 556500
+0.058812101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 556500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058824101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 558000
+0.058824101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 558000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058836101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 559500
+0.058836101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 559500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058848101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 561000
+0.058848101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 561000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058860101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 562500
+0.058860101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 562500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058872101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 564000
+0.058872101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 564000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058884101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 565500
+0.058884101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 565500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058896101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 567000
+0.058896101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 567000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058908101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 568500
+0.058908101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 568500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058920101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 570000
+0.058920101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 570000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058932101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 571500
+0.058932101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 571500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058944101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 573000
+0.058944101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 573000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058956101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 574500
+0.058956101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 574500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058968101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 576000
+0.058968101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 576000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058980101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 577500
+0.058980101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 577500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.058992101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 579000
+0.058992101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 579000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059004101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 580500
+0.059004101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 580500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059016101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 582000
+0.059016101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 582000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059028101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 583500
+0.059028101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 583500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059040101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 585000
+0.059040101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 585000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059052101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 586500
+0.059052101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 586500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059064101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 588000
+0.059064101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 588000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059076101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 589500
+0.059076101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 589500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059088101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 591000
+0.059088101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 591000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059100101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 592500
+0.059100101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 592500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059112101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 594000
+0.059112101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 594000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059124101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 595500
+0.059124101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 595500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059136101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 597000
+0.059136101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 597000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059148101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 598500
+0.059148101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 598500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059160101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 600000
+0.059160101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 600000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059172101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 601500
+0.059172101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 601500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059184101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 603000
+0.059184101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 603000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059196101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 604500
+0.059196101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 604500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059208101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 606000
+0.059208101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 606000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059220101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 607500
+0.059220101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 607500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059232101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 609000
+0.059232101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 609000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059244101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 610500
+0.059244101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 610500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059256101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 612000
+0.059256101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 612000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059268101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 613500
+0.059268101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 613500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059280101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 615000
+0.059280101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 615000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059292101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 616500
+0.059292101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 616500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059304101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 618000
+0.059304101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 618000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059316101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 619500
+0.059316101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 619500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059328101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 621000
+0.059328101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 621000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059340101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 622500
+0.059340101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 622500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059352101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 624000
+0.059352101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 624000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059364101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 625500
+0.059364101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 625500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059376101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 627000
+0.059376101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 627000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059388101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 628500
+0.059388101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 628500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059400101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 630000
+0.059400101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 630000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059412101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 631500
+0.059412101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 631500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059424101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 633000
+0.059424101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 633000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059436101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 634500
+0.059436101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 634500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059448101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 636000
+0.059448101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 636000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059460101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 637500
+0.059460101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 637500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059472101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 639000
+0.059472101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 639000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059484101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 640500
+0.059484101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 640500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059496101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 642000
+0.059496101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 642000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059508101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 643500
+0.059508101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 643500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059520101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 645000
+0.059520101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 645000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059532101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 646500
+0.059532101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 646500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059544101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 648000
+0.059544101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 648000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059556101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 649500
+0.059556101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 649500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059568101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 651000
+0.059568101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 651000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059580101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 652500
+0.059580101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 652500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059592101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 654000
+0.059592101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 654000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059604101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 655500
+0.059604101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 655500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059616101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 657000
+0.059616101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 657000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059628101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 658500
+0.059628101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 658500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059640101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 660000
+0.059640101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 660000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059652101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 661500
+0.059652101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 661500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059664101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 663000
+0.059664101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 663000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059676101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 664500
+0.059676101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 664500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059688101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 666000
+0.059688101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 666000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059700101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 667500
+0.059700101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 667500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059712101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 669000
+0.059712101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 669000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059724101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 670500
+0.059724101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 670500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059736101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 672000
+0.059736101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 672000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059748101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 673500
+0.059748101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 673500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059760101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 675000
+0.059760101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 675000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059772101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 676500
+0.059772101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 676500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059784101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 678000
+0.059784101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 678000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059796101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 679500
+0.059796101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 679500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059808101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 681000
+0.059808101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 681000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059820101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 682500
+0.059820101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 682500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059832101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 684000
+0.059832101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 684000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059844101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 685500
+0.059844101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 685500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059856101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 687000
+0.059856101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 687000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059868101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 688500
+0.059868101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 688500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059880101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 690000
+0.059880101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 690000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059892101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 691500
+0.059892101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 691500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059904101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 693000
+0.059904101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 693000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059916101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 694500
+0.059916101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 694500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059928101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 696000
+0.059928101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 696000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059940101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 697500
+0.059940101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 697500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059952101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 699000
+0.059952101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 699000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059964101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 700500
+0.059964101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 700500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059976101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 702000
+0.059976101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 702000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.059988101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 703500
+0.059988101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 703500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060000101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 705000
+0.060000101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 705000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060012101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 706500
+0.060012101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 706500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060024101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 708000
+0.060024101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 708000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060036101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 709500
+0.060036101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 709500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060048101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 711000
+0.060048101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 711000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060060101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 712500
+0.060060101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 712500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060072101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 714000
+0.060072101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 714000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060084101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 715500
+0.060084101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 715500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060096101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 717000
+0.060096101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 717000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060108101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 718500
+0.060108101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 718500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060120101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 720000
+0.060120101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 720000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060132101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 721500
+0.060132101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 721500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060144101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 723000
+0.060144101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 723000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060156101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 724500
+0.060156101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 724500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060168101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 726000
+0.060168101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 726000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060180101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 727500
+0.060180101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 727500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060192101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 729000
+0.060192101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 729000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060204101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 730500
+0.060204101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 730500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060216101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 732000
+0.060216101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 732000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060228101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 733500
+0.060228101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 733500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060240101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 735000
+0.060240101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 735000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060252101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 736500
+0.060252101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 736500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060264101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 738000
+0.060264101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 738000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060276101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 739500
+0.060276101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 739500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060288101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 741000
+0.060288101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 741000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060300101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 742500
+0.060300101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 742500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060312101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 744000
+0.060312101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 744000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060324101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 745500
+0.060324101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 745500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060336101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 747000
+0.060336101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 747000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060348101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 748500
+0.060348101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 748500 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060360101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP DATA message arrived - bytesRcvd: 750000
+0.060360101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |Sink Application bytes received: 750000 FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
+0.060360101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NDP_I_PEER_CLOSED message arrived - end of NDP connection
+0.060360101624 | FatTreeNdp.Pod[2].racks[0].servers[1].app[1] |NdpSinkApp::handleMessage  numCompletedShortFlows 81
+
+<!> Simulation stopped with endSimulation() -- in module (inet::CentralSchedulerNdp) FatTreeNdp.centralSchedulerNdp (id=28), at t=0.069466936s, event #13067834
+
+Calling finish() at end of Run #2290...
+0.069466936 | FatTreeNdp.centralSchedulerNdp |Time Difference: 0.00610535
+0.069466936 | FatTreeNdp.centralSchedulerNdp |Flow Completion Time:=    0.00610535
+0.069466936 | FatTreeNdp.centralSchedulerNdp |NdpSinkApp::finish() bytesRcvd 
+0.069466936 | FatTreeNdp.centralSchedulerNdp |bytesRcvd: 750000  FatTreeNdp.Pod[2].racks[0].servers[1].app[1]
