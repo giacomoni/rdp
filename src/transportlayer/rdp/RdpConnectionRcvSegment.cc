@@ -146,28 +146,47 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     if (rdpseg->isHeader() == true && rdpseg->isDataPacket() == false) { // 1 read, 2 write
         EV_INFO << "Header arrived at the receiver" << endl;
         sendNackRdp(rdpseg->getDataSequenceNumber());
-        state->receivedPacketsInWindow++;
+        //state->receivedPacketsInWindow++;
         state->numRcvTrimmedHeader++;
-        state->sentPullsInWindow--;
+        //state->sentPullsInWindow--;
         if(state->outOfWindowPackets > 0){
             state->outOfWindowPackets--;
-        }
-        else{
-           addRequestToPullsQueue(true);
+        }else{
+            state->sentPullsInWindow--;              //SEND PULLS FOR ALL CWND IF TWO HEADERS IN A ROW (FOR LOOP)
+            state->receivedPacketsInWindow++;
         }
         if(!state->congestionInWindow && state->outOfWindowPackets <= 0){
             state->congestionInWindow = true;  //may have to change so certain amount of headers before multiplicative decrease
-            state->ssthresh = state->cwnd/2;
-            if(state->ssthresh == 0) state->ssthresh = 1;
-            //state->cwnd = state->cwnd/2;
-            state->cwnd = state->IW;
+            //state->ssthresh = state->cwnd/2;
+            state->ssthresh = 0;
+            //if(state->ssthresh == 0) state->ssthresh = 1;
+            state->cwnd = state->cwnd/2;
             if(state->cwnd == 0) state->cwnd = 1;
             emit(cwndSignal, state->cwnd);
-            if(state->receivedPacketsInWindow >= state->cwnd){
-                state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd;
+            //if(state->receivedPacketsInWindow >= state->cwnd){
+                state->outOfWindowPackets = state->sentPullsInWindow;// - state->cwnd;
                 state->receivedPacketsInWindow = 0;
-            }
+                state->sentPullsInWindow = 0;//state->cwnd;
+                state->waitToStart = true;
+            //}
         }
+//        if(state->outOfWindowPackets <= 0){
+//            state->congestionInWindow = false;
+//            bool firstPull = true;
+//            for(int i = 0; i < state->cwnd; i++){
+//                if(firstPull){
+//                    addRequestToPullsQueue(true);
+//                    firstPull = false;
+//                }
+//                else{
+//                    addRequestToPullsQueue(false);
+//                }
+//
+//            }
+//        }
+        //else{
+        //   addRequestToPullsQueue(true);
+        //}
         if (state->numberReceivedPackets == 0 && state->connNotAddedYet == true) {
             getRDPMain()->requestCONNMap[getRDPMain()->connIndex] = this; // moh added
             state->connNotAddedYet = false;
@@ -183,18 +202,26 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     if (rdpseg->isDataPacket() == true && rdpseg->isHeader() == false) {
         bool windowIncreased = false;
+        bool noPacketsInFlight = false;
         if(state->outOfWindowPackets > 0){
             state->outOfWindowPackets--;
+            if(state->outOfWindowPackets <= 0){
+                noPacketsInFlight = true;
+            }
+        }
+        else{
+            state->receivedPacketsInWindow++;
+            state->sentPullsInWindow--;
         }
         EV_INFO << "Data packet arrived at the receiver - seq num " << rdpseg->getDataSequenceNumber() << endl;
         unsigned int arrivedPktSeqNo = rdpseg->getDataSequenceNumber();
         sendAckRdp(arrivedPktSeqNo);
         unsigned int seqNo = rdpseg->getDataSequenceNumber();
         ++state->numberReceivedPackets;
-        state->receivedPacketsInWindow++;
-        state->sentPullsInWindow--;
+        //state->receivedPacketsInWindow++;
+        //state->sentPullsInWindow--;
         bool onePullNeeded = false;
-        if(state->sendPulls && state->outOfWindowPackets <= 0){
+        if(state->sendPulls && state->outOfWindowPackets <= 0 && !noPacketsInFlight){
             int packetsNeeded = state->numPacketsToGet;
             //if(state->numRcvTrimmedHeader > 0){
             //    packetsNeeded = packetsNeeded + 2;
@@ -216,7 +243,8 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                 onePullNeeded = true;
             }
             else if(state->numberReceivedPackets + state->sentPullsInWindow + 2 >= packetsNeeded){
-                addRequestToPullsQueue(false);
+                windowIncreased = true;
+                addRequestToPullsQueue(true);
                 onePullNeeded = true;
                 state->sendPulls = false;
                 goto jmp;
@@ -240,8 +268,16 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                     emit(cwndSignal, state->cwnd);
                     state->receivedPacketsInWindow = 0;
                     state->congestionInWindow = false;
+                    bool firstPull = true;
                     for(int i = 0; i < state->additiveIncreasePackets; i++){
-                        addRequestToPullsQueue(true);
+                        if(firstPull){
+                            addRequestToPullsQueue(true);
+                            firstPull = false;
+                        }
+                        else{
+                            addRequestToPullsQueue(false);
+                        }
+
                     }
                     goto jmp;
                 //}
@@ -271,7 +307,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
             goto ll;
         }
         else {
-            if(state->sendPulls && state->outOfWindowPackets <= 0 && state->sentPullsInWindow < state->cwnd || onePullNeeded){
+            if(state->sendPulls && !noPacketsInFlight && state->outOfWindowPackets <= 0 && state->sentPullsInWindow < state->cwnd || onePullNeeded){
                 if (numberReceivedPackets <= (wantedPackets - initialSentPackets) && state->connFinished == false) {
                     EV_INFO << "Adding pull request to pull queue!" << endl;
                     if(windowIncreased){
@@ -336,6 +372,36 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                     state->isfinalReceivedPrintedOut = true;
                 }
             }
+            if(noPacketsInFlight){
+                bool firstPull = true;
+                for(int i = 0; i < state->cwnd; i++){
+                    if(firstPull){
+                        addRequestToPullsQueue(true);
+                        firstPull = false;
+                    }
+                    else{
+                        addRequestToPullsQueue(false);
+                    }
+
+                }
+                noPacketsInFlight = false;
+
+            }
+//            if(noPacketsInFlight){
+//                bool firstPull = true;
+//                for(int i = 0; i < state->IW; i++){
+//                    if(firstPull){
+//                        addRequestToPullsQueue(true);
+//                        firstPull = false;
+//                    }
+//                    else{
+//                        addRequestToPullsQueue(false);
+//                    }
+//
+//                }
+//                noPacketsInFlight = false;
+//
+//            }
         }
     }
     ll: return event;

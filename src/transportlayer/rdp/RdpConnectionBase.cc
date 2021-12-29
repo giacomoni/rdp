@@ -33,6 +33,7 @@ RdpStateVariables::RdpStateVariables()
     additiveIncreasePackets = 1;
     slowStartState = true;
     outOfWindowPackets = 0;
+    waitToStart = false;
     ssthresh = 0;
     connFinished = false;
     isfinalReceivedPrintedOut = false;

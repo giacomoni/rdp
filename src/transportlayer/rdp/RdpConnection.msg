@@ -38,6 +38,7 @@ struct RdpStateVariables
     bool connFinished;
     bool slowStartState;
     bool congestionInWindow;
+    bool waitToStart;
     int delayedNackNo;
     uint32 numPacketsToGet;
     uint32 numPacketsToSend;

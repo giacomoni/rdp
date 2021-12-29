@@ -78,6 +78,7 @@ public:
     int numPacketsToSend;
     bool congestionInWindow;
     bool slowStartState;
+    bool waitToStart;
     int slowStartPacketsToSend;
     unsigned int numRcvdPkt;
     unsigned int numRcvTrimmedHeader;
