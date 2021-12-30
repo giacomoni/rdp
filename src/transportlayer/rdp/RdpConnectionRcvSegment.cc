@@ -200,7 +200,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
             getRDPMain()->sendFirstRequest();
         }
         bool firstPull = true;
-        if(noPacketsInFlight){
+        if(noPacketsInFlight || state->outOfWindowPackets == 0){
             state->congestionInWindow = false;
             for(int i = 0; i < state->cwnd; i++){
                 if(firstPull){
