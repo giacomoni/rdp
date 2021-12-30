@@ -335,15 +335,18 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
         }
         else {
             if(state->sendPulls && !noPacketsInFlight && state->outOfWindowPackets <= 0 && state->sentPullsInWindow < state->cwnd || onePullNeeded){
-                if (numberReceivedPackets <= (wantedPackets - initialSentPackets) && state->connFinished == false) {
+                if (numberReceivedPackets <= (wantedPackets) && state->connFinished == false) {
                     EV_INFO << "Adding pull request to pull queue!" << endl;
                     if(windowIncreased || !onePullNeeded){
-                        addRequestToPullsQueue(false);
+                        addRequestToPullsQueue(true);
                     }
                     else{
                         addRequestToPullsQueue(true);
                     }
 
+                }
+                else{
+                    std::cout << "Found!" << endl;
                 }
             }
             if (numberReceivedPackets == 1 && state->connNotAddedYet == true) {
@@ -456,7 +459,7 @@ void RdpConnection::addRequestToPullsQueue(bool isFirstPull)
     bool napState = getRDPMain()->getNapState();
     if (napState == true && isFirstPull) {
         EV_INFO << "Requesting Pull Timer (12 microseconds)" << endl;
-        getRDPMain()->requestTimer(false);
+        getRDPMain()->requestTimer(!isFirstPull);
     }
 }
 
