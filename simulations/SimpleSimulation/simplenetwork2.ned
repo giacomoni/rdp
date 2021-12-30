@@ -24,7 +24,7 @@ network simplenetwork2
     types:
         channel ethernetline extends DatarateChannel
         {
-            delay = 0.5ms;
+            delay = 1ms;
             datarate = 1Gbps;
         }
     submodules:
@@ -46,17 +46,13 @@ network simplenetwork2
         router2: RouterRdp {
             @display("p=340,117,m,n,$numberOfRouters,150");
         }
-        router3: RouterRdp {
-            @display("p=340,225,m,n,$numberOfRouters,150");
-        }
     connections:
         client[0].pppg++ <--> ethernetline <--> router1.pppg++;
         client[1].pppg++ <--> ethernetline <--> router1.pppg++;
         router1.pppg++ <--> ethernetline <--> router2.pppg++;
-        router3.pppg++ <--> ethernetline <--> router2.pppg++;
-        client[2].pppg++ <--> ethernetline <--> router3.pppg++;
-        client[3].pppg++ <--> ethernetline <--> router3.pppg++;
-        client[4].pppg++ <--> ethernetline <--> router3.pppg++;
+        client[2].pppg++ <--> ethernetline <--> router2.pppg++;
+        client[3].pppg++ <--> ethernetline <--> router2.pppg++;
+        client[4].pppg++ <--> ethernetline <--> router2.pppg++;
         router2.pppg++ <--> ethernetline <--> server1.pppg++;
         router2.pppg++ <--> ethernetline <--> server2.pppg++;
 }

@@ -447,7 +447,7 @@ void Rdp::sendFirstRequest()
 {
     bool allEmpty = allPullQueuesEmpty();
     if (allEmpty == false) {
-        requestTimer(true);
+        requestTimer(false);
     }
 }
 

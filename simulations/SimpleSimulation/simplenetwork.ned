@@ -24,7 +24,7 @@ network simplenetwork
     types:
         channel ethernetline extends DatarateChannel
         {
-            delay =  1ms;
+            delay =  1us;
             datarate = 1Gbps;
         }
     submodules:
