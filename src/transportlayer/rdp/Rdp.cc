@@ -511,7 +511,7 @@ void Rdp::requestTimer(bool pacePacket)
         scheduleAt(requestTime, requestTimerMsg);
     }
     else{
-        simtime_t requestTime = (simTime() + SimTime( 0, SIMTIME_US));
+        simtime_t requestTime = (simTime() + SimTime( 12, SIMTIME_US));
         scheduleAt(requestTime, requestTimerMsg);
     }
 }
@@ -550,8 +550,9 @@ void Rdp::process_REQUEST_TIMER()
             std::advance(iter, counter);
             int pullsQueueLength = iter->second->getPullsQueueLength();
             if (pullsQueueLength > 0) {
+                bool pace = iter->second->getPullQueuePacingFront();
                 iter->second->sendRequestFromPullsQueue();
-                requestTimer(true);
+                requestTimer(pace);
                 sendNewRequest = true;
             }
             ++counter;

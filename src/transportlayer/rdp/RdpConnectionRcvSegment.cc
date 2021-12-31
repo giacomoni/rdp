@@ -204,11 +204,11 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
             state->congestionInWindow = false;
             for(int i = 0; i < state->cwnd; i++){
                 if(firstPull){
-                    addRequestToPullsQueue(true);
+                    addRequestToPullsQueue(true, true);
                     firstPull = false;
                 }
                 else{
-                    addRequestToPullsQueue(false);
+                    addRequestToPullsQueue(false, true);
                 }
 
             }
@@ -271,7 +271,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
             }
             else if(state->numberReceivedPackets + state->sentPullsInWindow + 2 >= packetsNeeded){
                 windowIncreased = true;
-                addRequestToPullsQueue(true);
+                addRequestToPullsQueue(true, false);
                 onePullNeeded = true;
                 state->sendPulls = false;
                 goto jmp;
@@ -284,7 +284,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                 state->cwnd++;
                 emit(cwndSignal, state->cwnd);
                 //for(int i = 0; i < state->additiveIncreasePackets; i++){
-                addRequestToPullsQueue(true);
+                addRequestToPullsQueue(true, false);
                 //}
                 goto jmp;
             }
@@ -298,11 +298,11 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                     bool firstPull = true;
                     for(int i = 0; i < state->additiveIncreasePackets; i++){
                         if(firstPull){
-                            addRequestToPullsQueue(true);
+                            addRequestToPullsQueue(true, true);
                             firstPull = false;
                         }
                         else{
-                            addRequestToPullsQueue(false);
+                            addRequestToPullsQueue(false, true);
                         }
 
                     }
@@ -338,10 +338,10 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                 if (numberReceivedPackets <= (wantedPackets) && state->connFinished == false) {
                     EV_INFO << "Adding pull request to pull queue!" << endl;
                     if(windowIncreased || !onePullNeeded){
-                        addRequestToPullsQueue(true);
+                        addRequestToPullsQueue(true, false);
                     }
                     else{
-                        addRequestToPullsQueue(true);
+                        addRequestToPullsQueue(true, false);
                     }
 
                 }
@@ -406,38 +406,23 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                 bool firstPull = true;
                 for(int i = 0; i < state->cwnd; i++){
                     if(firstPull){
-                        addRequestToPullsQueue(true);
+                        addRequestToPullsQueue(true, true);
                         firstPull = false;
                     }
                     else{
-                        addRequestToPullsQueue(false);
+                        addRequestToPullsQueue(false, true);
                     }
 
                 }
                 noPacketsInFlight = false;
 
             }
-//            if(noPacketsInFlight){
-//                bool firstPull = true;
-//                for(int i = 0; i < state->IW; i++){
-//                    if(firstPull){
-//                        addRequestToPullsQueue(true);
-//                        firstPull = false;
-//                    }
-//                    else{
-//                        addRequestToPullsQueue(false);
-//                    }
-//
-//                }
-//                noPacketsInFlight = false;
-//
-//            }
         }
     }
     ll: return event;
 }
 
-void RdpConnection::addRequestToPullsQueue(bool isFirstPull)
+void RdpConnection::addRequestToPullsQueue(bool isFirstPull, bool pacePacket)
 {
     EV_TRACE << "RdpConnection::addRequestToPullsQueue" << endl;
     ++state->request_id;
@@ -455,11 +440,12 @@ void RdpConnection::addRequestToPullsQueue(bool isFirstPull)
     rdpseg->setPullSequenceNumber(state->request_id);
     rdppack->insertAtFront(rdpseg);
     pullQueue.insert(rdppack);
+    pullQueuePacing.push(pacePacket);
     EV_INFO << "Adding new request to the pull queue -- pullsQueue length now = " << pullQueue.getLength() << endl;
     bool napState = getRDPMain()->getNapState();
     if (napState == true && isFirstPull) {
         EV_INFO << "Requesting Pull Timer (12 microseconds)" << endl;
-        getRDPMain()->requestTimer(!isFirstPull);
+        getRDPMain()->requestTimer(pacePacket);
     }
 }
 
@@ -469,6 +455,7 @@ void RdpConnection::sendRequestFromPullsQueue()
     if (pullQueue.getLength() > 0) {
         state->sentPullsInWindow++;
         Packet *fp = check_and_cast<Packet*>(pullQueue.pop());
+        pullQueuePacing.pop();
         auto rdpseg = fp->removeAtFront<rdp::RdpHeader>();
         EV << "a request has been popped from the Pull queue, the new queue length  = " << pullQueue.getLength() << " \n\n";
         sendToIP(fp, rdpseg);

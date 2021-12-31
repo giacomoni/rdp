@@ -159,6 +159,9 @@ public:
 protected:
     //cQueue pullQueue;
     cPacketQueue pullQueue;
+    std::queue<bool> pullQueuePacing;
+
+
     // RDP behavior in data transfer state
     RdpAlgorithm *rdpAlgorithm = nullptr;
     RdpAlgorithm* getRdpAlgorithm() const
@@ -207,6 +210,10 @@ protected:
         return listeningSocketId != -1;
     }
 public:
+    bool getPullQueuePacingFront(){
+        return pullQueuePacing.front();
+    }
+
     virtual void sendAckRdp(unsigned int AckNum); // MOH: HAS BEEN ADDED
 
     virtual void sendNackRdp(unsigned int nackNum); // MOH: HAS BEEN ADDED
@@ -214,7 +221,7 @@ public:
 
     /** Utility: adds control info to segment and sends it to IP */
     virtual void sendToIP(Packet *packet, const Ptr<RdpHeader> &rdpseg);
-    virtual void addRequestToPullsQueue(bool isFirstPull);
+    virtual void addRequestToPullsQueue(bool isFirstPull, bool pacePacket);
     virtual void sendRequestFromPullsQueue();
 
     virtual int getPullsQueueLength();
