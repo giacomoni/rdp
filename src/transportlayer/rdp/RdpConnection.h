@@ -286,7 +286,7 @@ public:
     /**
      * The "normal" constructor.
      */
-    void initConnection(Rdp *mod, int socketId);
+    virtual void initConnection(Rdp *mod, int socketId);
 
     /**
      * Destructor.
