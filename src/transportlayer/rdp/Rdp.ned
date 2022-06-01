@@ -8,7 +8,7 @@ simple Rdp like IRdp
         int initialWindow = default(2);  // initialWindow size RDP-style (sender pushes IW pacakets)
         int ssthresh = default(50);
         int additiveIncreasePackets = default(1);
-        string rdpAlgorithmClass = default("RDPSimpleAlg");
+        string rdpAlgorithmClass = default("RdpAIMD");
         @display("i=block/wheelbarrow");
 
         @signal[packetReceivedFromUpper](type=cPacket);

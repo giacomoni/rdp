@@ -16,11 +16,13 @@
 #include "../../application/rdpapp/GenericAppMsgRdp_m.h"
 #include "../common/L4ToolsRdp.h"
 #include "../contract/rdp/RdpCommand_m.h"
-#include "../rdp/rdp_common/RdpHeader.h"
+#include "../rdp/rdp_common/RdpHeader_m.h"
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
 #include "RdpSendQueue.h"
+#include "RdpReceiveQueue.h"
+
 namespace inet {
 
 namespace rdp {
@@ -138,6 +140,10 @@ void RdpConnection::initConnection(RdpOpenCommand *openCmd)
 {
     sendQueue = rdpMain->createSendQueue();
     sendQueue->setConnection(this);
+
+    receiveQueue = rdpMain->createReceiveQueue();
+    receiveQueue->setConnection(this);
+
     //create algorithm
     const char *rdpAlgorithmClass = openCmd->getRdpAlgorithmClass();
 

@@ -30,8 +30,6 @@ class INET_API DumbRdp : public RdpAlgorithm
   protected:
     DumbRdpStateVariables *& state;    // alias to TCLAlgorithm's 'state'
 
-    cMessage *rexmitTimer;    // retransmission timer
-
   protected:
     /** Creates and returns a DumbRdpStateVariables object. */
     virtual RdpStateVariables *createStateVariables() override
@@ -52,6 +50,13 @@ class INET_API DumbRdp : public RdpAlgorithm
     virtual void processTimer(cMessage *timer, RdpEventCode& event) override;
 
     virtual void dataSent(uint32 fromseq) override;
+
+    virtual void ackSent() override;
+
+    virtual void receivedHeader() override;
+
+    virtual void receivedData(unsigned int seqNum) override;
+
 };
 
 } // namespace RDP

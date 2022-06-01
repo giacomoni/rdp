@@ -18,6 +18,7 @@ namespace rdp {
 
 class RdpHeader;
 class RdpSendQueue;
+class RdpReceiveQueue;
 class RdpAlgorithm;
 
 enum RdpState
@@ -65,7 +66,7 @@ public:
     int delayedNackNo;
     unsigned int request_id;
     unsigned int internal_request_id;
-
+    simtime_t pacingTime;
     int IW;  //initial window size
     int cwnd;
     int ssthresh;
@@ -96,7 +97,7 @@ class INET_API RdpConnection : public cSimpleModule
 {
 public:
     static simsignal_t cwndSignal;
-
+    static simsignal_t trimmedHeadersSignal;
     struct PacketsToSend
     {
         unsigned int pktId;
@@ -151,16 +152,21 @@ protected:
         return sendQueue;
     }
 
+    RdpReceiveQueue *receiveQueue = nullptr;
+    RdpReceiveQueue* getReceiveQueue() const
+    {
+        return receiveQueue;
+    }
+
 public:
     virtual int getNumRcvdPackets();
     virtual bool isConnFinished();
     virtual void setConnFinished();
 
 protected:
-    //cQueue pullQueue;
     cPacketQueue pullQueue;
-    std::queue<bool> pullQueuePacing;
 
+    cMessage *paceTimerMsg;
 
     // RDP behavior in data transfer state
     RdpAlgorithm *rdpAlgorithm = nullptr;
@@ -210,18 +216,21 @@ protected:
         return listeningSocketId != -1;
     }
 public:
-    bool getPullQueuePacingFront(){
-        return pullQueuePacing.front();
-    }
-
     virtual void sendAckRdp(unsigned int AckNum); // MOH: HAS BEEN ADDED
 
     virtual void sendNackRdp(unsigned int nackNum); // MOH: HAS BEEN ADDED
+
+    virtual void sendPacketToApp(unsigned int seqNum);
+
+    virtual void prepareInitialRequest();
+
+    virtual void closeConnection();
+
     virtual void sendInitialWindow();
 
     /** Utility: adds control info to segment and sends it to IP */
     virtual void sendToIP(Packet *packet, const Ptr<RdpHeader> &rdpseg);
-    virtual void addRequestToPullsQueue(bool isFirstPull, bool pacePacket);
+    virtual void addRequestToPullsQueue();
     virtual void sendRequestFromPullsQueue();
 
     virtual int getPullsQueueLength();
@@ -318,6 +327,10 @@ public:
     {
         return sendQueue;
     }
+    RdpReceiveQueue* getReceiveQueue()
+    {
+        return receiveQueue;
+    }
     RdpAlgorithm* getRdpAlgorithm()
     {
         return rdpAlgorithm;
@@ -328,6 +341,8 @@ public:
     }
 
     virtual bool processTimer(cMessage *msg);
+
+    virtual void sendPullRequests();
 
     virtual bool processrdpsegment(Packet *packet, const Ptr<const RdpHeader> &rdpseg, L3Address srcAddr, L3Address destAddr);
 

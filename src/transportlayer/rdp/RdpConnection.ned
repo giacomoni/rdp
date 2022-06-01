@@ -20,16 +20,22 @@ simple RdpConnection
     parameters:
         @class("RdpConnection");
         @signal[state];    // FSM state
+        @signal[trimmedHeaders];
         @signal[cwnd];
+        @signal[ssthresh];
 
         //NdpAlgorithm signals:
         @signal[rtt];    // will record measured RTT
         @signal[srtt];    // will record smoothed RTT
         @signal[rttvar];    // will record RTT variance (rttvar)
 		
-		@statistic[cwnd](record=vector; interpolationmode=sample-hold);
         @statistic[state](record=vector; interpolationmode=sample-hold);
-
+        @statistic[trimmedHeaders](record=vector; interpolationmode=sample-hold); 
+		
+		//CC statistics
+		@statistic[cwnd](record=vector; interpolationmode=sample-hold);	   // number of trimmed headers
+		@statistic[ssthresh](record=vector; interpolationmode=sample-hold);
+		
         @statistic[rtt](record=vector; interpolationmode=sample-hold);    // will record measured RTT
         @statistic[srtt](record=vector; interpolationmode=sample-hold);    // will record smoothed RTT
         @statistic[rttvar](record=vector; interpolationmode=sample-hold);    // will record RTT variance (rttvar)

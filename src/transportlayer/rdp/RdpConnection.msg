@@ -11,6 +11,7 @@ cplusplus {{
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
 #include "RdpSendQueue.h"
+#include "RdpReceiveQueue.h"
 #include "rdp_common/RdpHeader.h"
 }}
 
@@ -61,6 +62,13 @@ class RdpSendQueue extends cObject
     cPacketQueue dataToSendQueue;      // dataBuffer
 }
 
+class RdpReceiveQueue extends cObject
+{
+    @existingClass;
+    @descriptor(readonly);
+    cPacketQueue receiveBuffer;      // dataBuffer
+}
+
 class RdpConnection extends cObject
 {
     @existingClass;
@@ -79,7 +87,8 @@ class RdpConnection extends cObject
 
     // NDP queues
     RdpSendQueue *sendQueue;
-
+	RdpReceiveQueue *receiveQueue;
+	
     RdpAlgorithm *rdpAlgorithm;
     int fsmState;
 };

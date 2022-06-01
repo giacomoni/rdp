@@ -68,13 +68,14 @@ const std::tuple<Ptr<RdpHeader>, Packet*> RdpSendQueue::getRdpHeader()
         EV_INFO << "Data Sequence Number :" << appmsg->getSequenceNumber() << std::endl;
         std::string packetName = "DATAPKT-" + std::to_string(appmsg->getSequenceNumber());
         Packet *packet = new Packet(packetName.c_str());
+        appmsg->addTag<CreationTimeTag>()->setCreationTime(simTime());
         packet->insertAtBack(appmsg);
         rdpseg->setDataSequenceNumber(appmsg->getSequenceNumber());
         Packet *dupPacket = packet->dup();
         //sentDataQueue.insert(dupPacket);
         sentDataQueue[appmsg->getSequenceNumber()] = dupPacket;
         delete queuePacket;
-        rdpseg->addTag<CreationTimeTag>()->setCreationTime(simTime());
+        //rdpseg->addTag<CreationTimeTag>()->setCreationTime(simTime());
         return std::make_tuple(rdpseg, packet);
     }
     else {

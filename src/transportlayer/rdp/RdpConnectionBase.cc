@@ -6,6 +6,7 @@
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
 #include "RdpSendQueue.h"
+#include "RdpReceiveQueue.h"
 
 using namespace std;
 namespace inet {
@@ -13,7 +14,7 @@ namespace inet {
 namespace rdp {
 Define_Module(RdpConnection);
 
-simsignal_t RdpConnection::cwndSignal = registerSignal("cwnd");
+simsignal_t RdpConnection::trimmedHeadersSignal = registerSignal("trimmedHeaders");
 
 RdpStateVariables::RdpStateVariables()
 {
@@ -65,7 +66,7 @@ void RdpConnection::initConnection(Rdp *_mod, int _socketId)
 
     rdpMain = _mod;
     socketId = _socketId;
-
+    paceTimerMsg = new cMessage("paceTimerMsg");
     fsm.setName(getName());
     fsm.setState(RDP_S_INIT);
 
@@ -74,15 +75,15 @@ void RdpConnection::initConnection(Rdp *_mod, int _socketId)
 
 RdpConnection::~RdpConnection()
 {
-
+    cancelEvent(paceTimerMsg);
     std::list<PacketsToSend>::iterator iter;  // received iterator
 
     while (!receivedPacketsList.empty()) {
         delete receivedPacketsList.front().msg;
         receivedPacketsList.pop_front();
     }
-
     delete sendQueue;
+    delete receiveQueue;
     delete rdpAlgorithm;
     delete state;
 }
@@ -105,15 +106,31 @@ bool RdpConnection::processTimer(cMessage *msg)
     // first do actions
     RdpEventCode event;
     event = RDP_E_IGNORE;
-    rdpAlgorithm->processTimer(msg, event); // seeeee processTimer method in RDPBaseAlg.cc
+
+    if(msg == paceTimerMsg){
+        sendPullRequests();
+    }
     // then state transitions
     return performStateTransition(event);
 }
 
+void RdpConnection::sendPullRequests()
+{
+    std::cout << "\nPullQueue length - sending pull request " << pullQueue.getLength() << endl;
+    if(!paceTimerMsg->isScheduled()){
+        if(pullQueue.getByteLength() > 0){
+            sendRequestFromPullsQueue();
+        }
+        if(pullQueue.getByteLength() > 0){  //after popping a pull request, do any requests still exist within the queue
+            std::cout << "\n" << pullQueue.getLength() << endl;
+            scheduleAt(simTime() + state->pacingTime, paceTimerMsg);
+        }
+    }
+}
+
 bool RdpConnection::processrdpsegment(Packet *packet, const Ptr<const RdpHeader> &rdpseg, L3Address segSrcAddr, L3Address segDestAddr)
 {
-    Enter_Method_Silent
-    ();
+    Enter_Method_Silent();
 
     printConnBrief();
     RdpEventCode event = process_RCV_SEGMENT(packet, rdpseg, segSrcAddr, segDestAddr);

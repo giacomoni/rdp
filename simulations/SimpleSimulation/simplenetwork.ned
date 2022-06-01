@@ -17,15 +17,15 @@ network simplenetwork
 {
     parameters:
     	@display("bgb=512,395");
-    	int numberOfClients = default(5);
+    	int numberOfClients = default(1);
     	int numberOfNormalFlows = default(1);
     	int numberOfLongerFlows = default(0);
         int numberOfRouters = default(1);
     types:
         channel ethernetline extends DatarateChannel
         {
-            delay =  1ms;
-            datarate = 1Gbps;
+            delay =  25ms;
+            datarate = 10Mbps;
         }
     submodules:
         client[numberOfClients]: StandardHostRdp {

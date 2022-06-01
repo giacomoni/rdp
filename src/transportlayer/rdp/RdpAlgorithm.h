@@ -110,12 +110,14 @@ public:
      */
     virtual void processTimer(cMessage *timer, RdpEventCode &event) = 0;
 
-    /**
-     * Called after we sent data. This hook can be used to schedule the
-     * retransmission timer, to start round-trip time measurement, etc.
-     * The argument is the seqno of the first byte sent.
-     */
     virtual void dataSent(uint32 fromseq) = 0;
+
+    virtual void ackSent() = 0;
+
+    virtual void receivedHeader() = 0;
+
+    virtual void receivedData(unsigned int seqNum) = 0;
+
 
 };
 

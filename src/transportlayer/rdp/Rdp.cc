@@ -43,6 +43,7 @@
 #include "Rdp.h"
 #include "../rdp/RdpConnection.h"
 #include "../rdp/RdpSendQueue.h"
+#include "../rdp/RdpReceiveQueue.h"
 #include "../rdp/rdp_common/RdpHeader.h"
 #include "../common/L4ToolsRdp.h"
 #include "../contract/rdp/RdpCommand_m.h"
@@ -93,13 +94,14 @@ void Rdp::finish()
 
 void Rdp::handleSelfMessage(cMessage *msg)
 {
-    if (msg == requestTimerMsg) {
-        process_REQUEST_TIMER();
-    }
-    else {
-        RdpConnection *conn = (RdpConnection*) msg->getContextPointer();
-        conn->processTimer(msg);
-    }
+//    if (msg == requestTimerMsg) {
+//        currentTimerActive = false;
+//        process_REQUEST_TIMER();
+//    }
+//    else {
+    RdpConnection *conn = (RdpConnection*) msg->getContextPointer();
+    conn->processTimer(msg);
+//    }
 }
 
 void Rdp::handleUpperCommand(cMessage *msg)
@@ -338,6 +340,11 @@ RdpSendQueue* Rdp::createSendQueue()
     return new RdpSendQueue();
 }
 
+RdpReceiveQueue* Rdp::createReceiveQueue()
+{
+    return new RdpReceiveQueue();
+}
+
 void Rdp::handleStartOperation(LifecycleOperation *operation)
 {
     //FIXME implementation
@@ -443,27 +450,6 @@ void Rdp::printConnRequestMap()
 
 }
 
-void Rdp::sendFirstRequest()
-{
-    bool allEmpty = allPullQueuesEmpty();
-    if (allEmpty == false) {
-        requestTimer(false);
-    }
-}
-
-bool Rdp::allPullQueuesEmpty()
-{
-    int pullsQueueLength = 0;
-    auto iter = requestCONNMap.begin();
-    while (iter != requestCONNMap.end()) {
-        pullsQueueLength = iter->second->getPullsQueueLength();
-        if (pullsQueueLength > 0)
-            return false;
-        ++iter;
-    }
-    return true;
-}
-
 bool Rdp::allConnFinished()
 {
 //     std::cout << "  allConnFinished ?   "     << "\n";
@@ -479,7 +465,7 @@ bool Rdp::allConnFinished()
         ++iter;
         ++ii;
     }
-    cancelRequestTimer();
+    //cancelRequestTimer();
     return true;
 }
 
@@ -496,67 +482,6 @@ void Rdp::updateConnMap()
             goto a;
         }
         ++iter;
-    }
-}
-
-void Rdp::requestTimer(bool pacePacket)
-{
-    Enter_Method_Silent
-    ("requestTimer");
-    cancelRequestTimer();
-    //simtime_t requestTime = (simTime() + SimTime( PACING_TIME, SIMTIME_US)); // pacing
-    //simtime_t requestTime = (simTime() + SimTime(0.1,SIMTIME_US));
-    if(!pacePacket){
-        simtime_t requestTime = (simTime());
-        scheduleAt(requestTime, requestTimerMsg);
-    }
-    else{
-        simtime_t requestTime = (simTime() + SimTime( 12, SIMTIME_US));
-        scheduleAt(requestTime, requestTimerMsg);
-    }
-}
-
-void Rdp::cancelRequestTimer()
-{
-    if (requestTimerMsg->isScheduled())
-        cancelEvent(requestTimerMsg);
-}
-
-bool Rdp::getNapState()
-{
-    return nap;
-}
-
-void Rdp::process_REQUEST_TIMER()
-{
-    bool sendNewRequest = false;
-    bool allEmpty = allPullQueuesEmpty();
-    bool allDone = allConnFinished();
-
-    if (allDone == true) {
-        cancelRequestTimer();
-    }
-    else if (allDone == false && allEmpty == true) {
-        ++times;
-        nap = true;
-    }
-    else if (allDone == false && allEmpty == false) {
-        times = 0;
-        nap = false;
-        while (sendNewRequest != true) {
-            if (counter == requestCONNMap.size())
-                counter = 0;
-            auto iter = requestCONNMap.begin();
-            std::advance(iter, counter);
-            int pullsQueueLength = iter->second->getPullsQueueLength();
-            if (pullsQueueLength > 0) {
-                bool pace = iter->second->getPullQueuePacingFront();
-                iter->second->sendRequestFromPullsQueue();
-                requestTimer(pace);
-                sendNewRequest = true;
-            }
-            ++counter;
-        }
     }
 }
 

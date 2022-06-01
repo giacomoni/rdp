@@ -4,11 +4,13 @@
 #include <inet/common/TimeTag_m.h>
 #include "../contract/rdp/RdpCommand_m.h"
 #include "../../application/rdpapp/GenericAppMsgRdp_m.h"
+//#include "../rdp/rdp_common/RdpHeader_m.h"
 #include "../rdp/rdp_common/RdpHeader.h"
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
 #include "RdpSendQueue.h"
+#include "RdpReceiveQueue.h"
 
 namespace inet {
 namespace rdp {
@@ -148,281 +150,22 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
         sendNackRdp(rdpseg->getDataSequenceNumber());
         //state->receivedPacketsInWindow++;
         state->numRcvTrimmedHeader++;
-        //state->sentPullsInWindow--;
-        bool noPacketsInFlight = false;
-        if(state->outOfWindowPackets > 0){
-            state->outOfWindowPackets--;
-            if(state->outOfWindowPackets <= 0){
-                noPacketsInFlight = true;
-            }
-        }else{
-            state->sentPullsInWindow--;              //SEND PULLS FOR ALL CWND IF TWO HEADERS IN A ROW (FOR LOOP)
-            state->receivedPacketsInWindow++;
-        }
-        if(!state->congestionInWindow && state->outOfWindowPackets <= 0 && !noPacketsInFlight){
-            state->congestionInWindow = true;  //may have to change so certain amount of headers before multiplicative decrease
-            //state->ssthresh = state->cwnd/2;
-            state->ssthresh = 0;
-            //if(state->ssthresh == 0) state->ssthresh = 1;
-            state->cwnd = state->cwnd/2;
-            if(state->cwnd == 0) state->cwnd = 1;
-            emit(cwndSignal, state->cwnd);
-            //if(state->receivedPacketsInWindow >= state->cwnd){
-                state->outOfWindowPackets = state->sentPullsInWindow;// - state->cwnd;
-                state->receivedPacketsInWindow = 0;
-                state->sentPullsInWindow = 0;//state->cwnd;
-                state->waitToStart = true;
-            //}
-        }
-//        if(state->outOfWindowPackets <= 0){
-//            state->congestionInWindow = false;
-//            bool firstPull = true;
-//            for(int i = 0; i < state->cwnd; i++){
-//                if(firstPull){
-//                    addRequestToPullsQueue(true);
-//                    firstPull = false;
-//                }
-//                else{
-//                    addRequestToPullsQueue(false);
-//                }
-//
-//            }
-//        }
-        //else{
-        //   addRequestToPullsQueue(true);
-        //}
-
-        if (state->numberReceivedPackets == 0 && state->connNotAddedYet == true) {
-            getRDPMain()->requestCONNMap[getRDPMain()->connIndex] = this; // moh added
-            state->connNotAddedYet = false;
-            ++getRDPMain()->connIndex;
-            EV_INFO << "sending first request" << endl;
-            getRDPMain()->sendFirstRequest();
-        }
-        bool firstPull = true;
-        if(noPacketsInFlight || state->outOfWindowPackets == 0){
-            state->congestionInWindow = false;
-            for(int i = 0; i < state->cwnd; i++){
-                if(firstPull){
-                    addRequestToPullsQueue(true, true);
-                    firstPull = false;
-                }
-                else{
-                    addRequestToPullsQueue(false, true);
-                }
-
-            }
-            noPacketsInFlight = false;
-
-        }
-//        if(firstPull == false){
-//            addRequestToPullsQueue(false);
-//        }
-//        else{
-//           addRequestToPullsQueue(true);
-//        }
-
+        emit(trimmedHeadersSignal, state->numRcvTrimmedHeader);
+        rdpAlgorithm->receivedHeader();
     }
     // (R.2) at the receiver
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     // $$$$$$$$$$$$$$$$$$$$$$  data pkt arrived at the receiver  $$$$$$$$$$$$$$$$
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     if (rdpseg->isDataPacket() == true && rdpseg->isHeader() == false) {
-        bool windowIncreased = false;
-        bool noPacketsInFlight = false;
-        if(state->outOfWindowPackets > 0){
-            state->outOfWindowPackets--;
-            if(state->outOfWindowPackets <= 0){
-                noPacketsInFlight = true;
-            }
-        }
-        else{
-            state->receivedPacketsInWindow++;
-            state->sentPullsInWindow--;
-        }
-        EV_INFO << "Data packet arrived at the receiver - seq num " << rdpseg->getDataSequenceNumber() << endl;
-        unsigned int arrivedPktSeqNo = rdpseg->getDataSequenceNumber();
-        sendAckRdp(arrivedPktSeqNo);
-        unsigned int seqNo = rdpseg->getDataSequenceNumber();
-        ++state->numberReceivedPackets;
-        //state->receivedPacketsInWindow++;
-        //state->sentPullsInWindow--;
-        bool onePullNeeded = false;
-        if(state->sendPulls && state->outOfWindowPackets <= 0 && !noPacketsInFlight){
-            int packetsNeeded = state->numPacketsToGet;
-            //if(state->numRcvTrimmedHeader > 0){
-            //    packetsNeeded = packetsNeeded + 2;
-            //}
-//            if(state->cwnd < state->ssthresh) {
-//                //state->cwnd + state->additiveIncreasePackets;
-//                state->slowStartState = true;
-//                state->slowStartPacketsToSend++;
-//                //state->cwnd++;
-//                //emit(cwndSignal, state->cwnd);
-//                //for(int i = 0; i < state->additiveIncreasePackets; i++){
-//                //    addRequestToPullsQueue(false);
-//                //}
-//            }
-            //else{
-                state->slowStartState = false;
-            //}
-            if(state->numberReceivedPackets + state->sentPullsInWindow + 1 >= packetsNeeded){
-                onePullNeeded = true;
-            }
-            else if(state->numberReceivedPackets + state->sentPullsInWindow + 2 >= packetsNeeded){
-                windowIncreased = true;
-                addRequestToPullsQueue(true, false);
-                onePullNeeded = true;
-                state->sendPulls = false;
-                goto jmp;
-            }
-            else if(state->cwnd < state->ssthresh) {
-                windowIncreased = true;
-                //state->cwnd + state->additiveIncreasePackets;
-                //state->slowStartState = true;
-                //state->slowStartPacketsToSend++;
-                state->cwnd++;
-                emit(cwndSignal, state->cwnd);
-                //for(int i = 0; i < state->additiveIncreasePackets; i++){
-                addRequestToPullsQueue(true, false);
-                //}
-                goto jmp;
-            }
-            else if((state->receivedPacketsInWindow % state->cwnd) == 0){ //maybe do first?
-                //if(!state->slowStartState){
-                    windowIncreased = true;
-                    state->cwnd = state->cwnd + state->additiveIncreasePackets;
-                    emit(cwndSignal, state->cwnd);
-                    state->receivedPacketsInWindow = 0;
-                    state->congestionInWindow = false;
-                    bool firstPull = true;
-                    for(int i = 0; i < state->additiveIncreasePackets; i++){
-                        if(firstPull){
-                            addRequestToPullsQueue(true, true);
-                            firstPull = false;
-                        }
-                        else{
-                            addRequestToPullsQueue(false, true);
-                        }
+        Packet* packClone = packet->dup();
+        receiveQueue->addPacket(packClone);
+        rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber());
 
-                    }
-                    goto jmp;
-                //}
-//                else{
-//                    state->receivedPacketsInWindow = 0;
-//                    state->congestionInWindow = false;
-//                    for(int i = 0; i < state->slowStartPacketsToSend; i++){
-//                        state->cwnd++;
-//                        emit(cwndSignal, state->cwnd);
-//                        addRequestToPullsQueue(false);
-//                    }
-//                    state->slowStartPacketsToSend = 0;
-//                }
-            }
-        }
-        jmp:
-        int numberReceivedPackets = state->numberReceivedPackets;
-        int initialSentPackets = state->IW;
-        int wantedPackets = state->numPacketsToGet;
-        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        // %%%%%%%%%%%%%%%%%%%%%%%% 1   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        if (numberReceivedPackets > wantedPackets) {
-            EV_INFO << "All packets received - finish all connections!" << endl;
-            state->connFinished = true;
-            getRDPMain()->allConnFinished();
-            goto ll;
-        }
-        else {
-            if(state->sendPulls && !noPacketsInFlight && state->outOfWindowPackets <= 0 && state->sentPullsInWindow < state->cwnd || onePullNeeded){
-                if (numberReceivedPackets <= (wantedPackets) && state->connFinished == false) {
-                    EV_INFO << "Adding pull request to pull queue!" << endl;
-                    if(windowIncreased || !onePullNeeded){
-                        addRequestToPullsQueue(true, false);
-                    }
-                    else{
-                        addRequestToPullsQueue(true, false);
-                    }
-
-                }
-                else{
-                    std::cout << "Found!" << endl;
-                }
-            }
-            if (numberReceivedPackets == 1 && state->connNotAddedYet == true) {
-                getRDPMain()->requestCONNMap[getRDPMain()->connIndex] = this; // moh added
-                ++getRDPMain()->connIndex;
-                state->connNotAddedYet = false;
-                EV << "Requesting Pull Timer" << endl;
-                getRDPMain()->sendFirstRequest();
-            }
-            // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            // %%%%%%%%%%%%%%%%%%%%%%%%%  4  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            //  send any received Packet to the app
-            auto tag = rdpseg->getTag(0);
-            const CreationTimeTag *timeTag = dynamic_cast<const CreationTimeTag *>(tag);
-            //packet->setFrontOffset(B(0));
-            //packet->setBackOffset(B(1500));
-            Ptr<Chunk> msgRx;
-            msgRx = packet->removeAll();
-            if (state->connFinished == false) {
-                EV_INFO << "Sending Data Packet to Application" << endl;
-                // buffer the received Packet segment
-                std::list<PacketsToSend>::iterator itR;  // received iterator
-                itR = receivedPacketsList.begin();
-                std::advance(itR, seqNo); // increment the iterator by esi
-                // MOH: Send any received Packet to the app, just for now to test the Incast example, this shouldn't be the normal case
-                //Packet *newPacket = packet->dup();
-                std::string packetName = "DATAPKT-" + std::to_string(seqNo);
-                Packet *newPacket = new Packet(packetName.c_str(), msgRx);
-                newPacket->addTag<CreationTimeTag>()->setCreationTime(timeTag->getCreationTime());
-                PacketsToSend receivedPkts;
-                receivedPkts.pktId = seqNo;
-                receivedPkts.msg = newPacket;
-                receivedPacketsList.push_back(receivedPkts);
-                newPacket->setKind(RDP_I_DATA); // TBD currently we never send RDP_I_URGENT_DATA
-                newPacket->addTag<SocketInd>()->setSocketId(socketId);
-                EV_INFO << "Sending to App packet: " << newPacket->str() << endl;
-                sendToApp(newPacket);
-            }
-            // All the Packets have been received
-            if (state->isfinalReceivedPrintedOut == false) {
-                EV_INFO << "Total Received Packets: " << numberReceivedPackets << endl;
-                EV_INFO << "Total Wanted Packets: " << wantedPackets << endl;
-                if (numberReceivedPackets == wantedPackets || state->connFinished == true) {
-                    std::list<PacketsToSend>::iterator iter; // received iterator
-                    iter = receivedPacketsList.begin();
-                    while (iter != receivedPacketsList.end()) {
-                        iter++;
-                    }
-                    EV_INFO << " numRcvTrimmedHeader:    " << state->numRcvTrimmedHeader << endl;
-                    EV_INFO << "CONNECTION FINISHED!" << endl;
-                    sendIndicationToApp(RDP_I_PEER_CLOSED); // this is ok if the sinkApp is used by one conn
-                    state->isfinalReceivedPrintedOut = true;
-                }
-            }
-            if(noPacketsInFlight){
-                bool firstPull = true;
-                for(int i = 0; i < state->cwnd; i++){
-                    if(firstPull){
-                        addRequestToPullsQueue(true, true);
-                        firstPull = false;
-                    }
-                    else{
-                        addRequestToPullsQueue(false, true);
-                    }
-
-                }
-                noPacketsInFlight = false;
-
-            }
-        }
     }
-    ll: return event;
 }
 
-void RdpConnection::addRequestToPullsQueue(bool isFirstPull, bool pacePacket)
+void RdpConnection::addRequestToPullsQueue() //TODO remove pacePacket bool
 {
     EV_TRACE << "RdpConnection::addRequestToPullsQueue" << endl;
     ++state->request_id;
@@ -440,25 +183,20 @@ void RdpConnection::addRequestToPullsQueue(bool isFirstPull, bool pacePacket)
     rdpseg->setPullSequenceNumber(state->request_id);
     rdppack->insertAtFront(rdpseg);
     pullQueue.insert(rdppack);
-    pullQueuePacing.push(pacePacket);
     EV_INFO << "Adding new request to the pull queue -- pullsQueue length now = " << pullQueue.getLength() << endl;
-    bool napState = getRDPMain()->getNapState();
-    if (napState == true && isFirstPull) {
-        EV_INFO << "Requesting Pull Timer (12 microseconds)" << endl;
-        getRDPMain()->requestTimer(pacePacket);
-    }
+    EV_INFO << "Requesting Pull Timer" << endl;
 }
-
 void RdpConnection::sendRequestFromPullsQueue()
 {
     EV_TRACE << "RdpConnection::sendRequestFromPullsQueue" << endl;
-    if (pullQueue.getLength() > 0) {
+    if (pullQueue.getByteLength() > 0) {
         state->sentPullsInWindow++;
         Packet *fp = check_and_cast<Packet*>(pullQueue.pop());
-        pullQueuePacing.pop();
+        //pullQueuePacing.pop();
         auto rdpseg = fp->removeAtFront<rdp::RdpHeader>();
         EV << "a request has been popped from the Pull queue, the new queue length  = " << pullQueue.getLength() << " \n\n";
         sendToIP(fp, rdpseg);
+        std::cout << "\n Sending pull req to IP " << endl;
     }
 }
 
@@ -483,6 +221,56 @@ void RdpConnection::setConnFinished()
     state->connFinished = true;
 }
 
+void RdpConnection::sendPacketToApp(unsigned int seqNum){
+    Packet* packet = receiveQueue->popPacket();
+    Ptr<Chunk> msgRx;
+    auto data = packet->peekData();
+    auto regions = data->getAllTags<CreationTimeTag>();
+    simtime_t creationTime;
+    for (auto& region : regions) {
+        creationTime = region.getTag()->getCreationTime(); // original time
+        break; //should only be one timeTag
+    }
+    msgRx = packet->removeAll();
+
+    std::list<PacketsToSend>::iterator itR;  // received iterator
+    itR = receivedPacketsList.begin();
+    std::advance(itR, seqNum); // increment the iterator by esi
+    // MOH: Send any received Packet to the app, just for now to test the Incast example, this shouldn't be the normal case
+    std::string packetName = "DATAPKT-" + std::to_string(seqNum);
+    Packet *newPacket = new Packet(packetName.c_str(), msgRx);
+    newPacket->addTag<CreationTimeTag>()->setCreationTime(creationTime);
+    PacketsToSend receivedPkts;
+    receivedPkts.pktId = seqNum;
+    receivedPkts.msg = newPacket;
+    receivedPacketsList.push_back(receivedPkts);
+    newPacket->setKind(RDP_I_DATA); // TBD currently we never send RDP_I_URGENT_DATA
+    newPacket->addTag<SocketInd>()->setSocketId(socketId);
+    EV_INFO << "Sending to App packet: " << newPacket->str() << endl;
+    sendToApp(newPacket);
+    delete packet;
+}
+
+void RdpConnection::prepareInitialRequest(){
+    getRDPMain()->requestCONNMap[getRDPMain()->connIndex] = this; // moh added
+    getRDPMain()->connIndex++;
+    state->connNotAddedYet = false;
+    getRDPMain()->nap = true;    //TODO change to setter method
+    //EV << "Requesting Pull Timer" << endl;
+    //getRDPMain()->sendFirstRequest();
+}
+
+void RdpConnection::closeConnection(){
+    std::list<PacketsToSend>::iterator iter; // received iterator
+    iter = receivedPacketsList.begin();
+    while (iter != receivedPacketsList.end()) {
+        iter++;
+    }
+    EV_INFO << " numRcvTrimmedHeader:    " << state->numRcvTrimmedHeader << endl;
+    EV_INFO << "CONNECTION FINISHED!" << endl;
+    sendIndicationToApp(RDP_I_PEER_CLOSED); // this is ok if the sinkApp is used by one conn
+    state->isfinalReceivedPrintedOut = true;
+}
 RdpEventCode RdpConnection::processSegmentInListen(Packet *packet, const Ptr<const RdpHeader> &rdpseg, L3Address srcAddr, L3Address destAddr)
 {
     EV_DETAIL << "Processing segment in LISTEN" << endl;

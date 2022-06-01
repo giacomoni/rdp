@@ -37,7 +37,7 @@ namespace rdp {
 // Forward declarations:
 class RdpConnection;
 class RdpSendQueue;
-
+class RdpReceiveQueue;
 class INET_API Rdp : public TransportProtocolBase
 {
 public:
@@ -91,6 +91,7 @@ public:
     int timeOut = 0;
     int times = 0;
     bool nap = false;
+    bool currentTimerActive = false;
 
 protected:
     typedef std::map<int /*socketId*/, RdpConnection*> RdpAppConnMap;
@@ -162,6 +163,8 @@ public:
      */
     virtual RdpSendQueue* createSendQueue();
 
+    virtual RdpReceiveQueue* createReceiveQueue();
+
     // ILifeCycle:
     virtual void handleStartOperation(LifecycleOperation *operation) override;
     virtual void handleStopOperation(LifecycleOperation *operation) override;
@@ -174,15 +177,8 @@ public:
     {
         return msl;
     }
-
-    virtual void requestTimer(bool pacePacket);
-    virtual void cancelRequestTimer();
-    virtual bool getNapState();
-    virtual bool allPullQueuesEmpty();
     virtual bool allConnFinished();
     virtual void updateConnMap();
-    virtual void sendFirstRequest();
-    virtual void process_REQUEST_TIMER();
     virtual void printConnRequestMap();
 };
 
