@@ -42,6 +42,7 @@ class RdpHeader extends TransportHeaderBase
 	bool nackBit;
     bool rstBit; // RST: reset the connection
     bool synBit; // SYN: synchronize seq. numbers
+    simtime_t transmissionTime;
 }
 
 cplusplus(RdpHeader) {{

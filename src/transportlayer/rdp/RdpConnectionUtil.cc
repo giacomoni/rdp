@@ -87,6 +87,10 @@ void RdpConnection::sendToIP(Packet *packet, const Ptr<RdpHeader> &rdpseg)
     auto addresses = packet->addTagIfAbsent<L3AddressReq>();
     addresses->setSrcAddress(localAddr);
     addresses->setDestAddress(remoteAddr);
+
+    //Set transmission time into packet header
+    ndpseg->setTransmissionTime(simTime());
+
     insertTransportProtocolHeader(packet, Protocol::rdp, rdpseg);
     rdpMain->sendFromConn(packet, "ipOut");
 }
@@ -100,6 +104,10 @@ void RdpConnection::sendToIP(Packet *packet, const Ptr<RdpHeader> &rdpseg, L3Add
     auto addresses = packet->addTagIfAbsent<L3AddressReq>();
     addresses->setSrcAddress(src);
     addresses->setDestAddress(dest);
+
+    //Set transmission time into packet header
+    ndpseg->setTransmissionTime(simTime());
+
 
     insertTransportProtocolHeader(packet, Protocol::rdp, rdpseg);
     rdpMain->sendFromConn(packet, "ipOut");
