@@ -17,7 +17,7 @@ module StandardHostRdp extends ApplicationLayerNodeBaseEcmp
 {
     parameters:
         @display("i=device/pc2");
-        @figure[submodules];
+        //@figure[submodules];
 		forwarding = default(false);
         *.routingTableModule = default("^.ipv4.routingTable");
 
