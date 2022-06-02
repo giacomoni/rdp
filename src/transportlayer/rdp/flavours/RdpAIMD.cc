@@ -127,8 +127,10 @@ void RdpAIMD::ackSent()
 //    conn->emit(cwndSignal, state->cwnd);
 //}
 
-void RdpAIMD::receivedHeader()
+void RdpAIMD::receivedHeader(unsigned int seqNum)
 {
+    EV_INFO << "Header arrived at the receiver" << endl;
+    conn->sendNackRdp(seqNum);
     bool noPacketsInFlight = false;
     if(state->outOfWindowPackets > 0){
         state->outOfWindowPackets--;

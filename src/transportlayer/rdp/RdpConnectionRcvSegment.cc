@@ -146,12 +146,10 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     // header arrived at the receiver==> send new request with pacing (fixed pacing: MTU/1Gbps)
     if (rdpseg->isHeader() == true && rdpseg->isDataPacket() == false) { // 1 read, 2 write
-        EV_INFO << "Header arrived at the receiver" << endl;
-        sendNackRdp(rdpseg->getDataSequenceNumber());
         //state->receivedPacketsInWindow++;
         state->numRcvTrimmedHeader++;
         emit(trimmedHeadersSignal, state->numRcvTrimmedHeader);
-        rdpAlgorithm->receivedHeader();
+        rdpAlgorithm->receivedHeader(rdpseg->getDataSequenceNumber());
     }
     // (R.2) at the receiver
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -256,8 +254,6 @@ void RdpConnection::prepareInitialRequest(){
     getRDPMain()->connIndex++;
     state->connNotAddedYet = false;
     getRDPMain()->nap = true;    //TODO change to setter method
-    //EV << "Requesting Pull Timer" << endl;
-    //getRDPMain()->sendFirstRequest();
 }
 
 void RdpConnection::closeConnection(){

@@ -45,7 +45,7 @@ void DumbRdp::ackSent()
 
 }
 
-void DumbRdp::receivedHeader()
+void DumbRdp::receivedHeader(unsigned int seqNum)
 {
 
 }

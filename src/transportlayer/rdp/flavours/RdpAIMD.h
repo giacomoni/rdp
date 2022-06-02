@@ -70,7 +70,7 @@ class INET_API RdpAIMD : public RdpAlgorithm
 
     virtual void ackSent() override;
 
-    virtual void receivedHeader() override;
+    virtual void receivedHeader(unsigned int seqNum) override;
 
     virtual void receivedData(unsigned int seqNum) override;
 
