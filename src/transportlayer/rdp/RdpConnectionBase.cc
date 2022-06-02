@@ -44,6 +44,15 @@ RdpStateVariables::RdpStateVariables()
     cwnd = 0;
     sendPulls = true;
     active = false;
+
+    sRtt = SIMTIME_ZERO;
+    minRtt  = SIMTIME_ZERO;
+    latestRtt = SIMTIME_ZERO;
+    rttvar = SIMTIME_ZERO;
+
+    sRttStep = SIMTIME_ZERO;
+    minRttStep = SIMTIME_ZERO;
+    rttvarStep = SIMTIME_ZERO;
 }
 
 std::string RdpStateVariables::str() const
@@ -114,6 +123,8 @@ bool RdpConnection::processTimer(cMessage *msg)
     return performStateTransition(event);
 }
 
+
+//TODO: this method should be called every time a packet (either trimmed or data is received)
 void RdpConnection::sendPullRequests()
 {
     std::cout << "\nPullQueue length - sending pull request " << pullQueue.getLength() << endl;

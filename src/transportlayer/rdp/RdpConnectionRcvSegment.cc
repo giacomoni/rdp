@@ -122,6 +122,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                     rdpseg->setNackBit(false);
                     rdpseg->setSynBit(false);
                     rdpseg->setNumPacketsToSend(state->numPacketsToSend);
+                    rdpseg->setPullSequenceNumber(rdpseg->getPullSequenceNumber()); //Echo the PR number
                     sendToIP(fp, rdpseg);
                 }
                 else {
@@ -150,6 +151,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
         state->numRcvTrimmedHeader++;
         emit(trimmedHeadersSignal, state->numRcvTrimmedHeader);
         rdpAlgorithm->receivedHeader(rdpseg->getDataSequenceNumber());
+        computeRtt(rdpseg->getPullSequenceNumber());
     }
     // (R.2) at the receiver
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -159,7 +161,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
         Packet* packClone = packet->dup();
         receiveQueue->addPacket(packClone);
         rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber());
-
+        computeRtt(rdpseg->getPullSequenceNumber());
     }
 }
 
@@ -181,6 +183,9 @@ void RdpConnection::addRequestToPullsQueue() //TODO remove pacePacket bool
     rdpseg->setPullSequenceNumber(state->request_id);
     rdppack->insertAtFront(rdpseg);
     pullQueue.insert(rdppack);
+
+
+
     EV_INFO << "Adding new request to the pull queue -- pullsQueue length now = " << pullQueue.getLength() << endl;
     EV_INFO << "Requesting Pull Timer" << endl;
 }
@@ -192,6 +197,7 @@ void RdpConnection::sendRequestFromPullsQueue()
         Packet *fp = check_and_cast<Packet*>(pullQueue.pop());
         //pullQueuePacing.pop();
         auto rdpseg = fp->removeAtFront<rdp::RdpHeader>();
+        state->pullRequestsTransmissionTimes.insert(std::pair<unsigned int, simtime_t>(rdpseg->getPullSequenceNumber(), simTime()));
         EV << "a request has been popped from the Pull queue, the new queue length  = " << pullQueue.getLength() << " \n\n";
         sendToIP(fp, rdpseg);
         std::cout << "\n Sending pull req to IP " << endl;

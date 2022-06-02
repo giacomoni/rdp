@@ -5,6 +5,7 @@
 #include <inet/networklayer/common/L3Address.h>
 #include <inet/common/packet/ChunkQueue.h>
 #include <queue>
+#include <map>
 
 #include "../../transportlayer/rdp/Rdp.h"
 #include "../rdp/rdp_common/RdpHeader.h"
@@ -91,6 +92,23 @@ public:
     bool isfinalReceivedPrintedOut;
 
     bool sendPulls;
+
+    //Number of packets currently in flight. Inferred by IW and number of PR added
+    int packetsInFlight;
+
+    //RTT
+    simtime_t sRtt;
+    simtime_t minRtt;
+    simtime_t latestRtt;
+    simtime_t rttvar;
+
+    std::map<unsigned int, simtime_t> pullRequestsTransmissionTimes;
+
+    // TODO: remove these from here. 
+    //Step variables
+    simtime_t sRttStep;
+    simtime_t minRttStep;
+    simtime_t rttvarStep;
 };
 
 class INET_API RdpConnection : public cSimpleModule
@@ -349,6 +367,9 @@ public:
     virtual bool processAppCommand(cMessage *msg);
 
     virtual void handleMessage(cMessage *msg);
+
+    virtual void computeRtt(unsigned int pullSeqNum);
+    virtual void rttMeasurementComplete(simtime_t newRtt);
 
     /**
      * Utility: converts a given simtime to a timestamp (TS).
