@@ -238,7 +238,6 @@ void RdpAIMD::receivedData(unsigned int seqNum)
             conn->prepareInitialRequest();
             conn->addRequestToPullsQueue();
             for(int pullNum = 0; pullNum < pullPacketsToSend; pullNum++){
-                std::cout << "\n Initial request being send #"<< pullNum << endl;
                 conn->addRequestToPullsQueue(); //overrides previous request TODO FIX
             }
         }
@@ -247,7 +246,6 @@ void RdpAIMD::receivedData(unsigned int seqNum)
                 //for loop sending pull for each pullPacketToSend;
                 pullPacketsToSend++; //Pull Request to maintain current flow
                 for(int pullNum = 0; pullNum < pullPacketsToSend; pullNum++){
-                    std::cout << "\n Standard send pull" << endl;
                     conn->addRequestToPullsQueue();
                 }
             }
