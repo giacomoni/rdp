@@ -260,11 +260,11 @@ public:
     }
 
 protected:
-    /** Utility: cancel a timer */
-    cMessage* cancelEvent(cMessage *msg)
-    {
-        return rdpMain->cancelEvent(msg);
-    }
+    // /** Utility: cancel a timer */
+    // cMessage* cancelEvent(cMessage *msg)
+    // {
+    //     return rdpMain->cancelEvent(msg);
+    // }
 
     /** Utility: send IP packet */
     virtual void sendToIP(Packet *pkt, const Ptr<RdpHeader> &rdpseg, L3Address src, L3Address dest);
@@ -370,6 +370,8 @@ public:
 
     virtual void computeRtt(unsigned int pullSeqNum);
     virtual void rttMeasurementComplete(simtime_t newRtt);
+
+    virtual void cancelRequestTimer();
 
     /**
      * Utility: converts a given simtime to a timestamp (TS).

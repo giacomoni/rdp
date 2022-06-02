@@ -4,7 +4,6 @@
 #include <inet/common/TimeTag_m.h>
 #include "../contract/rdp/RdpCommand_m.h"
 #include "../../application/rdpapp/GenericAppMsgRdp_m.h"
-//#include "../rdp/rdp_common/RdpHeader_m.h"
 #include "../rdp/rdp_common/RdpHeader.h"
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
@@ -99,6 +98,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     // ££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££
     if (rdpseg->isPullPacket() == true || ((rdpseg->getNackBit() == true) && (state->delayedNackNo > 0))) {
         int requestsGap = rdpseg->getPullSequenceNumber() - state->internal_request_id;
+        unsigned int pullRequestNumber = rdpseg->getPullSequenceNumber();
         EV_INFO << "Pull packet arrived at the sender - request gap " << requestsGap << endl;
         if(state->delayedNackNo > 0){
             requestsGap = 1;
@@ -122,7 +122,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                     rdpseg->setNackBit(false);
                     rdpseg->setSynBit(false);
                     rdpseg->setNumPacketsToSend(state->numPacketsToSend);
-                    rdpseg->setPullSequenceNumber(rdpseg->getPullSequenceNumber()); //Echo the PR number
+                    rdpseg->setPullSequenceNumber(pullRequestNumber); //Echo the PR number
                     sendToIP(fp, rdpseg);
                 }
                 else {
@@ -172,6 +172,7 @@ void RdpConnection::addRequestToPullsQueue() //TODO remove pacePacket bool
     char msgname[16];
     sprintf(msgname, "PULL-%d", state->request_id);
     Packet *rdppack = new Packet(msgname);
+    std::cout << state->request_id << std::endl;
 
     const auto &rdpseg = makeShared<RdpHeader>();
     rdpseg->setIsDataPacket(false);
@@ -184,8 +185,6 @@ void RdpConnection::addRequestToPullsQueue() //TODO remove pacePacket bool
     rdppack->insertAtFront(rdpseg);
     pullQueue.insert(rdppack);
 
-
-
     EV_INFO << "Adding new request to the pull queue -- pullsQueue length now = " << pullQueue.getLength() << endl;
     EV_INFO << "Requesting Pull Timer" << endl;
 }
@@ -195,12 +194,9 @@ void RdpConnection::sendRequestFromPullsQueue()
     if (pullQueue.getByteLength() > 0) {
         state->sentPullsInWindow++;
         Packet *fp = check_and_cast<Packet*>(pullQueue.pop());
-        //pullQueuePacing.pop();
         auto rdpseg = fp->removeAtFront<rdp::RdpHeader>();
         state->pullRequestsTransmissionTimes.insert(std::pair<unsigned int, simtime_t>(rdpseg->getPullSequenceNumber(), simTime()));
-        EV << "a request has been popped from the Pull queue, the new queue length  = " << pullQueue.getLength() << " \n\n";
         sendToIP(fp, rdpseg);
-        std::cout << "\n Sending pull req to IP " << endl;
     }
 }
 
@@ -272,6 +268,7 @@ void RdpConnection::closeConnection(){
     EV_INFO << "CONNECTION FINISHED!" << endl;
     sendIndicationToApp(RDP_I_PEER_CLOSED); // this is ok if the sinkApp is used by one conn
     state->isfinalReceivedPrintedOut = true;
+    cancelRequestTimer();
 }
 RdpEventCode RdpConnection::processSegmentInListen(Packet *packet, const Ptr<const RdpHeader> &rdpseg, L3Address srcAddr, L3Address destAddr)
 {

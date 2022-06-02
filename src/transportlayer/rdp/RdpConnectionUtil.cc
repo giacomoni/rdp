@@ -284,8 +284,11 @@ void RdpConnection::rttMeasurementComplete(simtime_t newRtt){
 }
 
 void RdpConnection::computeRtt(unsigned int pullSeqNum){
+std::cout << "==================== TEST: " << pullSeqNum << std::endl;
+
     if (state->pullRequestsTransmissionTimes.find(pullSeqNum) != state->pullRequestsTransmissionTimes.end()){
         simtime_t rtt = simTime() - state->pullRequestsTransmissionTimes[pullSeqNum];
+        std::cout << "==================== Computed rtt: " << rtt << std::endl;
         state->pullRequestsTransmissionTimes.erase(pullSeqNum);
         rttMeasurementComplete(rtt);
     }
@@ -303,6 +306,13 @@ simtime_t RdpConnection::convertTSToSimtime(uint32 timestamp)
     ASSERT(SimTime::getScaleExp() <= -3);
     simtime_t simtime(timestamp, SIMTIME_MS);
     return simtime;
+}
+
+void RdpConnection::cancelRequestTimer(){
+    if(paceTimerMsg->isScheduled()){
+        cancelEvent(paceTimerMsg);
+
+    }
 }
 
 } // namespace rdp
