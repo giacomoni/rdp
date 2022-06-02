@@ -148,21 +148,25 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     // header arrived at the receiver==> send new request with pacing (fixed pacing: MTU/1Gbps)
     if (rdpseg->isHeader() == true && rdpseg->isDataPacket() == false) { // 1 read, 2 write
         //state->receivedPacketsInWindow++;
+        computeRtt(rdpseg->getPullSequenceNumber());
         state->numRcvTrimmedHeader++;
         emit(trimmedHeadersSignal, state->numRcvTrimmedHeader);
         rdpAlgorithm->receivedHeader(rdpseg->getDataSequenceNumber());
-        computeRtt(rdpseg->getPullSequenceNumber());
+        
     }
     // (R.2) at the receiver
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     // $$$$$$$$$$$$$$$$$$$$$$  data pkt arrived at the receiver  $$$$$$$$$$$$$$$$
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     if (rdpseg->isDataPacket() == true && rdpseg->isHeader() == false) {
+        computeRtt(rdpseg->getPullSequenceNumber());
         Packet* packClone = packet->dup();
         receiveQueue->addPacket(packClone);
         rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber());
-        computeRtt(rdpseg->getPullSequenceNumber());
+        
     }
+
+    return event;
 }
 
 void RdpConnection::addRequestToPullsQueue() //TODO remove pacePacket bool
@@ -172,7 +176,6 @@ void RdpConnection::addRequestToPullsQueue() //TODO remove pacePacket bool
     char msgname[16];
     sprintf(msgname, "PULL-%d", state->request_id);
     Packet *rdppack = new Packet(msgname);
-    std::cout << state->request_id << std::endl;
 
     const auto &rdpseg = makeShared<RdpHeader>();
     rdpseg->setIsDataPacket(false);
