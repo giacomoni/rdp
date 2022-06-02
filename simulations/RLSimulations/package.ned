@@ -1,3 +1,3 @@
-package rdp.simulations.RLSimulation;
+package rdp.simulations.RLSimulations;
 
 @license(LGPL);

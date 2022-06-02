@@ -284,11 +284,8 @@ void RdpConnection::rttMeasurementComplete(simtime_t newRtt){
 }
 
 void RdpConnection::computeRtt(unsigned int pullSeqNum){
-std::cout << "==================== TEST: " << pullSeqNum << std::endl;
-
     if (state->pullRequestsTransmissionTimes.find(pullSeqNum) != state->pullRequestsTransmissionTimes.end()){
         simtime_t rtt = simTime() - state->pullRequestsTransmissionTimes[pullSeqNum];
-        std::cout << "==================== Computed rtt: " << rtt << std::endl;
         state->pullRequestsTransmissionTimes.erase(pullSeqNum);
         rttMeasurementComplete(rtt);
     }

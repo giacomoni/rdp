@@ -67,7 +67,7 @@ public:
     int delayedNackNo;
     unsigned int request_id;
     unsigned int internal_request_id;
-    simtime_t pacingTime;
+    double pacingTime;
     int IW;  //initial window size
     int cwnd;
     int ssthresh;

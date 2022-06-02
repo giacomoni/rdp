@@ -1,6 +1,6 @@
 
 
-package rdp.simulations.RLSimulation;
+package rdp.simulations.RLSimulations;
 
 @namespace(inet);
 @namespace(rdp);
