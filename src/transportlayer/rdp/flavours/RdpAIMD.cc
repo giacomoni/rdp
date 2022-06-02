@@ -15,7 +15,7 @@ RdpAIMDStateVariables::RdpAIMDStateVariables()
     internal_request_id = 0;
     request_id = 0;  // source block number (8-bit unsigned integer)
 
-    pacingTime = SimTime(1200, SIMTIME_US);
+    pacingTime = 1200/1000000;
 
     numPacketsToGet = 0;
     numPacketsToSend = 0;
@@ -127,8 +127,10 @@ void RdpAIMD::ackSent()
 //    conn->emit(cwndSignal, state->cwnd);
 //}
 
-void RdpAIMD::receivedHeader()
+void RdpAIMD::receivedHeader(unsigned int seqNum)
 {
+    EV_INFO << "Header arrived at the receiver" << endl;
+    conn->sendNackRdp(seqNum);
     bool noPacketsInFlight = false;
     if(state->outOfWindowPackets > 0){
         state->outOfWindowPackets--;
@@ -256,7 +258,7 @@ void RdpAIMD::receivedData(unsigned int seqNum)
             conn->sendPacketToApp(seqNum);
         }
 
-        state->pacingTime = SimTime(100/state->cwnd, SIMTIME_MS);
+        state->pacingTime = (100/state->cwnd)/1000;
         if(conn->getPullsQueueLength() > 0){
             conn->sendPullRequests();
         }

@@ -452,7 +452,6 @@ void Rdp::printConnRequestMap()
 
 bool Rdp::allConnFinished()
 {
-//     std::cout << "  allConnFinished ?   "     << "\n";
     bool connDone;
 
     auto iter = requestCONNMap.begin();
@@ -471,7 +470,6 @@ bool Rdp::allConnFinished()
 
 void Rdp::updateConnMap()
 {
-    std::cout << "  updateConnMap updateConnMap   " << "\n";
     a: bool connDone;
     auto iter = requestCONNMap.begin();
 

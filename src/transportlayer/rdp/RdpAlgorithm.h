@@ -114,7 +114,7 @@ public:
 
     virtual void ackSent() = 0;
 
-    virtual void receivedHeader() = 0;
+    virtual void receivedHeader(unsigned int seqNum) = 0;
 
     virtual void receivedData(unsigned int seqNum) = 0;
 

@@ -44,6 +44,15 @@ RdpStateVariables::RdpStateVariables()
     cwnd = 0;
     sendPulls = true;
     active = false;
+
+    sRtt = SIMTIME_ZERO;
+    minRtt  = SIMTIME_ZERO;
+    latestRtt = SIMTIME_ZERO;
+    rttvar = SIMTIME_ZERO;
+
+    sRttStep = SIMTIME_ZERO;
+    minRttStep = SIMTIME_ZERO;
+    rttvarStep = SIMTIME_ZERO;
 }
 
 std::string RdpStateVariables::str() const
@@ -75,7 +84,7 @@ void RdpConnection::initConnection(Rdp *_mod, int _socketId)
 
 RdpConnection::~RdpConnection()
 {
-    cancelEvent(paceTimerMsg);
+    cancelAndDelete(paceTimerMsg);
     std::list<PacketsToSend>::iterator iter;  // received iterator
 
     while (!receivedPacketsList.empty()) {
@@ -114,15 +123,15 @@ bool RdpConnection::processTimer(cMessage *msg)
     return performStateTransition(event);
 }
 
+
+//TODO: this method should be called every time a packet (either trimmed or data is received)
 void RdpConnection::sendPullRequests()
 {
-    std::cout << "\nPullQueue length - sending pull request " << pullQueue.getLength() << endl;
     if(!paceTimerMsg->isScheduled()){
         if(pullQueue.getByteLength() > 0){
             sendRequestFromPullsQueue();
         }
         if(pullQueue.getByteLength() > 0){  //after popping a pull request, do any requests still exist within the queue
-            std::cout << "\n" << pullQueue.getLength() << endl;
             scheduleAt(simTime() + state->pacingTime, paceTimerMsg);
         }
     }

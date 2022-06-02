@@ -5,6 +5,7 @@
 #include <inet/networklayer/common/L3Address.h>
 #include <inet/common/packet/ChunkQueue.h>
 #include <queue>
+#include <map>
 
 #include "../../transportlayer/rdp/Rdp.h"
 #include "../rdp/rdp_common/RdpHeader.h"
@@ -66,7 +67,7 @@ public:
     int delayedNackNo;
     unsigned int request_id;
     unsigned int internal_request_id;
-    simtime_t pacingTime;
+    double pacingTime;
     int IW;  //initial window size
     int cwnd;
     int ssthresh;
@@ -91,6 +92,23 @@ public:
     bool isfinalReceivedPrintedOut;
 
     bool sendPulls;
+
+    //Number of packets currently in flight. Inferred by IW and number of PR added
+    int packetsInFlight;
+
+    //RTT
+    simtime_t sRtt;
+    simtime_t minRtt;
+    simtime_t latestRtt;
+    simtime_t rttvar;
+
+    std::map<unsigned int, simtime_t> pullRequestsTransmissionTimes;
+
+    // TODO: remove these from here. 
+    //Step variables
+    simtime_t sRttStep;
+    simtime_t minRttStep;
+    simtime_t rttvarStep;
 };
 
 class INET_API RdpConnection : public cSimpleModule
@@ -242,11 +260,11 @@ public:
     }
 
 protected:
-    /** Utility: cancel a timer */
-    cMessage* cancelEvent(cMessage *msg)
-    {
-        return rdpMain->cancelEvent(msg);
-    }
+    // /** Utility: cancel a timer */
+    // cMessage* cancelEvent(cMessage *msg)
+    // {
+    //     return rdpMain->cancelEvent(msg);
+    // }
 
     /** Utility: send IP packet */
     virtual void sendToIP(Packet *pkt, const Ptr<RdpHeader> &rdpseg, L3Address src, L3Address dest);
@@ -286,7 +304,7 @@ public:
     /**
      * The "normal" constructor.
      */
-    void initConnection(Rdp *mod, int socketId);
+    virtual void initConnection(Rdp *mod, int socketId);
 
     /**
      * Destructor.
@@ -349,6 +367,11 @@ public:
     virtual bool processAppCommand(cMessage *msg);
 
     virtual void handleMessage(cMessage *msg);
+
+    virtual void computeRtt(unsigned int pullSeqNum);
+    virtual void rttMeasurementComplete(simtime_t newRtt);
+
+    virtual void cancelRequestTimer();
 
     /**
      * Utility: converts a given simtime to a timestamp (TS).

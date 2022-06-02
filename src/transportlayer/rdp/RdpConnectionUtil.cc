@@ -87,6 +87,10 @@ void RdpConnection::sendToIP(Packet *packet, const Ptr<RdpHeader> &rdpseg)
     auto addresses = packet->addTagIfAbsent<L3AddressReq>();
     addresses->setSrcAddress(localAddr);
     addresses->setDestAddress(remoteAddr);
+
+    //Set transmission time into packet header
+    rdpseg->setTransmissionTime(simTime());
+
     insertTransportProtocolHeader(packet, Protocol::rdp, rdpseg);
     rdpMain->sendFromConn(packet, "ipOut");
 }
@@ -100,6 +104,10 @@ void RdpConnection::sendToIP(Packet *packet, const Ptr<RdpHeader> &rdpseg, L3Add
     auto addresses = packet->addTagIfAbsent<L3AddressReq>();
     addresses->setSrcAddress(src);
     addresses->setDestAddress(dest);
+
+    //Set transmission time into packet header
+    rdpseg->setTransmissionTime(simTime());
+
 
     insertTransportProtocolHeader(packet, Protocol::rdp, rdpseg);
     rdpMain->sendFromConn(packet, "ipOut");
@@ -227,6 +235,62 @@ void RdpConnection::printSegmentBrief(Packet *packet, const Ptr<const RdpHeader>
     EV_INFO << endl;
 }
 
+void RdpConnection::rttMeasurementComplete(simtime_t newRtt){
+    // update smoothed RTT estimate (srtt) and variance (rttvar)
+    const double g = 0.125;    // 1 / 8; (1 - alpha) where alpha == 7 / 8;
+
+    simtime_t errStep = newRtt - state->sRttStep; //Step srtt
+    simtime_t err = newRtt - state->sRtt; // Global srtt
+    
+    if (state->sRtt == SIMTIME_ZERO){
+        state->sRtt += err;
+    }
+    else{
+        state->sRtt += g * err;
+    }
+
+    if (state->sRttStep == SIMTIME_ZERO){
+        state->sRttStep +=errStep;
+    }
+    else{
+        state->sRttStep += g * errStep;
+    }
+
+    if (state->rttvar == SIMTIME_ZERO){
+        state->rttvar += g * (fabs(err));
+    }else{
+        state->rttvar += g * (fabs(err) - state->rttvar);
+    }
+
+    if (state->rttvarStep == SIMTIME_ZERO){
+        state->rttvarStep += (fabs(errStep));
+    }else{
+        state->rttvarStep += g * (fabs(errStep) - state->rttvarStep);
+    }
+
+    state->latestRtt = newRtt;
+
+    //Min RTT since start of the connection
+    if(state->minRtt == SIMTIME_ZERO)
+        state->minRtt = newRtt;
+    else
+        state->minRtt = std::min(state->minRtt, newRtt);
+
+    //Min RTT in this step
+    if(state->minRttStep == SIMTIME_ZERO)
+        state->minRttStep = newRtt;
+    else
+        state->minRttStep = std::min(state->minRttStep, newRtt);
+}
+
+void RdpConnection::computeRtt(unsigned int pullSeqNum){
+    if (state->pullRequestsTransmissionTimes.find(pullSeqNum) != state->pullRequestsTransmissionTimes.end()){
+        simtime_t rtt = simTime() - state->pullRequestsTransmissionTimes[pullSeqNum];
+        state->pullRequestsTransmissionTimes.erase(pullSeqNum);
+        rttMeasurementComplete(rtt);
+    }
+}
+
 uint32 RdpConnection::convertSimtimeToTS(simtime_t simtime)
 {
     ASSERT(SimTime::getScaleExp() <= -3);
@@ -239,6 +303,13 @@ simtime_t RdpConnection::convertTSToSimtime(uint32 timestamp)
     ASSERT(SimTime::getScaleExp() <= -3);
     simtime_t simtime(timestamp, SIMTIME_MS);
     return simtime;
+}
+
+void RdpConnection::cancelRequestTimer(){
+    if(paceTimerMsg->isScheduled()){
+        cancelEvent(paceTimerMsg);
+
+    }
 }
 
 } // namespace rdp

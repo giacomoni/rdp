@@ -33,7 +33,7 @@ module RouterRdp extends ApplicationLayerNodeBaseEcmp
 {
     parameters:
         @display("i=abstract/router");
-        @figure[submodules];
+        //@figure[submodules];
         forwarding = true;
         bool hasOspf = default(false);
         bool hasRip = default(false);
