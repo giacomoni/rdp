@@ -1,22 +1,22 @@
 
-#include "RdpAIMD.h"
+#include "RdpAIMD2.h"
 #include "../Rdp.h"
 
 namespace inet {
 namespace rdp {
 
-Register_Class(RdpAIMD);
+Register_Class(RdpAIMD2);
 
-simsignal_t RdpAIMD::cwndSignal = cComponent::registerSignal("cwnd");    // will record changes to snd_cwnd
-simsignal_t RdpAIMD::ssthreshSignal = cComponent::registerSignal("ssthresh");    // will record changes to ssthresh
+simsignal_t RdpAIMD2::cwndSignal = cComponent::registerSignal("cwnd");    // will record changes to snd_cwnd
+simsignal_t RdpAIMD2::ssthreshSignal = cComponent::registerSignal("ssthresh");    // will record changes to ssthresh
 
-RdpAIMDStateVariables::RdpAIMDStateVariables()
+RdpAIMD2StateVariables::RdpAIMD2StateVariables()
 {
     internal_request_id = 0;
     request_id = 0;  // source block number (8-bit unsigned integer)
 
     pacingTime = 1200/1000000;
-    lastPullTime = 0;
+
     numPacketsToGet = 0;
     numPacketsToSend = 0;
     congestionInWindow = false;
@@ -42,43 +42,43 @@ RdpAIMDStateVariables::RdpAIMDStateVariables()
     active = false;
 }
 
-RdpAIMD::RdpAIMD() :
-        RdpAlgorithm(), state((RdpAIMDStateVariables*&) RdpAlgorithm::state)
+RdpAIMD2::RdpAIMD2() :
+        RdpAlgorithm(), state((RdpAIMD2StateVariables*&) RdpAlgorithm::state)
 {
 
 }
 
-RdpAIMD::~RdpAIMD()
+RdpAIMD2::~RdpAIMD2()
 {
 
 }
 
-void RdpAIMD::initialize()
+void RdpAIMD2::initialize()
 {
 
 }
 
-void RdpAIMD::connectionClosed()
+void RdpAIMD2::connectionClosed()
 {
 
 }
 
-void RdpAIMD::processTimer(cMessage *timer, RdpEventCode &event)
+void RdpAIMD2::processTimer(cMessage *timer, RdpEventCode &event)
 {
 
 }
 
-void RdpAIMD::dataSent(uint32 fromseq)
+void RdpAIMD2::dataSent(uint32 fromseq)
 {
 
 }
 
-void RdpAIMD::ackSent()
+void RdpAIMD2::ackSent()
 {
 
 }
 
-//void RdpAIMD::receivedHeader()
+//void RdpAIMD2::receivedHeader()
 //{
 //    bool noPacketsInFlight = false;
 //    if(state->outOfWindowPackets > 0){
@@ -127,7 +127,7 @@ void RdpAIMD::ackSent()
 //    conn->emit(cwndSignal, state->cwnd);
 //}
 
-void RdpAIMD::receivedHeader(unsigned int seqNum)
+void RdpAIMD2::receivedHeader(unsigned int seqNum)
 {
     EV_INFO << "Header arrived at the receiver" << endl;
     conn->sendNackRdp(seqNum);
@@ -172,7 +172,7 @@ void RdpAIMD::receivedHeader(unsigned int seqNum)
     conn->emit(cwndSignal, state->cwnd);
 }
 
-void RdpAIMD::receivedData(unsigned int seqNum)
+void RdpAIMD2::receivedData(unsigned int seqNum)
 {
     int pullPacketsToSend = 0;
     bool windowIncreased = false;
@@ -193,8 +193,8 @@ void RdpAIMD::receivedData(unsigned int seqNum)
 
     if(state->cwnd < state->ssthresh) { //Slow-Start - Exponential Increase
         state->slowStartState = true;
-        pullPacketsToSend++;
-        state->cwnd++;
+        //pullPacketsToSend++;
+        //state->cwnd++;
     }
     else{
         state->slowStartState = false;
@@ -212,10 +212,10 @@ void RdpAIMD::receivedData(unsigned int seqNum)
         }
         else if(((state->receivedPacketsInWindow % state->cwnd) == 0)){ //Congestion Avoidance - Linear Increase
             if(state->slowStartState){
-                //pullPacketsToSend = state->cwnd;
+                pullPacketsToSend = state->cwnd;
                 state->receivedPacketsInWindow = 0;
                 windowIncreased = true;
-                //state->cwnd = state->cwnd + state->cwnd;
+                state->cwnd = state->cwnd + state->cwnd;
                 state->congestionInWindow = false;
             }
             else{
@@ -262,7 +262,7 @@ void RdpAIMD::receivedData(unsigned int seqNum)
         std::cout << "\n cwnd " << state->cwnd << endl;
         std::cout << "\n Pacing time " << state->pacingTime << endl;
         if(conn->getPullsQueueLength() > 0){
-            conn->schedulePullTimer(); //should check if timer is scheduled, if is do nothing. Otherwise, schedule new timer based on previous time step.
+            conn->schedulePullTimer();
         }
         // All the Packets have been received
         if (state->isfinalReceivedPrintedOut == false) {
@@ -276,7 +276,7 @@ void RdpAIMD::receivedData(unsigned int seqNum)
     conn->emit(cwndSignal, state->cwnd);
 }
 
-//void RdpAIMD::receivedData(unsigned int seqNum)
+//void RdpAIMD2::receivedData(unsigned int seqNum)
 //{
 //    bool windowIncreased = false;
 //    bool noPacketsInFlight = false;

@@ -148,7 +148,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     // header arrived at the receiver==> send new request with pacing (fixed pacing: MTU/1Gbps)
     if (rdpseg->isHeader() == true && rdpseg->isDataPacket() == false) { // 1 read, 2 write
         //state->receivedPacketsInWindow++;
-        computeRtt(rdpseg->getPullSequenceNumber());
+        //computeRtt(rdpseg->getPullSequenceNumber());
         state->numRcvTrimmedHeader++;
         emit(trimmedHeadersSignal, state->numRcvTrimmedHeader);
         rdpAlgorithm->receivedHeader(rdpseg->getDataSequenceNumber());
@@ -199,6 +199,7 @@ void RdpConnection::sendRequestFromPullsQueue()
         Packet *fp = check_and_cast<Packet*>(pullQueue.pop());
         auto rdpseg = fp->removeAtFront<rdp::RdpHeader>();
         state->pullRequestsTransmissionTimes.insert(std::pair<unsigned int, simtime_t>(rdpseg->getPullSequenceNumber(), simTime()));
+        state->lastPullTime = simTime().dbl();
         sendToIP(fp, rdpseg);
     }
 }
