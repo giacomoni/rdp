@@ -148,7 +148,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     // header arrived at the receiver==> send new request with pacing (fixed pacing: MTU/1Gbps)
     if (rdpseg->isHeader() == true && rdpseg->isDataPacket() == false) { // 1 read, 2 write
         //state->receivedPacketsInWindow++;
-        computeRtt(rdpseg->getPullSequenceNumber());
+        computeRtt(rdpseg->getPullSequenceNumber(), true);
         state->numRcvTrimmedHeader++;
         emit(trimmedHeadersSignal, state->numRcvTrimmedHeader);
         rdpAlgorithm->receivedHeader(rdpseg->getDataSequenceNumber());
@@ -159,7 +159,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     // $$$$$$$$$$$$$$$$$$$$$$  data pkt arrived at the receiver  $$$$$$$$$$$$$$$$
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     if (rdpseg->isDataPacket() == true && rdpseg->isHeader() == false) {
-        computeRtt(rdpseg->getPullSequenceNumber());
+        computeRtt(rdpseg->getPullSequenceNumber(), false);
         Packet* packClone = packet->dup();
         receiveQueue->addPacket(packClone);
         rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber());

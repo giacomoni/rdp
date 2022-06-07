@@ -235,59 +235,105 @@ void RdpConnection::printSegmentBrief(Packet *packet, const Ptr<const RdpHeader>
     EV_INFO << endl;
 }
 
-void RdpConnection::rttMeasurementComplete(simtime_t newRtt){
+void RdpConnection::rttMeasurementComplete(simtime_t newRtt, bool isHeader){
     // update smoothed RTT estimate (srtt) and variance (rttvar)
     const double g = 0.125;    // 1 / 8; (1 - alpha) where alpha == 7 / 8;
 
-    simtime_t errStep = newRtt - state->sRttStep; //Step srtt
-    simtime_t err = newRtt - state->sRtt; // Global srtt
-    
-    if (state->sRtt == SIMTIME_ZERO){
-        state->sRtt += err;
+    if(!isHeader){
+        simtime_t errStep = newRtt - state->sRttStep; //Step srtt
+        simtime_t err = newRtt - state->sRtt; // Global srtt
+        
+        if (state->sRtt == SIMTIME_ZERO){
+            state->sRtt += err;
+        }
+        else{
+            state->sRtt += g * err;
+        }
+
+        if (state->sRttStep == SIMTIME_ZERO){
+            state->sRttStep +=errStep;
+        }
+        else{
+            state->sRttStep += g * errStep;
+        }
+
+        if (state->rttvar == SIMTIME_ZERO){
+            state->rttvar += g * (fabs(err));
+        }else{
+            state->rttvar += g * (fabs(err) - state->rttvar);
+        }
+
+        if (state->rttvarStep == SIMTIME_ZERO){
+            state->rttvarStep += (fabs(errStep));
+        }else{
+            state->rttvarStep += g * (fabs(errStep) - state->rttvarStep);
+        }
+
+        state->latestRtt = newRtt;
+
+        //Min RTT since start of the connection
+        if(state->minRtt == SIMTIME_ZERO)
+            state->minRtt = newRtt;
+        else
+            state->minRtt = std::min(state->minRtt, newRtt);
+
+        //Min RTT in this step
+        if(state->minRttStep == SIMTIME_ZERO)
+            state->minRttStep = newRtt;
+        else
+            state->minRttStep = std::min(state->minRttStep, newRtt);
     }
     else{
-        state->sRtt += g * err;
+        simtime_t errStep = newRtt - state->sRttStepHeader; //Step srtt
+        simtime_t err = newRtt - state->sRttHeader; // Global srtt
+        
+        if (state->sRttHeader == SIMTIME_ZERO){
+            state->sRttHeader += err;
+        }
+        else{
+            state->sRttHeader += g * err;
+        }
+
+        if (state->sRttStepHeader == SIMTIME_ZERO){
+            state->sRttStepHeader +=errStep;
+        }
+        else{
+            state->sRttStepHeader += g * errStep;
+        }
+
+        if (state->rttvarHeader == SIMTIME_ZERO){
+            state->rttvarHeader += g * (fabs(err));
+        }else{
+            state->rttvarHeader += g * (fabs(err) - state->rttvarHeader);
+        }
+
+        if (state->rttvarStepHeader == SIMTIME_ZERO){
+            state->rttvarStepHeader += (fabs(errStep));
+        }else{
+            state->rttvarStepHeader += g * (fabs(errStep) - state->rttvarStepHeader);
+        }
+
+        state->latestRttHeader = newRtt;
+
+        //Min RTT since start of the connection
+        if(state->minRttHeader == SIMTIME_ZERO)
+            state->minRttHeader = newRtt;
+        else
+            state->minRttHeader = std::min(state->minRttHeader, newRtt);
+
+        //Min RTT in this step
+        if(state->minRttStepHeader == SIMTIME_ZERO)
+            state->minRttStepHeader = newRtt;
+        else
+            state->minRttStepHeader = std::min(state->minRttStepHeader, newRtt);
     }
-
-    if (state->sRttStep == SIMTIME_ZERO){
-        state->sRttStep +=errStep;
-    }
-    else{
-        state->sRttStep += g * errStep;
-    }
-
-    if (state->rttvar == SIMTIME_ZERO){
-        state->rttvar += g * (fabs(err));
-    }else{
-        state->rttvar += g * (fabs(err) - state->rttvar);
-    }
-
-    if (state->rttvarStep == SIMTIME_ZERO){
-        state->rttvarStep += (fabs(errStep));
-    }else{
-        state->rttvarStep += g * (fabs(errStep) - state->rttvarStep);
-    }
-
-    state->latestRtt = newRtt;
-
-    //Min RTT since start of the connection
-    if(state->minRtt == SIMTIME_ZERO)
-        state->minRtt = newRtt;
-    else
-        state->minRtt = std::min(state->minRtt, newRtt);
-
-    //Min RTT in this step
-    if(state->minRttStep == SIMTIME_ZERO)
-        state->minRttStep = newRtt;
-    else
-        state->minRttStep = std::min(state->minRttStep, newRtt);
 }
 
-void RdpConnection::computeRtt(unsigned int pullSeqNum){
+void RdpConnection::computeRtt(unsigned int pullSeqNum, bool isHeader){
     if (state->pullRequestsTransmissionTimes.find(pullSeqNum) != state->pullRequestsTransmissionTimes.end()){
         simtime_t rtt = simTime() - state->pullRequestsTransmissionTimes[pullSeqNum];
         state->pullRequestsTransmissionTimes.erase(pullSeqNum);
-        rttMeasurementComplete(rtt);
+        rttMeasurementComplete(rtt, isHeader);
     }
 }
 
@@ -311,6 +357,29 @@ void RdpConnection::cancelRequestTimer(){
 
     }
 }
+
+void RdpConnection::paceChanged(double newPace){
+        // Set the new pacing timer. At this point we should probably cancel the 
+        // next timer and reschedule it, because the transmission rate has decreased
+        // or increased.
+        // Let sendingTime be the time in which the last PR was sent. The newArrivalTime will be now
+        // if sendingTime + newPace <= simTime(), else sendingTime + newPace.
+        
+        if(paceTimerMsg->isScheduled()){
+            simtime_t sendingTime = paceTimerMsg->getSendingTime();
+            simtime_t newArrivalTime;
+            if (sendingTime + newPace <= simTime()){
+                newArrivalTime = simTime();
+            }else{
+                newArrivalTime = sendingTime + newPace;
+            }
+
+            cancelEvent(paceTimerMsg);
+            take(paceTimerMsg);
+            scheduleAt(newArrivalTime, paceTimerMsg);
+        }
+}
+
 
 } // namespace rdp
 

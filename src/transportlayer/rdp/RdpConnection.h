@@ -96,19 +96,29 @@ public:
     //Number of packets currently in flight. Inferred by IW and number of PR added
     int packetsInFlight;
 
-    //RTT
+    //RTT - Data
     simtime_t sRtt;
     simtime_t minRtt;
     simtime_t latestRtt;
     simtime_t rttvar;
-
-    std::map<unsigned int, simtime_t> pullRequestsTransmissionTimes;
-
-    // TODO: remove these from here. 
-    //Step variables
+    //RTT Step - Data
     simtime_t sRttStep;
     simtime_t minRttStep;
     simtime_t rttvarStep;
+
+    //RTT - Header
+    simtime_t sRttHeader;
+    simtime_t minRttHeader;
+    simtime_t latestRttHeader;
+    simtime_t rttvarHeader;
+    //RTT Step - Header
+    simtime_t sRttStepHeader;
+    simtime_t minRttStepHeader;
+    simtime_t rttvarStepHeader;
+
+    std::map<unsigned int, simtime_t> pullRequestsTransmissionTimes;
+
+
 };
 
 class INET_API RdpConnection : public cSimpleModule
@@ -253,6 +263,8 @@ public:
 
     virtual int getPullsQueueLength();
 
+    virtual void paceChanged(double newPace);
+
     /** Utility: start a timer */
     void scheduleTimeout(cMessage *msg, simtime_t timeout)
     {
@@ -368,8 +380,8 @@ public:
 
     virtual void handleMessage(cMessage *msg);
 
-    virtual void computeRtt(unsigned int pullSeqNum);
-    virtual void rttMeasurementComplete(simtime_t newRtt);
+    virtual void computeRtt(unsigned int pullSeqNum, bool isHeader);
+    virtual void rttMeasurementComplete(simtime_t newRtt, bool isHeader);
 
     virtual void cancelRequestTimer();
 
