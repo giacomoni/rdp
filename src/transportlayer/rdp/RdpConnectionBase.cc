@@ -44,6 +44,7 @@ RdpStateVariables::RdpStateVariables()
     cwnd = 0;
     sendPulls = true;
     active = false;
+    pacingTime = 0;
 
     sRtt = SIMTIME_ZERO;
     minRtt  = SIMTIME_ZERO;
@@ -53,6 +54,16 @@ RdpStateVariables::RdpStateVariables()
     sRttStep = SIMTIME_ZERO;
     minRttStep = SIMTIME_ZERO;
     rttvarStep = SIMTIME_ZERO;
+
+      //RTT - Header
+    sRttHeader = SIMTIME_ZERO;
+    minRttHeader = SIMTIME_ZERO;
+    latestRttHeader = SIMTIME_ZERO;
+    rttvarHeader = SIMTIME_ZERO;
+    //RTT Step - Header
+    sRttStepHeader = SIMTIME_ZERO;
+    minRttStepHeader = SIMTIME_ZERO;
+    rttvarStepHeader = SIMTIME_ZERO;
 }
 
 std::string RdpStateVariables::str() const
