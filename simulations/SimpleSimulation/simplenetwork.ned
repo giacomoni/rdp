@@ -17,7 +17,7 @@ network simplenetwork
 {
     parameters:
     	@display("bgb=512,395");
-    	int numberOfClients = default(1);
+    	int numberOfClients = default(2);
     	int numberOfNormalFlows = default(1);
     	int numberOfLongerFlows = default(0);
         int numberOfRouters = default(1);

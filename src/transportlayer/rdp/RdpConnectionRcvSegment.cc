@@ -199,6 +199,7 @@ void RdpConnection::sendRequestFromPullsQueue()
         Packet *fp = check_and_cast<Packet*>(pullQueue.pop());
         auto rdpseg = fp->removeAtFront<rdp::RdpHeader>();
         state->pullRequestsTransmissionTimes.insert(std::pair<unsigned int, simtime_t>(rdpseg->getPullSequenceNumber(), simTime()));
+        state->lastPullTime = simTime().dbl();
         sendToIP(fp, rdpseg);
     }
 }

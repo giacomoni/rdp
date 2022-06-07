@@ -17,7 +17,7 @@ Define_Module(RdpSinkApp);
 
 simsignal_t RdpSinkApp::rcvdPkSignalNDP = registerSignal("packetReceived");
 
-simsignal_t goodputSigNdp = NodeStatus::registerSignal("goodputSigNdp");
+simsignal_t goodputSigNdp = NodeStatus::registerSignal("goodputSigNdp");  //data that is delivered - trimmed packets/lost should be ignored
 simsignal_t fctRecordv3 = NodeStatus::registerSignal("fctRecordv3");
 simsignal_t numRcvTrimmedHeaderSigNdp = NodeStatus::registerSignal("numRcvTrimmedHeaderSigNdp");
 

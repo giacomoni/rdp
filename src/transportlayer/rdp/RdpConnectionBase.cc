@@ -128,22 +128,24 @@ bool RdpConnection::processTimer(cMessage *msg)
     event = RDP_E_IGNORE;
 
     if(msg == paceTimerMsg){
-        sendPullRequests();
+        sendRequestFromPullsQueue();
+        if (pullQueue.getByteLength() > 0) {
+            schedulePullTimer();
+        }
     }
     // then state transitions
     return performStateTransition(event);
 }
 
-
-//TODO: this method should be called every time a packet (either trimmed or data is received)
-void RdpConnection::sendPullRequests()
+void RdpConnection::schedulePullTimer()
 {
     if(!paceTimerMsg->isScheduled()){
-        if(pullQueue.getByteLength() > 0){
-            sendRequestFromPullsQueue();
+        double newPace = state->pacingTime - (simTime().dbl() - state->lastPullTime);
+        if(newPace < state->pacingTime && newPace > 0){
+            scheduleAt(simTime() + newPace, paceTimerMsg);
         }
-        if(pullQueue.getByteLength() > 0){  //after popping a pull request, do any requests still exist within the queue
-            scheduleAt(simTime() + state->pacingTime, paceTimerMsg);
+        else{
+            scheduleAt(simTime(), paceTimerMsg);
         }
     }
 }

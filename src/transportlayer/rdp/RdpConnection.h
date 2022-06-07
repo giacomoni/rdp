@@ -68,6 +68,7 @@ public:
     unsigned int request_id;
     unsigned int internal_request_id;
     double pacingTime;
+    double lastPullTime;
     int IW;  //initial window size
     int cwnd;
     int ssthresh;
@@ -372,7 +373,7 @@ public:
 
     virtual bool processTimer(cMessage *msg);
 
-    virtual void sendPullRequests();
+    virtual void schedulePullTimer();
 
     virtual bool processrdpsegment(Packet *packet, const Ptr<const RdpHeader> &rdpseg, L3Address srcAddr, L3Address destAddr);
 
