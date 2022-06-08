@@ -9,6 +9,9 @@ simple Rdp like IRdp
         int ssthresh = default(50);
         int additiveIncreasePackets = default(1);
         string rdpAlgorithmClass = default("RdpAIMD");
+        double thrWeight = default(1.0);
+        double trimWeight = default(2.0);
+        double delayWeight = default(1.0);
         @display("i=block/wheelbarrow");
 
         @signal[packetReceivedFromUpper](type=cPacket);
