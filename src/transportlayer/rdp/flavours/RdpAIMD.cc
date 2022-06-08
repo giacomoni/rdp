@@ -32,13 +32,10 @@ RdpAIMDStateVariables::RdpAIMDStateVariables()
     outOfWindowPackets = 0;
     waitToStart = false;
     ssthresh = 0;
-    connFinished = false;
-    isfinalReceivedPrintedOut = false;
     numRcvdPkt = 0;
     delayedNackNo = 0;
     connNotAddedYet = true;
     cwnd = 0;
-    sendPulls = true;
     active = false;
 }
 
@@ -101,7 +98,7 @@ void RdpAIMD::receivedHeader(unsigned int seqNum)
         //if(state->receivedPacketsInWindow >= state->cwnd){
             state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd;
             state->receivedPacketsInWindow = 0;
-            state->sentPullsInWindow = state->cwnd; //0;
+            state->sentPullsInWindow = state->cwnd;
             state->waitToStart = true;
         //}
     }
@@ -112,11 +109,18 @@ void RdpAIMD::receivedHeader(unsigned int seqNum)
     }
     if(state->outOfWindowPackets < 0){
         state->congestionInWindow = false;
+        int packetsMissing = state->outOfWindowPackets * -1;
+        state->sentPullsInWindow = state->cwnd - packetsMissing;
         for(int i = 0; i < state->outOfWindowPackets * -1; i++){
             conn->addRequestToPullsQueue();
 
         }
         state->outOfWindowPackets = 0;
+        conn->paceChanged(state->sRtt.dbl()/(double(state->cwnd)));
+        state->pacingTime = state->sRtt.dbl()/(double(state->cwnd));
+        if(conn->getPullsQueueLength() > 0){
+            conn->schedulePullTimer(); //should check if timer is scheduled, if is do nothing. Otherwise, schedule new timer based on previous time step.
+        }
     }
     conn->emit(cwndSignal, state->cwnd);
 }
@@ -130,7 +134,7 @@ void RdpAIMD::receivedData(unsigned int seqNum)
         state->outOfWindowPackets--;
     }
     else{
-        state->receivedPacketsInWindow++;  //TODO are both of these values needed?
+        state->receivedPacketsInWindow++;
         state->sentPullsInWindow--;
     }
     EV_INFO << "Data packet arrived at the receiver - seq num " << seqNum << endl;
@@ -138,7 +142,16 @@ void RdpAIMD::receivedData(unsigned int seqNum)
     conn->sendAckRdp(arrivedPktSeqNo); //TODO rename method to sendAck
     unsigned int seqNo = seqNum;
     state->numberReceivedPackets++;
-    bool onePullNeeded = false;
+
+    if (state->numberReceivedPackets >= state->numPacketsToGet) {
+        EV_INFO << "All packets received - finish all connections!" << endl;
+        conn->emit(cwndSignal, state->cwnd);
+        EV_INFO << "Total Received Packets: " << state->numberReceivedPackets << endl;
+        EV_INFO << "Total Wanted Packets: " << state->numPacketsToGet << endl;
+        conn->sendPacketToApp(seqNum);
+        conn->closeConnection();
+        return;
+    }
 
     if(state->cwnd < state->ssthresh) { //Slow-Start - Exponential Increase
         state->slowStartState = true;
@@ -149,17 +162,8 @@ void RdpAIMD::receivedData(unsigned int seqNum)
         state->slowStartState = false;
     }
 
-    if(state->sendPulls && state->outOfWindowPackets <= 0){
-        if(state->numberReceivedPackets + state->sentPullsInWindow + 1 >= state->numPacketsToGet){
-            onePullNeeded = true;
-        }
-        else if(state->numberReceivedPackets + state->sentPullsInWindow + 2 >= state->numPacketsToGet){ //Only need two pull requests
-            pullPacketsToSend++;
-            windowIncreased = true;
-            onePullNeeded = true;
-            state->sendPulls = false;
-        }
-        else if(((state->receivedPacketsInWindow % state->cwnd) == 0)){ //Congestion Avoidance - Linear Increase
+    if(state->outOfWindowPackets <= 0){
+        if(((state->receivedPacketsInWindow % state->cwnd) == 0)){ //Congestion Avoidance - Linear Increase
             if(state->slowStartState){
                 //pullPacketsToSend = state->cwnd;
                 state->receivedPacketsInWindow = 0;
@@ -176,49 +180,37 @@ void RdpAIMD::receivedData(unsigned int seqNum)
             }
         }
     }
-    if (state->numberReceivedPackets > state->numPacketsToGet) {
-        EV_INFO << "All packets received - finish all connections!" << endl;
-        state->connFinished = true;
-        conn->getRDPMain()->allConnFinished();
-        return;
-    }
-    else {
-        if (state->numberReceivedPackets == 1 && state->connNotAddedYet == true && state->outOfWindowPackets <= 0) {
-            //conn->addRequestToPullsQueue(true, false);
-            conn->prepareInitialRequest();
+
+    if (state->numberReceivedPackets == 1 && state->connNotAddedYet == true && state->outOfWindowPackets <= 0) {
+        conn->prepareInitialRequest();
+        conn->addRequestToPullsQueue();
+        for(int pullNum = 0; pullNum < pullPacketsToSend; pullNum++){
             conn->addRequestToPullsQueue();
+        }
+    }
+    else if((state->outOfWindowPackets <= 0) && (state->sentPullsInWindow < state->cwnd)){
+        if (state->numberReceivedPackets <= state->numPacketsToGet) {
+            //for loop sending pull for each pullPacketToSend;
+            pullPacketsToSend++; //Pull Request to maintain current flow
+
+            if(pullPacketsToSend > 0 && ((state->numberReceivedPackets + state->sentPullsInWindow + pullPacketsToSend) >= state->numPacketsToGet)){
+                int newPullPacketsToSend = (state->numPacketsToGet - (state->numberReceivedPackets + state->sentPullsInWindow));
+                if(newPullPacketsToSend < pullPacketsToSend) pullPacketsToSend = newPullPacketsToSend;
+            } //maybe add this if statement to first window instance (see previous if block)
+
             for(int pullNum = 0; pullNum < pullPacketsToSend; pullNum++){
                 conn->addRequestToPullsQueue();
             }
         }
-        else if(state->sendPulls && (state->outOfWindowPackets <= 0) && (state->sentPullsInWindow < state->cwnd) || onePullNeeded){
-            if (state->numberReceivedPackets <= (state->numPacketsToGet) && state->connFinished == false) {
-                //for loop sending pull for each pullPacketToSend;
-                pullPacketsToSend++; //Pull Request to maintain current flow
-                for(int pullNum = 0; pullNum < pullPacketsToSend; pullNum++){
-                    conn->addRequestToPullsQueue();
-                }
-            }
-        }
+    }
 
-        if (state->connFinished == false) {
-            EV_INFO << "Sending Data Packet to Application" << endl;
-            conn->sendPacketToApp(seqNum);
-        }
+    EV_INFO << "Sending Data Packet to Application" << endl;
+    conn->sendPacketToApp(seqNum);
 
-        state->pacingTime = state->sRtt.dbl()/(double(state->cwnd));
-        //state->pacingTime = 1200; //seconds
-        if(conn->getPullsQueueLength() > 0){
-            conn->schedulePullTimer(); //should check if timer is scheduled, if is do nothing. Otherwise, schedule new timer based on previous time step.
-        }
-        // All the Packets have been received
-        if (state->isfinalReceivedPrintedOut == false) {
-            EV_INFO << "Total Received Packets: " << state->numberReceivedPackets << endl;
-            EV_INFO << "Total Wanted Packets: " << state->numPacketsToGet << endl;
-            if (state->numberReceivedPackets == state->numPacketsToGet || state->connFinished == true) {
-                conn->closeConnection();
-            }
-        }
+    //conn->paceChanged(state->sRtt.dbl()/(double(state->cwnd)));
+    state->pacingTime = state->sRtt.dbl()/(double(state->cwnd));
+    if(conn->getPullsQueueLength() > 0){
+        conn->schedulePullTimer(); //should check if timer is scheduled, if is do nothing. Otherwise, schedule new timer based on previous time step.
     }
     conn->emit(cwndSignal, state->cwnd);
 }
