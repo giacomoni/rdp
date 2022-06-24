@@ -22,12 +22,13 @@ network simplenetwork
         int numberOfLongerFlows = default(0);
         int numberOfRouters = default(1);
         volatile double minDelay @unit(s);
+        volatile double linkrate @unit(Mbps);
 
     types:
         channel ethernetline extends DatarateChannel
         {
             delay = minDelay;
-            datarate = 1Gbps;
+            datarate = linkrate;
         }
     submodules:
         client[numberOfClients]: StandardHostRdp {

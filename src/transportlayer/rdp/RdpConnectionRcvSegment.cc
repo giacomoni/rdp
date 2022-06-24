@@ -160,6 +160,18 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     if (rdpseg->isDataPacket() == true && rdpseg->isHeader() == false) {
         computeRtt(rdpseg->getPullSequenceNumber(), false);
+        simtime_t interarrivaltime;
+        if(state->lastDataPacketArrived == 0)
+            interarrivaltime = state->minRtt;
+        else
+            interarrivaltime = simTime() - state->lastDataPacketArrived;
+        if(interarrivaltime.dbl() > 0)
+            state->bandwidthEstimator.addSample((b(packet->getTotalLength()).get())/interarrivaltime.dbl(), simTime());
+        if(b(packet->getTotalLength()).get() != 1500*8)
+            std::cout << B(packet->getTotalLength()).get() << std::endl;
+        if(interarrivaltime.dbl() < b(packet->getTotalLength()).get()/80000000)
+            std::cout << interarrivaltime.dbl() << std::endl;
+        state->lastDataPacketArrived = simTime();
         Packet* packClone = packet->dup();
         receiveQueue->addPacket(packClone);
         rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber());
@@ -268,11 +280,12 @@ void RdpConnection::closeConnection(){
     while (iter != receivedPacketsList.end()) {
         iter++;
     }
+    cancelRequestTimer();
     EV_INFO << " numRcvTrimmedHeader:    " << state->numRcvTrimmedHeader << endl;
     EV_INFO << "CONNECTION FINISHED!" << endl;
     sendIndicationToApp(RDP_I_PEER_CLOSED); // this is ok if the sinkApp is used by one conn
     state->isfinalReceivedPrintedOut = true;
-    cancelRequestTimer();
+    
 }
 RdpEventCode RdpConnection::processSegmentInListen(Packet *packet, const Ptr<const RdpHeader> &rdpseg, L3Address srcAddr, L3Address destAddr)
 {

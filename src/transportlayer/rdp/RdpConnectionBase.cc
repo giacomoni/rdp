@@ -25,6 +25,8 @@ RdpStateVariables::RdpStateVariables()
     numPacketsToSend = 0;
     congestionInWindow = false;
 
+    lastPullTime = 0;
+
     numRcvTrimmedHeader = 0;
     numberReceivedPackets = 0;
     numberSentPackets = 0;
@@ -64,6 +66,11 @@ RdpStateVariables::RdpStateVariables()
     sRttStepHeader = SIMTIME_ZERO;
     minRttStepHeader = SIMTIME_ZERO;
     rttvarStepHeader = SIMTIME_ZERO;
+
+    bandwidthEstimator.setWindowSize(10);
+    rttPropEstimator.setWindowSize(10);
+
+    lastDataPacketArrived = 0;
 }
 
 std::string RdpStateVariables::str() const
@@ -142,9 +149,11 @@ void RdpConnection::schedulePullTimer()
     if(!paceTimerMsg->isScheduled()){
         double newPace = state->pacingTime - (simTime().dbl() - state->lastPullTime);
         if(newPace < state->pacingTime && newPace > 0){
+            take(paceTimerMsg);
             scheduleAt(simTime() + newPace, paceTimerMsg);
         }
         else{
+            take(paceTimerMsg);
             scheduleAt(simTime(), paceTimerMsg);
         }
     }

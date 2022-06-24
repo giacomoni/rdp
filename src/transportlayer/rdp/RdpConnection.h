@@ -42,6 +42,34 @@ enum RdpEventCode
     RDP_E_RCV_SYN,
 };
 
+
+// Helper class storing a single measurement value and its timestmp
+class Measurement{
+    private:
+        double measurement;
+        simtime_t timestamp;
+    public: 
+        Measurement(double _measurement, simtime_t _timestamp){measurement=_measurement; timestamp=_timestamp;};
+        double getMeasurement(){return measurement;};
+        simtime_t getTimestamp(){return timestamp;};
+};
+
+class Estimator{
+    private:
+        double windowSize; // Size of the window in time (s)
+        std::vector<Measurement> samples;
+
+    public:
+        Estimator();
+        void setWindowSize(double _windowSize);
+        void addSample(double measurement, simtime_t timestamp);
+        double getMean();
+        double getMax();
+        double getMin();
+        double getStd();
+        std::vector<Measurement> getSamples();
+};
+
 /**
  * Contains state variables ("TCB") for RDP.
  *
@@ -119,7 +147,9 @@ public:
 
     std::map<unsigned int, simtime_t> pullRequestsTransmissionTimes;
 
+    simtime_t lastDataPacketArrived;
 
+    Estimator bandwidthEstimator, rttPropEstimator;
 };
 
 class INET_API RdpConnection : public cSimpleModule
