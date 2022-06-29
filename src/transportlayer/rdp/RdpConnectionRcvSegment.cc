@@ -10,6 +10,8 @@
 #include "RdpConnection.h"
 #include "RdpSendQueue.h"
 #include "RdpReceiveQueue.h"
+#include <iostream>
+#include <iomanip>
 
 namespace inet {
 namespace rdp {
@@ -210,8 +212,8 @@ void RdpConnection::sendRequestFromPullsQueue()
         state->sentPullsInWindow++;
         Packet *fp = check_and_cast<Packet*>(pullQueue.pop());
         auto rdpseg = fp->removeAtFront<rdp::RdpHeader>();
-        state->pullRequestsTransmissionTimes.insert(std::pair<unsigned int, simtime_t>(rdpseg->getPullSequenceNumber(), simTime()));
-        state->lastPullTime = simTime().dbl();
+        state->pullRequestsTransmissionTimes.insert(std::pair<unsigned int, simtime_t>(rdpseg->getPullSequenceNumber(), simTime()));     
+        state->lastPullTime = simTime();
         sendToIP(fp, rdpseg);
     }
 }

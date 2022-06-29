@@ -28,6 +28,8 @@ namespace inet {
 namespace rdp {
 
 Estimator::Estimator(){
+
+    flushCounter = 0;
 }
 
 void Estimator::setWindowSize(double _windowSize){
@@ -46,6 +48,17 @@ void Estimator::addSample(double measurement, simtime_t timestamp){
     }  
 }
 
+int Estimator::getFlushCounter(){
+    return flushCounter;
+}
+
+void Estimator::flush(){
+    flushCounter++;
+    samples.clear();
+}
+unsigned int Estimator::getSize(){
+    return samples.size();
+}
 
 double Estimator::getMean(){
     if (samples.empty()) {
@@ -411,6 +424,9 @@ void RdpConnection::rttMeasurementComplete(simtime_t newRtt, bool isHeader){
 void RdpConnection::computeRtt(unsigned int pullSeqNum, bool isHeader){
     if (state->pullRequestsTransmissionTimes.find(pullSeqNum) != state->pullRequestsTransmissionTimes.end()){
         simtime_t rtt = simTime() - state->pullRequestsTransmissionTimes[pullSeqNum];
+        if(state->rttPropEstimator.getSize() == 1 && state->rttPropEstimator.getFlushCounter() == 0)
+            state->rttPropEstimator.flush();
+
         state->rttPropEstimator.addSample(rtt.dbl(), simTime());
         state->pullRequestsTransmissionTimes.erase(pullSeqNum);
         rttMeasurementComplete(rtt, isHeader);

@@ -16,7 +16,6 @@ RdpAIMDStateVariables::RdpAIMDStateVariables()
     request_id = 0;  // source block number (8-bit unsigned integer)
 
     pacingTime = 1200/1000000;
-    lastPullTime = 0;
     numPacketsToGet = 0;
     numPacketsToSend = 0;
     congestionInWindow = false;
@@ -209,7 +208,7 @@ void RdpAIMD::receivedData(unsigned int seqNum)
         state->pacingTime = state->sRtt.dbl()/(double(state->cwnd));
         //state->pacingTime = 1200; //seconds
         if(conn->getPullsQueueLength() > 0){
-            conn->schedulePullTimer(); //should check if timer is scheduled, if is do nothing. Otherwise, schedule new timer based on previous time step.
+            conn->activatePullTimer(); //should check if timer is scheduled, if is do nothing. Otherwise, schedule new timer based on previous time step.
         }
         // All the Packets have been received
         if (state->isfinalReceivedPrintedOut == false) {

@@ -58,6 +58,7 @@ class Estimator{
     private:
         double windowSize; // Size of the window in time (s)
         std::vector<Measurement> samples;
+        int flushCounter;
 
     public:
         Estimator();
@@ -67,6 +68,9 @@ class Estimator{
         double getMax();
         double getMin();
         double getStd();
+        unsigned int getSize();
+        void flush();
+        int getFlushCounter();
         std::vector<Measurement> getSamples();
 };
 
@@ -96,7 +100,7 @@ public:
     unsigned int request_id;
     unsigned int internal_request_id;
     double pacingTime;
-    double lastPullTime;
+    simtime_t lastPullTime;
     int IW;  //initial window size
     int cwnd;
     int ssthresh;
@@ -403,7 +407,9 @@ public:
 
     virtual bool processTimer(cMessage *msg);
 
-    virtual void schedulePullTimer();
+    virtual void activatePullTimer();
+
+    virtual void schedulePullTimer(double time);
 
     virtual bool processrdpsegment(Packet *packet, const Ptr<const RdpHeader> &rdpseg, L3Address srcAddr, L3Address destAddr);
 

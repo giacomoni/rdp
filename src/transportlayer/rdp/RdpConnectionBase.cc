@@ -25,7 +25,7 @@ RdpStateVariables::RdpStateVariables()
     numPacketsToSend = 0;
     congestionInWindow = false;
 
-    lastPullTime = 0;
+    lastPullTime = SIMTIME_ZERO;
 
     numRcvTrimmedHeader = 0;
     numberReceivedPackets = 0;
@@ -137,23 +137,38 @@ bool RdpConnection::processTimer(cMessage *msg)
     if(msg == paceTimerMsg){
         sendRequestFromPullsQueue();
         if (pullQueue.getByteLength() > 0) {
-            schedulePullTimer();
+            schedulePullTimer(state->pacingTime);
         }
     }
     // then state transitions
     return performStateTransition(event);
 }
 
-void RdpConnection::schedulePullTimer()
+void RdpConnection::schedulePullTimer(double time)
 {
     if(!paceTimerMsg->isScheduled()){
-        double newPace = state->pacingTime - (simTime().dbl() - state->lastPullTime);
-        if(newPace < state->pacingTime && newPace > 0){
-            take(paceTimerMsg);
-            scheduleAt(simTime() + newPace, paceTimerMsg);
-        }
+        scheduleAt(simTime() + time, paceTimerMsg);
+    }
+}
+
+void RdpConnection::activatePullTimer()
+{
+    //Do nothing if the timer is scheduled.
+    //If it is not scheduled, schedule the next PR based on the
+    // last PR sent timestamp and current pace
+    if(!paceTimerMsg->isScheduled()){
+        if(state->lastPullTime != SIMTIME_ZERO){
+            simtime_t timeElapsedSinceLastSent = simTime()- state->lastPullTime;
+            if (timeElapsedSinceLastSent.dbl() < state->pacingTime){
+
+                scheduleAt(simTime() + (state->pacingTime - timeElapsedSinceLastSent.dbl()), paceTimerMsg);
+            }else{
+     
+                scheduleAt(simTime(), paceTimerMsg);
+            }
+            }
         else{
-            take(paceTimerMsg);
+ 
             scheduleAt(simTime(), paceTimerMsg);
         }
     }
