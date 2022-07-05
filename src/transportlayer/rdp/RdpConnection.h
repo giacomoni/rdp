@@ -68,6 +68,11 @@ class Estimator{
         double getMax();
         double getMin();
         double getStd();
+
+        double getMean(simtime_t subwindow);
+        double getMax(simtime_t subwindow);
+        double getMin(simtime_t subwindow);
+        double getStd(simtime_t subwindow);
         unsigned int getSize();
         void flush();
         int getFlushCounter();
