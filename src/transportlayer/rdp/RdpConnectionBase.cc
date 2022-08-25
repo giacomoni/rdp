@@ -42,6 +42,7 @@ RdpStateVariables::RdpStateVariables()
     cwnd = 0;
     active = false;
     pacingTime = 0;
+    justReduced = false;
 
     sRtt = SIMTIME_ZERO;
     minRtt  = SIMTIME_ZERO;
@@ -139,10 +140,14 @@ void RdpConnection::schedulePullTimer()
     if(!paceTimerMsg->isScheduled()){
         double newPace = state->pacingTime - (simTime().dbl() - state->lastPullTime);
         if(newPace < state->pacingTime && newPace > 0){
+            //WORK ON THIS
             scheduleAt(simTime() + newPace, paceTimerMsg);
+            //sendRequestFromPullsQueue();
+            //scheduleAt(simTime(), paceTimerMsg);
         }
         else{
             scheduleAt(simTime(), paceTimerMsg);
+            //sendRequestFromPullsQueue();
         }
     }
 }

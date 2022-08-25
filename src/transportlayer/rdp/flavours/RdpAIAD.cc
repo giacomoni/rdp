@@ -88,17 +88,21 @@ void RdpAIAD::receivedHeader(unsigned int seqNum)
         state->receivedPacketsInWindow++;
     }
 
-    if(state->outOfWindowPackets == 0){
-        state->congestionInWindow = true;  //may have to change so certain amount of headers before multiplicative decrease
-        state->ssthresh = state->cwnd/2;  //ssthresh, half of cwnd at loss event
-        conn->emit(ssthreshSignal, state->ssthresh);
-        state->cwnd = state->cwnd - 1;
-        if(state->cwnd == 0) state->cwnd = 1;
-        //if(state->receivedPacketsInWindow >= state->cwnd){
-            state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd;
-            state->receivedPacketsInWindow = 0;
-            state->sentPullsInWindow = state->cwnd;
-            state->waitToStart = true;
+    if(state->outOfWindowPackets <= 0){
+    state->congestionInWindow = true;  //may have to change so certain amount of headers before decrease
+    state->ssthresh = state->cwnd/2;  //ssthresh, half of cwnd at loss event
+    conn->emit(ssthreshSignal, state->ssthresh);
+    std::cout << "\n Old CWND: " << state->cwnd << endl;
+    state->cwnd = state->cwnd - 1;
+    if(state->cwnd == 0) state->cwnd = 1;
+    //if(state->receivedPacketsInWindow >= state->cwnd){
+    state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd; //print this
+    std::cout << "\n Out of Window packets: " << state->outOfWindowPackets << endl;
+    std::cout << "\n Sent pulls in window: " << state->sentPullsInWindow << endl;
+    std::cout << "\n New cwnd: " << state->cwnd << "\n" << endl;
+    state->receivedPacketsInWindow = 0;
+    state->sentPullsInWindow = state->cwnd;
+    state->waitToStart = true;
         //}
     }
 
@@ -124,7 +128,7 @@ void RdpAIAD::receivedHeader(unsigned int seqNum)
     conn->emit(cwndSignal, state->cwnd);
 }
 
-void RdpAIAD::receivedData(unsigned int seqNum)
+void RdpAIAD::receivedData(unsigned int seqNum, bool isMarked)
 {
     int pullPacketsToSend = 0;
     bool windowIncreased = false;
@@ -162,7 +166,7 @@ void RdpAIAD::receivedData(unsigned int seqNum)
     }
 
     if(state->outOfWindowPackets <= 0){
-        if(((state->receivedPacketsInWindow % state->cwnd) == 0)){ //Congestion Avoidance - Linear Increase
+        if((state->receivedPacketsInWindow == state->cwnd)){ //Congestion Avoidance - Linear Increase
             if(state->slowStartState){
                 //pullPacketsToSend = state->cwnd;
                 state->receivedPacketsInWindow = 0;

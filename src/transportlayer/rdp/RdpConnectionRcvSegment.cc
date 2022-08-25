@@ -32,6 +32,7 @@ void RdpConnection::sendInitialWindow()
             EV_INFO << "Sending IW packet " << rdpseg->getDataSequenceNumber() << endl;
             rdpseg->setIsDataPacket(true);
             rdpseg->setIsPullPacket(false);
+            rdpseg->setMarkedBit(false);
             rdpseg->setIsHeader(false);
             rdpseg->setSynBit(true);
             rdpseg->setAckBit(false);
@@ -117,6 +118,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                     EV_INFO << "Sending data packet - " << rdpseg->getDataSequenceNumber() << endl;
                     rdpseg->setIsDataPacket(true);
                     rdpseg->setIsPullPacket(false);
+                    rdpseg->setMarkedBit(false);
                     rdpseg->setIsHeader(false);
                     rdpseg->setAckBit(false);
                     rdpseg->setNackBit(false);
@@ -162,7 +164,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
         computeRtt(rdpseg->getPullSequenceNumber(), false);
         Packet* packClone = packet->dup();
         receiveQueue->addPacket(packClone);
-        rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber());
+        rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber(), rdpseg->getMarkedBit());
         
     }
 
@@ -180,6 +182,7 @@ void RdpConnection::addRequestToPullsQueue() //TODO remove pacePacket bool
     const auto &rdpseg = makeShared<RdpHeader>();
     rdpseg->setIsDataPacket(false);
     rdpseg->setIsPullPacket(true);
+    rdpseg->setMarkedBit(false);
     rdpseg->setIsHeader(false);
     rdpseg->setSynBit(false);
     rdpseg->setAckBit(false);

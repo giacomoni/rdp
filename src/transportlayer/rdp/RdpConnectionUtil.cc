@@ -190,6 +190,7 @@ void RdpConnection::sendNackRdp(unsigned int nackNum)
     rdpseg->setSynBit(false);
     rdpseg->setIsDataPacket(false);
     rdpseg->setIsPullPacket(false);
+    rdpseg->setMarkedBit(false);
     rdpseg->setIsHeader(false);
     std::string packetName = "RdpNack-" + std::to_string(nackNum);
     Packet *fp = new Packet(packetName.c_str());
@@ -207,6 +208,7 @@ void RdpConnection::sendAckRdp(unsigned int AckNum)
     rdpseg->setSynBit(false);
     rdpseg->setIsDataPacket(false);
     rdpseg->setIsPullPacket(false);
+    rdpseg->setMarkedBit(false);
     rdpseg->setIsHeader(false);
     std::string packetName = "RdpAck-" + std::to_string(AckNum);
     Packet *fp = new Packet(packetName.c_str());

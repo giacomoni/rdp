@@ -34,6 +34,7 @@ OBJS = \
     $O/application/rdpapp/RdpSinkApp.o \
     $O/common/ResultFiltersThroughput.o \
     $O/common/TopologyEcmp.o \
+    $O/common/queue/RdpMarkingSwitchQueue.o \
     $O/common/queue/RdpSwitchQueue.o \
     $O/common/scheduler/CentralSchedulerRdp.o \
     $O/transportlayer/common/L4ToolsRdp.o \
@@ -48,6 +49,7 @@ OBJS = \
     $O/transportlayer/rdp/flavours/DumbRdp.o \
     $O/transportlayer/rdp/flavours/RdpAIAD.o \
     $O/transportlayer/rdp/flavours/RdpAIMD.o \
+    $O/transportlayer/rdp/flavours/RdpMarking.o \
     $O/transportlayer/rdp/rdp_common/RdpHeader.o \
     $O/application/rdpapp/GenericAppMsgRdp_m.o \
     $O/transportlayer/contract/rdp/RdpCommand_m.o \

@@ -13,8 +13,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#ifndef TRANSPORTLAYER_RDP_FLAVOURS_RdpAIAD_H_
-#define TRANSPORTLAYER_RDP_FLAVOURS_RdpAIAD_H_
+#ifndef TRANSPORTLAYER_RDP_FLAVOURS_RdpMarking_H_
+#define TRANSPORTLAYER_RDP_FLAVOURS_RdpMarking_H_
 
 #include <inet/common/INETDefs.h>
 #include "../RdpAlgorithm.h"
@@ -26,10 +26,14 @@ namespace rdp {
 /**
  * State variables for DumbRdp.
  */
-class INET_API RdpAIADStateVariables : public RdpStateVariables
+class INET_API RdpMarkingStateVariables : public RdpStateVariables
 {
   public:
-    RdpAIADStateVariables();
+    RdpMarkingStateVariables();
+  public:
+    double alpha;
+    double gamma; //ALLOW ENTRY THROUGH NED
+    int numOfMarkedPackets;
 };
 
 /**
@@ -39,10 +43,10 @@ class INET_API RdpAIADStateVariables : public RdpStateVariables
  * timeout calculation, delayed acks, silly window avoidance,
  * congestion control, etc.
  */
-class INET_API RdpAIAD : public RdpAlgorithm
+class INET_API RdpMarking : public RdpAlgorithm
 {
   protected:
-    RdpAIADStateVariables *& state;    // alias to TCLAlgorithm's 'state'
+    RdpMarkingStateVariables *& state;    // alias to TCLAlgorithm's 'state'
 
     static simsignal_t cwndSignal;    // will record changes to cwnd
     static simsignal_t ssthreshSignal;    // will record changes to ssthresh
@@ -51,14 +55,14 @@ class INET_API RdpAIAD : public RdpAlgorithm
     /** Creates and returns a DumbRdpStateVariables object. */
     virtual RdpStateVariables *createStateVariables() override
     {
-        return new RdpAIADStateVariables();
+        return new RdpMarkingStateVariables();
     }
 
   public:
     /** Ctor */
-    RdpAIAD();
+    RdpMarking();
 
-    virtual ~RdpAIAD();
+    virtual ~RdpMarking();
 
     virtual void initialize() override;
 
@@ -80,5 +84,5 @@ class INET_API RdpAIAD : public RdpAlgorithm
 
 } // namespace inet
 
-#endif // ifndef __INET_RdpAIAD_H
+#endif // ifndef __INET_RdpMarking_H
 

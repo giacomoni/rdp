@@ -20,7 +20,7 @@ simsignal_t RdpSinkApp::rcvdPkSignalNDP = registerSignal("packetReceived");
 simsignal_t goodputSigNdp = NodeStatus::registerSignal("goodputSigNdp");  //data that is delivered - trimmed packets/lost should be ignored
 simsignal_t fctRecordv3 = NodeStatus::registerSignal("fctRecordv3");
 simsignal_t numRcvTrimmedHeaderSigNdp = NodeStatus::registerSignal("numRcvTrimmedHeaderSigNdp");
-
+simsignal_t instThroughputSignal = NodeStatus::registerSignal("instThroughput");
 void RdpSinkApp::initialize(int stage)
 {
     EV_TRACE << "RdpSinkApp::initialize";
@@ -70,6 +70,9 @@ void RdpSinkApp::handleMessage(cMessage *msg)
             Packet *packet = check_and_cast<Packet*>(msg);
             bytesRcvd += packet->getByteLength();
             EV_INFO << "RDP DATA message arrived - bytesRcvd: " << bytesRcvd << endl;
+            //make instant throughput every 0.1s
+            double throughput = 8 * (double) packet->getByteLength() / (simTime() - packet->getTag<CreationTimeTag>()->getCreationTime()).dbl();
+            emit(instThroughputSignal, throughput);
             emit(rcvdPkSignalNDP, packet);
             // Moh added: time stamp when receiving the first data packet (not the SYN, as the app wouldn't get that packet)
             if (firstDataReceived == true) {

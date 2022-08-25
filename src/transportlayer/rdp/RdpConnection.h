@@ -89,6 +89,7 @@ public:
     int numberSentPackets;
 
     bool connNotAddedYet;
+    bool justReduced;
 
     //Number of packets currently in flight. Inferred by IW and number of PR added
     int packetsInFlight;

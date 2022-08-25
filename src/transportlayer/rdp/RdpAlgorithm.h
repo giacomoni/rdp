@@ -116,7 +116,7 @@ public:
 
     virtual void receivedHeader(unsigned int seqNum) = 0;
 
-    virtual void receivedData(unsigned int seqNum) = 0;
+    virtual void receivedData(unsigned int seqNum, bool isMarked) = 0;
 
 
 };

@@ -93,7 +93,8 @@ void RdpAIMD::receivedHeader(unsigned int seqNum)
         state->ssthresh = state->cwnd/2;  //ssthresh, half of cwnd at loss event
         conn->emit(ssthreshSignal, state->ssthresh);
         //state->cwnd = state->cwnd/2;
-        state->cwnd = state->cwnd/2;
+        //state->cwnd = state->cwnd/2;
+        state->cwnd = state->cwnd - 5;
         if(state->cwnd == 0) state->cwnd = 1;
         //if(state->receivedPacketsInWindow >= state->cwnd){
             state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd;
@@ -125,7 +126,7 @@ void RdpAIMD::receivedHeader(unsigned int seqNum)
     conn->emit(cwndSignal, state->cwnd);
 }
 
-void RdpAIMD::receivedData(unsigned int seqNum)
+void RdpAIMD::receivedData(unsigned int seqNum, bool isMarked)
 {
     int pullPacketsToSend = 0;
     bool windowIncreased = false;

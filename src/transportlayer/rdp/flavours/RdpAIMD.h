@@ -72,7 +72,7 @@ class INET_API RdpAIMD : public RdpAlgorithm
 
     virtual void receivedHeader(unsigned int seqNum) override;
 
-    virtual void receivedData(unsigned int seqNum) override;
+    virtual void receivedData(unsigned int seqNum, bool isMarked) override;
 
 };
 

@@ -50,7 +50,7 @@ void DumbRdp::receivedHeader(unsigned int seqNum)
 
 }
 
-void DumbRdp::receivedData(unsigned int seqNum)
+void DumbRdp::receivedData(unsigned int seqNum, bool isMarked)
 {
 
 }

@@ -37,7 +37,7 @@ class INET_API RdpSwitchQueue : public PacketQueueBase, public cListener
   protected:
     // configuration
     int packetCapacity;
-
+    int mthresh;
     // state
     cPacketQueue dataQueue;
     cPacketQueue headersQueue;
