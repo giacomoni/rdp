@@ -1,2 +1,1 @@
 package rdp;
-@license(LGPL);

@@ -54,7 +54,7 @@ void RdpSinkApp::handleMessage(cMessage *msg)
 
             RdpCommand *controlInfo = check_and_cast<RdpCommand*>(msg->getControlInfo());
             numRcvTrimmedHeader = controlInfo->getNumRcvTrimmedHeader();
-            cModule *centralMod =  this->getParentModule()->getModuleByPath("centralScheduler");
+            cModule *centralMod =  this->getParentModule()->findModuleByPath("centralScheduler");
             if (centralMod && recordStatistics == true) {
                 int numFinishedFlows = centralMod->par("numCompletedShortFlows");
                 int newNumFinishedFlows = numFinishedFlows + 1;
@@ -86,6 +86,7 @@ void RdpSinkApp::handleMessage(cMessage *msg)
                 }
             }
             EV_INFO << "Sink Application bytes received: " << bytesRcvd << " " << this->getFullPath() << std::endl;
+            delete msg;
         }
         else{
             //IGNORE

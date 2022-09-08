@@ -40,6 +40,7 @@ void RdpMarkingSwitchQueue::initialize(int stage)
 void RdpMarkingSwitchQueue::pushPacket(Packet *packet, cGate *gate)
 {
     Enter_Method("pushPacket");
+    take(packet);
     emit(packetPushedSignal, packet);
     EV_INFO << "PACKET STRING" << packet->str() << endl;
     EV_INFO << "Pushing packet " << packet->getName() << " into the queue." << endl;

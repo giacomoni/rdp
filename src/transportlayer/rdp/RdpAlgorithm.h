@@ -110,7 +110,7 @@ public:
      */
     virtual void processTimer(cMessage *timer, RdpEventCode &event) = 0;
 
-    virtual void dataSent(uint32 fromseq) = 0;
+    virtual void dataSent(uint32_t fromseq) = 0;
 
     virtual void ackSent() = 0;
 

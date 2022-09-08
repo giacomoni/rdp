@@ -5,6 +5,7 @@ import inet.routing.contract.IBgp;
 import inet.routing.contract.IOspf;
 import inet.routing.contract.IPim;
 import rdp.node.ApplicationLayerNodeBaseEcmp;
+import inet.routing.contract.IEigrp;
 //
 // IPv4 router with NDP compatability that supports wireless, Ethernet, PPP and external interfaces.
 // By default, no wireless and external interfaces are added; the number of
@@ -35,6 +36,7 @@ module RouterRdp extends ApplicationLayerNodeBaseEcmp
         @display("i=abstract/router");
         //@figure[submodules];
         forwarding = true;
+        bool hasEigrp = default(false);
         bool hasOspf = default(false);
         bool hasRip = default(false);
         bool hasBgp = default(false);
@@ -66,10 +68,19 @@ module RouterRdp extends ApplicationLayerNodeBaseEcmp
             parameters:
                 @display("p=1125,76");
         }
+        eigrp: <"EigrpProcessDS"> like IEigrp if hasEigrp {
+            parameters:
+                enableIPv6 = parent.hasIpv6;
+                enableIPv4 = parent.hasIpv4;
+                @display("p=1113,225");
+        }
 
     connections allowunconnected:
         ospf.ipOut --> tn.in++ if hasOspf;
         ospf.ipIn <-- tn.out++ if hasOspf;
+
+        eigrp.ipOut --> tn.in++ if hasEigrp;
+        eigrp.ipIn <-- tn.out++ if hasEigrp;
 
         bgp.socketOut --> at.in++ if hasBgp;
         bgp.socketIn <-- at.out++ if hasBgp;

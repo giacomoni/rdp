@@ -26,7 +26,7 @@
 #include "../rdp/RdpConnection.h"
 #include "../rdp/rdp_common/RdpHeader_m.h"
 #include "../rdp/rdp_common/RdpHeader.h"
-
+#include <tuple>
 namespace inet {
 
 namespace rdp {
@@ -35,8 +35,8 @@ class INET_API RdpSendQueue : public cObject
 {
 protected:
     RdpConnection *conn = nullptr;    // the connection that owns this queue
-    uint32 begin = 0;    // 1st sequence number stored
-    uint32 end = 0;    // last sequence number stored +1
+    uint32_t begin = 0;    // 1st sequence number stored
+    uint32_t end = 0;    // last sequence number stored +1
 
     cPacketQueue dataToSendQueue;      // dataBuffer
     //cPacketQueue sentDataQueue;
@@ -79,13 +79,13 @@ public:
     /**
      * Returns the sequence number of the first byte stored in the buffer.
      */
-    virtual uint32 getBufferStartSeq();
+    virtual uint32_t getBufferStartSeq();
 
     /**
      * Returns the sequence number of the last byte stored in the buffer plus one.
      * (The first byte of the next send operation would get this sequence number.)
      */
-    virtual uint32 getBufferEndSeq();
+    virtual uint32_t getBufferEndSeq();
 
     virtual const std::tuple<Ptr<RdpHeader>, Packet*> getRdpHeader();
 
@@ -103,9 +103,9 @@ public:
      * Utility function: returns how many bytes are available in the queue, from
      * (and including) the given sequence number.
      */
-    inline ulong getBytesAvailable(uint32 fromSeq)
+    inline ulong getBytesAvailable(uint32_t fromSeq)
     {
-        uint32 bufEndSeq = getBufferEndSeq();
+        uint32_t bufEndSeq = getBufferEndSeq();
         return seqLess(fromSeq, bufEndSeq) ? bufEndSeq - fromSeq : 0;
     }
 

@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for $(LIB_PREFIX)rdp
 #
 # This file was generated with the command:
-#  opp_makemake --make-so -f --deep -KECMP_PROJ=../../ecmp -KINET4_PROJ=../../inet4 -DINET_IMPORT -I$$\(INET4_PROJ\)/src -L$$\(ECMP_PROJ\)/src -L$$\(INET4_PROJ\)/src -lecmp$$\(D\) -lINET$$\(D\)
+#  opp_makemake --make-so -f --deep -o rdp -KECMP_PROJ=../../ecmp -KINET4_4_PROJ=../../inet4.4 -DINET_IMPORT -I$$\(INET4_4_PROJ\)/src -L$$\(ECMP_PROJ\)/src -L$$\(INET4_4_PROJ\)/src -lecmp$$\(D\) -lINET$$\(D\)
 #
 
 # Name of target to be created (-o option)
@@ -14,13 +14,13 @@ TARGET_IMPDEF = $(TARGET_NAME)$(IMPDEF_SUFFIX)
 TARGET_FILES = $(TARGET_DIR)/$(TARGET)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I$(INET4_PROJ)/src
+INCLUDE_PATH = -I$(INET4_4_PROJ)/src
 
 # Additional object and library files to link with
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = $(LDFLAG_LIBPATH)$(ECMP_PROJ)/src $(LDFLAG_LIBPATH)$(INET4_PROJ)/src  -lecmp$(D) -lINET$(D)
+LIBS = $(LDFLAG_LIBPATH)$(ECMP_PROJ)/src $(LDFLAG_LIBPATH)$(INET4_4_PROJ)/src  -lecmp$(D) -lINET$(D)
 
 # Output directory
 PROJECT_OUTPUT_DIR = ../out
@@ -54,6 +54,7 @@ OBJS = \
     $O/application/rdpapp/GenericAppMsgRdp_m.o \
     $O/transportlayer/contract/rdp/RdpCommand_m.o \
     $O/transportlayer/rdp/RdpConnection_m.o \
+    $O/transportlayer/rdp/RdpConnectionState_m.o \
     $O/transportlayer/rdp/rdp_common/RdpHeader_m.o
 
 # Message files
@@ -61,6 +62,7 @@ MSGFILES = \
     application/rdpapp/GenericAppMsgRdp.msg \
     transportlayer/contract/rdp/RdpCommand.msg \
     transportlayer/rdp/RdpConnection.msg \
+    transportlayer/rdp/RdpConnectionState.msg \
     transportlayer/rdp/rdp_common/RdpHeader.msg
 
 # SM files
@@ -68,7 +70,7 @@ SMFILES =
 
 # Other makefile variables (-K)
 ECMP_PROJ=../../ecmp
-INET4_PROJ=../../inet4
+INET4_4_PROJ=../../inet4.4
 
 #------------------------------------------------------------------------------
 
@@ -88,8 +90,8 @@ include $(CONFIGFILE)
 
 # Simulation kernel and user interface libraries
 OMNETPP_LIBS = -loppenvir$D $(KERNEL_LIBS) $(SYS_LIBS)
-ifneq ($(PLATFORM),win32.x86_64)
-LIBS += -Wl,-rpath,$(abspath $(ECMP_PROJ)/src) -Wl,-rpath,$(abspath $(INET4_PROJ)/src)
+ifneq ($(PLATFORM),win32)
+LIBS += -Wl,-rpath,$(abspath $(ECMP_PROJ)/src) -Wl,-rpath,$(abspath $(INET4_4_PROJ)/src)
 endif
 
 COPTS = $(CFLAGS) $(IMPORT_DEFINES) -DINET_IMPORT $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
@@ -106,13 +108,16 @@ ifneq ("$(COPTS)","$(shell cat $(COPTS_FILE) 2>/dev/null || echo '')")
 endif
 
 # On Windows, the target has additional file(s). An import lib and an optional debug symbol file is created too.
-ifeq ($(PLATFORM),win32.x86_64)
-  TARGET_FILES+= $(TARGET_DIR)/$(TARGET_IMPDEF) $(TARGET_DIR)/$(TARGET_IMPLIB)
-  LDFLAGS+=$(LDFLAG_IMPDEF)$O/$(TARGET_IMPDEF) $(LDFLAG_IMPLIB)$O/$(TARGET_IMPLIB)
+ifeq ($(PLATFORM),win32)
+  TARGET_FILES+= $(TARGET_DIR)/$(TARGET_IMPLIB)
+  LDFLAGS+= $(LDFLAG_IMPLIB)$O/$(TARGET_IMPLIB)
   ifeq ($(TOOLCHAIN_NAME),clang-msabi)
     ifeq ($(MODE),debug)
       TARGET_FILES+=$(TARGET_DIR)/$(TARGET_NAME).pdb
     endif
+  else
+    TARGET_FILES+= $(TARGET_DIR)/$(TARGET_IMPDEF)
+    LDFLAGS+= $(LDFLAG_IMPDEF)$O/$(TARGET_IMPDEF)
   endif
 endif
 
@@ -130,6 +135,8 @@ $(TARGET_DIR)/% :: $O/%
 	$(Q)$(LN) $< $@
 ifeq ($(TOOLCHAIN_NAME),clang-msabi)
 	-$(Q)-$(LN) $(<:%.dll=%.lib) $(@:%.dll=%.lib) 2>/dev/null
+
+$O/$(TARGET_NAME).pdb: $O/$(TARGET)
 endif
 
 $O/$(TARGET) $O/$(TARGET_IMPDEF) $O/$(TARGET_IMPLIB) &: $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile $(CONFIGFILE)
@@ -137,7 +144,7 @@ $O/$(TARGET) $O/$(TARGET_IMPDEF) $O/$(TARGET_IMPLIB) &: $(OBJS)  $(wildcard $(EX
 	@echo Creating shared library: $@
 	$(Q)$(SHLIB_LD) -o $O/$(TARGET) $(OBJS) $(EXTRA_OBJS) $(AS_NEEDED_OFF) $(WHOLE_ARCHIVE_ON) $(LIBS) $(WHOLE_ARCHIVE_OFF) $(OMNETPP_LIBS) $(LDFLAGS)
 	$(Q)$(SHLIB_POSTPROCESS) $O/$(TARGET)
-ifeq ($(PLATFORM),win32.x86_64)
+ifeq ($(PLATFORM),win32)
 	$(Q)llvm-ar d $O/$(TARGET_IMPLIB) $(TARGET) # WORKAROUND: throw away the first file from the archive to make the LLD generated import lib valid
 endif
 

@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include <inet/applications/common/SocketTag_m.h>
+#include <inet/common/socket/SocketTag_m.h>
 #include <inet/common/TimeTag_m.h>
 #include "../contract/rdp/RdpCommand_m.h"
 #include "../../application/rdpapp/GenericAppMsgRdp_m.h"

@@ -38,6 +38,7 @@ namespace rdp {
 class RdpConnection;
 class RdpSendQueue;
 class RdpReceiveQueue;
+
 class INET_API Rdp : public TransportProtocolBase
 {
 public:

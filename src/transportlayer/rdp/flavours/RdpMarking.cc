@@ -69,7 +69,7 @@ void RdpMarking::processTimer(cMessage *timer, RdpEventCode &event)
 
 }
 
-void RdpMarking::dataSent(uint32 fromseq)
+void RdpMarking::dataSent(uint32_t fromseq)
 {
 
 }
@@ -83,7 +83,6 @@ void RdpMarking::receivedHeader(unsigned int seqNum)
 {
     EV_INFO << "Header arrived at the receiver" << endl;
     conn->sendNackRdp(seqNum);
-    bool noPacketsInFlight = false;
     if(state->outOfWindowPackets > 0){
         state->outOfWindowPackets--;
     }

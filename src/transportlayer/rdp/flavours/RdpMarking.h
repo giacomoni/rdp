@@ -70,7 +70,7 @@ class INET_API RdpMarking : public RdpAlgorithm
 
     virtual void processTimer(cMessage *timer, RdpEventCode& event) override;
 
-    virtual void dataSent(uint32 fromseq) override;
+    virtual void dataSent(uint32_t fromseq) override;
 
     virtual void ackSent() override;
 

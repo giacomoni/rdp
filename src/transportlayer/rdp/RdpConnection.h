@@ -1,7 +1,6 @@
 #ifndef __INET_RdpConnection_H
 #define __INET_RdpConnection_H
 
-#include <inet/common/INETDefs.h>
 #include <inet/networklayer/common/L3Address.h>
 #include <inet/common/packet/ChunkQueue.h>
 #include <queue>
@@ -9,6 +8,7 @@
 
 #include "../../transportlayer/rdp/Rdp.h"
 #include "../rdp/rdp_common/RdpHeader.h"
+#include "RdpConnectionState_m.h"
 
 namespace inet {
 
@@ -17,107 +17,7 @@ class RdpOpenCommand;
 
 namespace rdp {
 
-class RdpHeader;
-class RdpSendQueue;
-class RdpReceiveQueue;
 class RdpAlgorithm;
-
-enum RdpState
-{
-    RDP_S_INIT = 0, RDP_S_CLOSED = FSM_Steady(1), RDP_S_LISTEN = FSM_Steady(2), RDP_S_SYN_SENT = FSM_Steady(3), RDP_S_SYN_RCVD = FSM_Steady(4), RDP_S_ESTABLISHED = FSM_Steady(5),
-};
-
-//
-// Event, strictly for the FSM state transition purposes.
-// DO NOT USE outside performStateTransition()!
-//
-enum RdpEventCode
-{
-    RDP_E_IGNORE,
-
-    // app commands
-    RDP_E_OPEN_ACTIVE,
-    RDP_E_OPEN_PASSIVE,
-    RDP_E_RCV_DATA,
-    RDP_E_RCV_SYN,
-};
-
-/**
- * Contains state variables ("TCB") for RDP.
- *
- * RdpStateVariables is effectively a "struct" -- it only contains
- * public data members. (Only declared as a class so that we can use
- * cObject as base class and make it possible to inspect
- * it in Tkenv.)
- *
- * RdpStateVariables only contains variables needed to implement
- * the "base" (RFC 793) RDP. More advanced RDP variants are encapsulated
- * into RdpAlgorithm subclasses which can have their own state blocks,
- * subclassed from RdpStateVariables. See RdpAlgorithm::createStateVariables().
- */
-class INET_API RdpStateVariables : public cObject
-{
-public:
-    RdpStateVariables();
-    virtual std::string str() const override;
-    virtual std::string detailedInfo() const OMNETPP5_CODE(override);
-
-public:
-    bool active;    // set if the connection was initiated by an active open
-    int delayedNackNo;
-    unsigned int request_id;
-    unsigned int internal_request_id;
-    double pacingTime;
-    double lastPullTime;
-    int IW;  //initial window size
-    int cwnd;
-    int ssthresh;
-    int receivedPacketsInWindow;
-    int sentPullsInWindow;
-    int additiveIncreasePackets;
-    int outOfWindowPackets;
-    int numPacketsToGet;
-    int numPacketsToSend;
-    bool congestionInWindow;
-    bool slowStartState;
-    bool waitToStart;
-    int slowStartPacketsToSend;
-    unsigned int numRcvdPkt;
-    unsigned int numRcvTrimmedHeader;
-
-    int numberReceivedPackets;
-    int numberSentPackets;
-
-    bool connNotAddedYet;
-    bool justReduced;
-
-    //Number of packets currently in flight. Inferred by IW and number of PR added
-    int packetsInFlight;
-
-    //RTT - Data
-    simtime_t sRtt;
-    simtime_t minRtt;
-    simtime_t latestRtt;
-    simtime_t rttvar;
-    //RTT Step - Data
-    simtime_t sRttStep;
-    simtime_t minRttStep;
-    simtime_t rttvarStep;
-
-    //RTT - Header
-    simtime_t sRttHeader;
-    simtime_t minRttHeader;
-    simtime_t latestRttHeader;
-    simtime_t rttvarHeader;
-    //RTT Step - Header
-    simtime_t sRttStepHeader;
-    simtime_t minRttStepHeader;
-    simtime_t rttvarStepHeader;
-
-    std::map<unsigned int, simtime_t> pullRequestsTransmissionTimes;
-
-
-};
 
 class INET_API RdpConnection : public cSimpleModule
 {
@@ -384,12 +284,12 @@ public:
     /**
      * Utility: converts a given simtime to a timestamp (TS).
      */
-    static uint32 convertSimtimeToTS(simtime_t simtime);
+    static uint32_t convertSimtimeToTS(simtime_t simtime);
 
     /**
      * Utility: converts a given timestamp (TS) to a simtime.
      */
-    static simtime_t convertTSToSimtime(uint32 timestamp);
+    static simtime_t convertTSToSimtime(uint32_t timestamp);
 
 };
 

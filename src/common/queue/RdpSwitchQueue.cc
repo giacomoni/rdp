@@ -15,7 +15,9 @@
 
 #include <inet/common/INETDefs.h>
 #include <inet/common/ModuleAccess.h>
+#include "inet/common/PacketEventTag.h"
 #include <inet/common/Simsignals.h>
+#include "inet/common/TimeTag.h"
 #include <inet/queueing/function/PacketComparatorFunction.h>
 #include <inet/queueing/function/PacketDropperFunction.h>
 #include <inet/networklayer/ipv4/Ipv4Header_m.h>
@@ -51,7 +53,7 @@ void RdpSwitchQueue::initialize(int stage)
         collector = findConnectedModule<IActivePacketSink>(outputGate);
 
         subscribe(packetPushedSignal, this);
-        subscribe(packetPoppedSignal, this);
+        subscribe(packetPulledSignal, this);
         subscribe(packetRemovedSignal, this);
         subscribe(packetDroppedSignal, this);
         subscribe(packetCreatedSignal, this);
@@ -70,10 +72,10 @@ void RdpSwitchQueue::initialize(int stage)
         recordScalar("packetCapacity= ", packetCapacity);
     }
     else if (stage == INITSTAGE_QUEUEING) {
-            checkPushPacketSupport(inputGate);
-            checkPopPacketSupport(outputGate);
+            checkPacketOperationSupport(inputGate);
+            checkPacketOperationSupport(outputGate);
             if (producer != nullptr)
-                producer->handleCanPushPacket(inputGate);
+                producer->handleCanPushPacketChanged(inputGate->getPathStartGate());
         }
     else if (stage == INITSTAGE_LAST)
         updateDisplayString();
@@ -82,12 +84,6 @@ void RdpSwitchQueue::initialize(int stage)
     cSimpleModule::emit(dataQueueLengthSignal, dataQueue.getLength());
     cSimpleModule::emit(headersQueueLengthSignal, headersQueue.getLength());
     cSimpleModule::emit(numTrimmedPktSig, numTrimmedPkt);
-}
-
-void RdpSwitchQueue::handleMessage(cMessage *message)
-{
-    auto packet = check_and_cast<Packet *>(message);
-    pushPacket(packet, packet->getArrivalGate());
 }
 
 bool RdpSwitchQueue::isOverloaded() const
@@ -100,6 +96,16 @@ int RdpSwitchQueue::getNumPackets() const
     return dataQueue.getLength();
 }
 
+int RdpSwitchQueue::getSynAckQueueNumPackets() const
+{
+    return synAckQueue.getLength();
+}
+
+int RdpSwitchQueue::getHeaderQueueNumPackets() const
+{
+    return headersQueue.getLength();
+}
+
 Packet *RdpSwitchQueue::getPacket(int index) const
 {
     if (index < 0 || index >= dataQueue.getLength())
@@ -107,18 +113,10 @@ Packet *RdpSwitchQueue::getPacket(int index) const
     return check_and_cast<Packet *>(dataQueue.get(index));
 }
 
-void RdpSwitchQueue::dropPacket(Packet *packet, PacketDropReason reason, int limit)
-{
-    PacketDropDetails details;
-    details.setReason(reason);
-    details.setLimit(limit);
-    cSimpleModule::emit(packetDroppedSignal, packet, &details);
-    delete packet;
-}
-
 void RdpSwitchQueue::pushPacket(Packet *packet, cGate *gate)
 {
     Enter_Method("pushPacket");
+    take(packet);
     emit(packetPushedSignal, packet);
     EV_INFO << "PACKET STRING" << packet->str() << endl;
     EV_INFO << "Pushing packet " << packet->getName() << " into the queue." << endl;
@@ -176,53 +174,92 @@ void RdpSwitchQueue::pushPacket(Packet *packet, cGate *gate)
         dataQueueLength=dataQueue.getLength();
         return;
     }
+    cNamedObject packetPushEndedDetails("atomicOperationEnded");
+    emit(packetPushEndedSignal, nullptr, &packetPushEndedDetails);
+    updateDisplayString();
 }
 
 
-Packet *RdpSwitchQueue::popPacket(cGate *gate) {
-    Enter_Method("popPacket");
+Packet *RdpSwitchQueue::pullPacket(cGate *gate) {
+    Enter_Method("pullPacket");
     if (dataQueue.isEmpty() && headersQueue.isEmpty() && synAckQueue.isEmpty()){
         return nullptr;
     }
     else if (synAckQueue.getLength()!=0){  //syn/ack pop
         auto packet = check_and_cast<Packet *>(synAckQueue.pop());
+        take(packet);
+        auto queueingTime = simTime() - packet->getArrivalTime();
+        auto packetEvent = new PacketQueuedEvent();
+        packetEvent->setQueuePacketLength(getSynAckQueueNumPackets());
+        packetEvent->setQueueDataLength(getSynAckQueueTotalLength());
+        insertPacketEvent(this, packet, PEK_QUEUED, queueingTime, packetEvent);
+        increaseTimeTag<QueueingTimeTag>(packet, queueingTime, queueingTime);
         cSimpleModule::emit(packetRemovedSignal, packet);
+        animatePullPacket(packet, outputGate);
         updateDisplayString();
-        animateSend(packet, outputGate);
         return packet;
     }
     else if (headersQueue.getLength() == 0 && dataQueue.getLength() != 0) { //dataQueue pop
         auto packet = check_and_cast<Packet *>(dataQueue.pop());
+        take(packet);
+        auto queueingTime = simTime() - packet->getArrivalTime();
+        auto packetEvent = new PacketQueuedEvent();
+        packetEvent->setQueuePacketLength(getNumPackets());
+        packetEvent->setQueueDataLength(getTotalLength());
+        insertPacketEvent(this, packet, PEK_QUEUED, queueingTime, packetEvent);
+        increaseTimeTag<QueueingTimeTag>(packet, queueingTime, queueingTime);
+        cSimpleModule::emit(packetRemovedSignal, packet);
         cSimpleModule::emit(dataQueueLengthSignal, dataQueue.getLength());
-        emit(packetRemovedSignal, packet);
+        animatePullPacket(packet, outputGate);
         updateDisplayString();
-        animateSend(packet, outputGate);
         return packet;
     }
     else if (headersQueue.getLength() != 0 && dataQueue.getLength() == 0) { //header/pull pop
         auto packet = check_and_cast<Packet *>(headersQueue.pop());
+        take(packet);
+        auto queueingTime = simTime() - packet->getArrivalTime();
+        auto packetEvent = new PacketQueuedEvent();
+        packetEvent->setQueuePacketLength(getHeaderQueueNumPackets());
+        packetEvent->setQueueDataLength(getHeaderQueueTotalLength());
+        insertPacketEvent(this, packet, PEK_QUEUED, queueingTime, packetEvent);
+        increaseTimeTag<QueueingTimeTag>(packet, queueingTime, queueingTime);
+        cSimpleModule::emit(packetRemovedSignal, packet);
         cSimpleModule::emit(headersQueueLengthSignal, headersQueue.getLength());
-        emit(packetRemovedSignal, packet);
+        animatePullPacket(packet, outputGate);
         updateDisplayString();
-        animateSend(packet, outputGate);
         return packet;
     }
     else if ( headersQueue.getLength() != 0 && dataQueue.getLength() != 0 && weight%10 == 0) { //round robin dataQueue pop
         auto packet = check_and_cast<Packet *>(dataQueue.pop());
+        take(packet);
+        auto queueingTime = simTime() - packet->getArrivalTime();
+        auto packetEvent = new PacketQueuedEvent();
+        packetEvent->setQueuePacketLength(getNumPackets());
+        packetEvent->setQueueDataLength(getTotalLength());
+        insertPacketEvent(this, packet, PEK_QUEUED, queueingTime, packetEvent);
+        increaseTimeTag<QueueingTimeTag>(packet, queueingTime, queueingTime);
+        cSimpleModule::emit(packetRemovedSignal, packet);
         cSimpleModule::emit(dataQueueLengthSignal, dataQueue.getLength());
-        emit(packetRemovedSignal, packet);
+        animatePullPacket(packet, outputGate);
+        updateDisplayString();
         ++weight;
-        animateSend(packet, outputGate);
         return packet;
     }
     else if (headersQueue.getLength() != 0 && dataQueue.getLength() != 0 ) {
         auto packet = check_and_cast<Packet *>(headersQueue.pop());
-        emit(packetRemovedSignal, packet);
-        EV_INFO << " get from header queue- size = " << packet->getByteLength() << endl;
+        take(packet);
+        auto queueingTime = simTime() - packet->getArrivalTime();
+        auto packetEvent = new PacketQueuedEvent();
+        packetEvent->setQueuePacketLength(getHeaderQueueNumPackets());
+        packetEvent->setQueueDataLength(getHeaderQueueTotalLength());
+        insertPacketEvent(this, packet, PEK_QUEUED, queueingTime, packetEvent);
+        increaseTimeTag<QueueingTimeTag>(packet, queueingTime, queueingTime);
+        cSimpleModule::emit(packetRemovedSignal, packet);
         cSimpleModule::emit(headersQueueLengthSignal, headersQueue.getLength());
-        ++weight;
+        animatePullPacket(packet, outputGate);
+        EV_INFO << " get from header queue- size = " << packet->getByteLength() << endl;
         updateDisplayString();
-        animateSend(packet, outputGate);
+        ++weight;
         return packet;
     }
     return nullptr;
@@ -253,12 +290,16 @@ bool RdpSwitchQueue::isEmpty() const
     return d;
 }
 
+void RdpSwitchQueue::removeAllPackets()
+{
+    Enter_Method("removeAllPacket");
+    updateDisplayString();
+}
+
 void RdpSwitchQueue::receiveSignal(cComponent *source, simsignal_t signal, cObject *object, cObject *details)
 {
-    Enter_Method("receiveSignal");
-    if (signal == packetPushedSignal || signal == packetPoppedSignal || signal == packetRemovedSignal)
-        ;
-    else if (signal == packetDroppedSignal)
+    Enter_Method("%s", cComponent::getSignalName(signal));
+    if (signal == packetDroppedSignal)
         numDroppedPackets++;
     else if (signal == packetCreatedSignal)
         numCreatedPackets++;

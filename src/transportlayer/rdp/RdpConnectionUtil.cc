@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <inet/networklayer/contract/IL3AddressType.h>
 #include <inet/networklayer/common/IpProtocolId_m.h>
-#include <inet/applications/common/SocketTag_m.h>
+#include <inet/common/socket/SocketTag_m.h>
 #include <inet/common/INETUtils.h>
 #include <inet/common/packet/Message.h>
 #include <inet/networklayer/common/EcnTag_m.h>
@@ -172,7 +172,6 @@ void RdpConnection::configureStateVariables()
     state->ssthresh = rdpMain->par("ssthresh");
     state->cwnd = state->IW;
     state->slowStartState = true;
-    state->slowStartPacketsToSend = 0;
     state->sentPullsInWindow = state->IW;
     state->additiveIncreasePackets = rdpMain->par("additiveIncreasePackets");
     rdpMain->recordScalar("initialWindow=", state->IW);
@@ -339,14 +338,14 @@ void RdpConnection::computeRtt(unsigned int pullSeqNum, bool isHeader){
     }
 }
 
-uint32 RdpConnection::convertSimtimeToTS(simtime_t simtime)
+uint32_t RdpConnection::convertSimtimeToTS(simtime_t simtime)
 {
     ASSERT(SimTime::getScaleExp() <= -3);
-    uint32 timestamp = (uint32) (simtime.inUnit(SIMTIME_MS));
+    uint32_t timestamp = (uint32_t) (simtime.inUnit(SIMTIME_MS));
     return timestamp;
 }
 
-simtime_t RdpConnection::convertTSToSimtime(uint32 timestamp)
+simtime_t RdpConnection::convertTSToSimtime(uint32_t timestamp)
 {
     ASSERT(SimTime::getScaleExp() <= -3);
     simtime_t simtime(timestamp, SIMTIME_MS);

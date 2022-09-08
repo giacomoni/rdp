@@ -26,8 +26,8 @@ module NetworkLayerNodeBaseEcmp extends LinkLayerNodeBase
         bool hasGn = default(false); 
         bool forwarding = default(false);
         bool multicastForwarding = default(false);
-        *.forwarding = forwarding;
-        *.multicastForwarding = multicastForwarding;
+        *.forwarding = this.forwarding;
+        *.multicastForwarding = this.multicastForwarding;
         //@figure[networkLayer](type=rectangle; pos=250,306; size=1000,130; fillColor=#00ff00; lineColor=#808080; cornerRadius=5; fillOpacity=0.1);
         //@figure[networkLayer.title](type=text; pos=1245,311; anchor=ne; text="network layer");
 
@@ -59,33 +59,9 @@ module NetworkLayerNodeBaseEcmp extends LinkLayerNodeBase
         generic.ifIn <-- nl.out++ if exists(generic);
         generic.ifOut --> nl.in++ if exists(generic);
 
-        for i=0..numLoInterfaces-1 {
-            nl.out++ --> lo[i].upperLayerIn;
-            lo[i].upperLayerOut --> nl.in++;
-        }
+        cb.out++ --> nl.in++;
+        cb.in++ <-- nl.out++;
 
-        for i=0..sizeof(radioIn)-1 {
-            wlan[i].upperLayerOut --> nl.in++;
-            wlan[i].upperLayerIn <-- nl.out++;
-        }
-
-        for i=0..sizeof(ethg)-1 {
-            eth[i].upperLayerOut --> nl.in++;
-            eth[i].upperLayerIn <-- nl.out++;
-        }
-
-        for i=0..sizeof(pppg)-1 {
-            ppp[i].upperLayerOut --> nl.in++;
-            ppp[i].upperLayerIn <-- nl.out++;
-        }
-
-        for i=0..numTunInterfaces-1 {
-            tun[i].upperLayerOut --> nl.in++;
-            tun[i].upperLayerIn <-- nl.out++;
-        }
-
-        for i=0..numVlanInterfaces-1 {
-            vlan[i].upperLayerOut --> nl.in++;
-            vlan[i].upperLayerIn <-- nl.out++;
-        }
+        llc.upperLayerOut --> nl.in++ if exists(llc);
+        llc.upperLayerIn <-- nl.out++ if exists(llc);
 }

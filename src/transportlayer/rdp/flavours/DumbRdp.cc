@@ -35,7 +35,7 @@ void DumbRdp::processTimer(cMessage *timer, RdpEventCode &event)
 
 }
 
-void DumbRdp::dataSent(uint32 fromseq)
+void DumbRdp::dataSent(uint32_t fromseq)
 {
 
 }

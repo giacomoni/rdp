@@ -3,7 +3,7 @@
 
 #include <inet/common/packet/Message.h>
 #include <inet/common/ProtocolTag_m.h>
-#include <inet/applications/common/SocketTag_m.h>
+#include "inet/common/socket/SocketTag_m.h"
 #include <inet/common/Protocol.h>
 
 namespace inet {
@@ -44,7 +44,7 @@ void RdpSocket::sendToRDP(cMessage *msg, int connId)
     if (!gateToRdp)
         throw cRuntimeError("RdpSocket: setOutputGate() must be invoked before socket can be used");
 
-    auto &tags = getTags(msg);
+    auto &tags = check_and_cast<ITaggedObject *>(msg)->getTags();
     tags.addTagIfAbsent<DispatchProtocolReq>()->setProtocol(&Protocol::rdp);
     tags.addTagIfAbsent<SocketReq>()->setSocketId(connId == -1 ? this->connId : connId);
     check_and_cast<cSimpleModule*>(gateToRdp->getOwnerModule())->send(msg, gateToRdp);
@@ -141,7 +141,7 @@ bool RdpSocket::isOpen() const
 
 bool RdpSocket::belongsToSocket(cMessage *msg) const
 {
-    auto &tags = getTags(msg);
+    auto& tags = check_and_cast<ITaggedObject *>(msg)->getTags();
     auto socketInd = tags.findTag<SocketInd>();
     return socketInd != nullptr && socketInd->getSocketId() == connId;
 }

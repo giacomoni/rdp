@@ -65,7 +65,7 @@ void RdpAIAD::processTimer(cMessage *timer, RdpEventCode &event)
 
 }
 
-void RdpAIAD::dataSent(uint32 fromseq)
+void RdpAIAD::dataSent(uint32_t fromseq)
 {
 
 }
@@ -79,7 +79,6 @@ void RdpAIAD::receivedHeader(unsigned int seqNum)
 {
     EV_INFO << "Header arrived at the receiver" << endl;
     conn->sendNackRdp(seqNum);
-    bool noPacketsInFlight = false;
     if(state->outOfWindowPackets > 0){
         state->outOfWindowPackets--;
     }

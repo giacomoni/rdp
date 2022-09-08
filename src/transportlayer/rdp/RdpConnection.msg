@@ -6,6 +6,8 @@ import inet.common.packet.ChunkQueue;
 import inet.common.packet.Packet;
 import inet.networklayer.common.L3Address;
 
+import RdpConnectionState;
+
 cplusplus {{
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
@@ -18,40 +20,6 @@ cplusplus {{
 namespace inet::rdp;
 
 class RdpAlgorithm extends cObject { @existingClass; }
-
-struct RdpStateVariables
-{
-    @existingClass;
-    @descriptor(readonly);
-    
-    bool active;
-    
-    unsigned int request_id;
-    unsigned int internal_request_id;
-    uint32 IW;
-    uint32 cwnd;
-    uint32 ssthresh;
-    uint32 receivedPacketsInWindow;
-    uint32 sentPullsInWindow;
-    uint32 additiveIncreasePackets;
-    uint32 slowStartPacketsToSend;
-    uint32 outOfWindowPackets;
-    bool slowStartState;
-    bool congestionInWindow;
-    bool waitToStart;
-    int delayedNackNo;
-    uint32 numPacketsToGet;
-    uint32 numPacketsToSend;
-
-    unsigned int numRcvdPkt;
-    unsigned int numRcvTrimmedHeader;
-
-
-    uint32 numberReceivedPackets;
-    uint32 numberSentPackets;
-
-    bool connNotAddedYet;
-};
 
 class RdpSendQueue extends cObject
 {
