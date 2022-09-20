@@ -146,7 +146,7 @@ bool RdpConnection::processTimer(cMessage *msg)
 
 void RdpConnection::schedulePullTimer(double time)
 {
-    Enter_method("schedulePullTimer");
+    Enter_Method("schedulePullTimer");
     if(!paceTimerMsg->isScheduled()){
         take(paceTimerMsg);
         scheduleAt(simTime() + time, paceTimerMsg);
