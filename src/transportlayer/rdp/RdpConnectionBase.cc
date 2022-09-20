@@ -146,6 +146,7 @@ bool RdpConnection::processTimer(cMessage *msg)
 
 void RdpConnection::schedulePullTimer(double time)
 {
+    Enter_method("schedulePullTimer");
     if(!paceTimerMsg->isScheduled()){
         take(paceTimerMsg);
         scheduleAt(simTime() + time, paceTimerMsg);
@@ -154,6 +155,7 @@ void RdpConnection::schedulePullTimer(double time)
 
 void RdpConnection::activatePullTimer()
 {
+    Enter_Method("activatePullTimer");
     //Do nothing if the timer is scheduled.
     //If it is not scheduled, schedule the next PR based on the
     // last PR sent timestamp and current pace
@@ -161,15 +163,15 @@ void RdpConnection::activatePullTimer()
         if(state->lastPullTime != SIMTIME_ZERO){
             simtime_t timeElapsedSinceLastSent = simTime()- state->lastPullTime;
             if (timeElapsedSinceLastSent.dbl() < state->pacingTime){
-
+                take(paceTimerMsg);
                 scheduleAt(simTime() + (state->pacingTime - timeElapsedSinceLastSent.dbl()), paceTimerMsg);
             }else{
-     
+                take(paceTimerMsg);
                 scheduleAt(simTime(), paceTimerMsg);
             }
             }
         else{
- 
+            take(paceTimerMsg);
             scheduleAt(simTime(), paceTimerMsg);
         }
     }

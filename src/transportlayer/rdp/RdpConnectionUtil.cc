@@ -567,7 +567,7 @@ void RdpConnection::paceChanged(double newPace){
         // or increased.
         // Let sendingTime be the time in which the last PR was sent. The newArrivalTime will be now
         // if sendingTime + newPace <= simTime(), else sendingTime + newPace.
-        
+        Enter_Method("paceChanged");
         if(paceTimerMsg->isScheduled()){
             simtime_t sendingTime = paceTimerMsg->getSendingTime();
             simtime_t newArrivalTime;
