@@ -113,6 +113,9 @@ struct RdpStateVariables
     
     uint32_t sentPackets = 0;
     
+    uint32_t observeWindEnd = 0; // used by RdpMark flavour.
+    uint32_t observeWindSize = 0; // used by RdpMark flavour.
+    
 };
 
 cplusplus(RdpStateVariables) {{
