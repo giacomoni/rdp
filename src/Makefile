@@ -49,6 +49,8 @@ OBJS = \
     $O/transportlayer/rdp/flavours/DumbRdp.o \
     $O/transportlayer/rdp/flavours/RdpAIAD.o \
     $O/transportlayer/rdp/flavours/RdpAIMD.o \
+    $O/transportlayer/rdp/flavours/RdpAIMD2.o \
+    $O/transportlayer/rdp/flavours/RdpMark.o \
     $O/transportlayer/rdp/flavours/RdpMarking.o \
     $O/transportlayer/rdp/rdp_common/RdpHeader.o \
     $O/application/rdpapp/GenericAppMsgRdp_m.o \

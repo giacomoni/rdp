@@ -91,16 +91,12 @@ void RdpAIMD::receivedHeader(unsigned int seqNum)
         state->congestionInWindow = true;  //may have to change so certain amount of headers before multiplicative decrease
         state->ssthresh = state->cwnd/2;  //ssthresh, half of cwnd at loss event
         conn->emit(ssthreshSignal, state->ssthresh);
-        //state->cwnd = state->cwnd/2;
-        //state->cwnd = state->cwnd/2;
-        state->cwnd = state->cwnd - 5;
+        state->cwnd = state->cwnd/2;
         if(state->cwnd == 0) state->cwnd = 1;
-        //if(state->receivedPacketsInWindow >= state->cwnd){
-            state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd;
-            state->receivedPacketsInWindow = 0;
-            state->sentPullsInWindow = state->cwnd;
-            state->waitToStart = true;
-        //}
+        state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd;
+        state->receivedPacketsInWindow = 0;
+        state->sentPullsInWindow = state->cwnd;
+        state->waitToStart = true;
     }
 
     if (state->numberReceivedPackets == 0 && state->connNotAddedYet == true) { //TODO never going to be called - IW is prioritised REMOVE
@@ -128,7 +124,6 @@ void RdpAIMD::receivedHeader(unsigned int seqNum)
 void RdpAIMD::receivedData(unsigned int seqNum, bool isMarked)
 {
     int pullPacketsToSend = 0;
-    bool windowIncreased = false;
     //If there are some packets still in the network following a trimmed header arrival
     if(state->outOfWindowPackets > 0){
         state->outOfWindowPackets--;
@@ -138,9 +133,7 @@ void RdpAIMD::receivedData(unsigned int seqNum, bool isMarked)
         state->sentPullsInWindow--;
     }
     EV_INFO << "Data packet arrived at the receiver - seq num " << seqNum << endl;
-    unsigned int arrivedPktSeqNo = seqNum;
-    conn->sendAckRdp(arrivedPktSeqNo); //TODO rename method to sendAck
-    unsigned int seqNo = seqNum;
+    conn->sendAckRdp(seqNum); //TODO rename method to sendAck
     state->numberReceivedPackets++;
 
     if (state->numberReceivedPackets >= state->numPacketsToGet) {
@@ -153,53 +146,47 @@ void RdpAIMD::receivedData(unsigned int seqNum, bool isMarked)
         return;
     }
 
-    if(state->cwnd < state->ssthresh) { //Slow-Start - Exponential Increase
-        state->slowStartState = true;
-        pullPacketsToSend++;
-        state->cwnd++;
-    }
-    else{
-        state->slowStartState = false;
-    }
-
     if(state->outOfWindowPackets <= 0){
+        if(state->cwnd < state->ssthresh) { //Slow-Start - Exponential Increase
+            state->slowStartState = true;
+            pullPacketsToSend++;
+            state->cwnd++;
+        }
+        else{
+            state->slowStartState = false;
+        }
         if(((state->receivedPacketsInWindow % state->cwnd) == 0)){ //Congestion Avoidance - Linear Increase
             if(state->slowStartState){
-                //pullPacketsToSend = state->cwnd;
                 state->receivedPacketsInWindow = 0;
-                windowIncreased = true;
-                //state->cwnd = state->cwnd + state->cwnd;
                 state->congestionInWindow = false;
             }
             else{
-                windowIncreased = true;
                 state->cwnd = state->cwnd + state->additiveIncreasePackets;
                 pullPacketsToSend = pullPacketsToSend + state->additiveIncreasePackets;
                 state->receivedPacketsInWindow = 0;
                 state->congestionInWindow = false;
             }
         }
-    }
 
-    if (state->numberReceivedPackets == 1 && state->connNotAddedYet == true && state->outOfWindowPackets <= 0) {
-        conn->prepareInitialRequest();
-        conn->addRequestToPullsQueue();
-        for(int pullNum = 0; pullNum < pullPacketsToSend; pullNum++){
+        if (state->numberReceivedPackets == 1 && state->connNotAddedYet == true) {
+            conn->prepareInitialRequest();
             conn->addRequestToPullsQueue();
-        }
-    }
-    else if((state->outOfWindowPackets <= 0) && (state->sentPullsInWindow < state->cwnd)){
-        if (state->numberReceivedPackets <= state->numPacketsToGet) {
-            //for loop sending pull for each pullPacketToSend;
-            pullPacketsToSend++; //Pull Request to maintain current flow
-
-            if(pullPacketsToSend > 0 && ((state->numberReceivedPackets + state->sentPullsInWindow + pullPacketsToSend) >= state->numPacketsToGet)){
-                int newPullPacketsToSend = (state->numPacketsToGet - (state->numberReceivedPackets + state->sentPullsInWindow));
-                if(newPullPacketsToSend < pullPacketsToSend) pullPacketsToSend = newPullPacketsToSend;
-            } //maybe add this if statement to first window instance (see previous if block)
-
             for(int pullNum = 0; pullNum < pullPacketsToSend; pullNum++){
                 conn->addRequestToPullsQueue();
+            }
+        }
+        else if(state->sentPullsInWindow < state->cwnd){
+            if (state->numberReceivedPackets <= state->numPacketsToGet) {
+                //for loop sending pull for each pullPacketToSend;
+                pullPacketsToSend++; //Pull Request to maintain current flow
+                if(pullPacketsToSend > 0 && ((state->numberReceivedPackets + state->sentPullsInWindow + pullPacketsToSend) >= state->numPacketsToGet)){
+                    int newPullPacketsToSend = (state->numPacketsToGet - (state->numberReceivedPackets + state->sentPullsInWindow));
+                    if(newPullPacketsToSend < pullPacketsToSend) pullPacketsToSend = newPullPacketsToSend;
+                } //maybe add this if statement to first window instance (see previous if block)
+
+                for(int pullNum = 0; pullNum < pullPacketsToSend; pullNum++){
+                    conn->addRequestToPullsQueue();
+                }
             }
         }
     }

@@ -52,10 +52,7 @@ class INET_API RdpSwitchQueue : public PacketQueueBase, public cListener
    unsigned int weight;
    int numTrimmedPkt ;
 
-   cGate *inputGate = nullptr;
    IActivePacketSource *producer = nullptr;
-
-   cGate *outputGate = nullptr;
    IActivePacketSink *collector = nullptr;
 
    b dataCapacity = b(-1);

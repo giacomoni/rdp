@@ -194,33 +194,7 @@ void RdpMarking::receivedData(unsigned int seqNum, bool isMarked)
                     std::cout << "\n Alpha Value: " << state->alpha << endl;
                     std::cout << "\n Gamma Value: " << state->gamma << endl; //see reasoning in paper
                     std::cout << "\n Ratio Value: " << ratio << endl;
-                    std::cout << "\n Old CWND Value: " << state->cwnd << endl;
-                    state->cwnd = state->cwnd * (1 - state->alpha / 2);
-                    state->justReduced = false;
-                    state->ssthresh = state->cwnd;
-                    cwndReduced = true;
-                    std::cout << "\n New CWND Value: " << state->cwnd << endl;
                     state->numOfMarkedPackets = 0;
-                    std::cout << "\n sentPullsInWindow" << state->sentPullsInWindow << endl;
-                    state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd;
-                    std::cout << "\n Out of Window Packets: " << state->outOfWindowPackets << endl;
-                    state->receivedPacketsInWindow = 0;
-                    state->sentPullsInWindow = state->cwnd;
-                    if(state->outOfWindowPackets < 0){
-                        state->congestionInWindow = false;
-                        int packetsMissing = state->outOfWindowPackets * -1;
-                        state->sentPullsInWindow = state->cwnd - packetsMissing;
-                        for(int i = 0; i < state->outOfWindowPackets * -1; i++){
-                            conn->addRequestToPullsQueue();
-
-                        }
-                        state->outOfWindowPackets = 0;
-                        state->pacingTime = state->sRtt.dbl()/(double(state->cwnd));
-                        //state->pacingTime = state->sRtt.dbl()/(double(125));
-                        if(conn->getPullsQueueLength() > 0){
-                            conn->schedulePullTimer(); //should check if timer is scheduled, if is do nothing. Otherwise, schedule new timer based on previous time step.
-                        }
-                    }
                 }
                 else{
                     double ratio = 0;
@@ -261,6 +235,35 @@ void RdpMarking::receivedData(unsigned int seqNum, bool isMarked)
 //                }
 //            }
 //        }
+    }
+
+    if(isMarked){
+        std::cout << "\n Old CWND Value: " << state->cwnd << endl;
+        state->cwnd = state->cwnd * (1 - state->alpha / 2);
+        state->justReduced = false;
+        state->ssthresh = state->cwnd;
+        cwndReduced = true;
+        std::cout << "\n New CWND Value: " << state->cwnd << endl;
+        std::cout << "\n sentPullsInWindow" << state->sentPullsInWindow << endl;
+        state->outOfWindowPackets = state->sentPullsInWindow - state->cwnd;
+        std::cout << "\n Out of Window Packets: " << state->outOfWindowPackets << endl;
+        state->receivedPacketsInWindow = 0;
+        state->sentPullsInWindow = state->cwnd;
+        if(state->outOfWindowPackets < 0){
+            state->congestionInWindow = false;
+            int packetsMissing = state->outOfWindowPackets * -1;
+            state->sentPullsInWindow = state->cwnd - packetsMissing;
+            for(int i = 0; i < state->outOfWindowPackets * -1; i++){
+                conn->addRequestToPullsQueue();
+
+            }
+            state->outOfWindowPackets = 0;
+            state->pacingTime = state->sRtt.dbl()/(double(state->cwnd));
+            //state->pacingTime = state->sRtt.dbl()/(double(125));
+            if(conn->getPullsQueueLength() > 0){
+                conn->schedulePullTimer(); //should check if timer is scheduled, if is do nothing. Otherwise, schedule new timer based on previous time step.
+            }
+        }
     }
 
     if (state->numberReceivedPackets == 1 && state->connNotAddedYet == true && state->outOfWindowPackets <= 0 && !cwndReduced) {

@@ -110,6 +110,9 @@ struct RdpStateVariables
     simtime_t rttvarStepHeader;
 
     PullTimeMap pullRequestsTransmissionTimes;
+    
+    uint32_t sentPackets = 0;
+    
 };
 
 cplusplus(RdpStateVariables) {{

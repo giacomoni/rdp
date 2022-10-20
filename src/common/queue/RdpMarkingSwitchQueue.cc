@@ -41,25 +41,29 @@ void RdpMarkingSwitchQueue::pushPacket(Packet *packet, cGate *gate)
 {
     Enter_Method("pushPacket");
     take(packet);
-    emit(packetPushedSignal, packet);
+    cNamedObject packetPushStartedDetails("atomicOperationStarted");
+    emit(packetPushStartedSignal, packet, &packetPushStartedDetails);
     EV_INFO << "PACKET STRING" << packet->str() << endl;
     EV_INFO << "Pushing packet " << packet->getName() << " into the queue." << endl;
     const auto& ipv4Datagram = packet->peekAtFront<Ipv4Header>();
     const auto& rdpHeaderPeek = packet->peekDataAt<rdp::RdpHeader>(ipv4Datagram->getChunkLength());
     if ( rdpHeaderPeek->getAckBit()==true || rdpHeaderPeek->getSynBit()==true || rdpHeaderPeek->getNackBit()==true) {
        synAckQueue.insert(packet);
+       //std::cout << "\nPushing packet " << packet->getName() << " into SYN ACK queue." << endl;
        synAckQueueLength=synAckQueue.getLength();
-       return;
+       goto pushEnded;
     }
     else if (rdpHeaderPeek->isHeader() == true ) {
         headersQueue.insert(packet);
+        //std::cout << "\nPushing packet " << packet->getName() << " into Headers queue." << endl;
         headersQueueLength = headersQueue.getLength();
-        return;
+        goto pushEnded;
     }
     else if (rdpHeaderPeek->isPullPacket() == true ) {
         headersQueue.insert(packet);
+        //std::cout << "\nPushing packet " << packet->getName() << " into the Pull queue." << endl;
         headersQueueLength = headersQueue.getLength();
-        return;
+        goto pushEnded;
     }
     else if (isOverloaded()) {
         std::string header="Header-";
@@ -91,10 +95,11 @@ void RdpMarkingSwitchQueue::pushPacket(Packet *packet, cGate *gate)
         ++numTrimmedPkt;
         numTrimmedPacketsVec.record(numTrimmedPkt);
         cSimpleModule::emit(numTrimmedPktSig, numTrimmedPkt);
-        return;
+        goto pushEnded;
     }
     else {
-        if(dataQueue.getLength() > kthresh){
+        if(dataQueue.getLength() >= kthresh){
+            //std::cout << "\nPacket over threshold" << endl;
             auto ipv4Header = packet->removeAtFront<Ipv4Header>();
             ASSERT(B(ipv4Header->getTotalLengthField()) >= ipv4Header->getChunkLength());
             if (ipv4Header->getTotalLengthField() < packet->getDataLength())
@@ -107,8 +112,15 @@ void RdpMarkingSwitchQueue::pushPacket(Packet *packet, cGate *gate)
         }
         dataQueue.insert(packet);
         dataQueueLength=dataQueue.getLength();
-        return;
+        goto pushEnded;
     }
+    pushEnded:
+        if (collector != nullptr && !isEmpty())
+                collector->handleCanPullPacketChanged(outputGate->getPathEndGate());
+    cNamedObject packetPushEndedDetails("atomicOperationEnded");
+    emit(packetPushEndedSignal, nullptr, &packetPushEndedDetails);
+    updateDisplayString();
+    return;
 }
 
 }

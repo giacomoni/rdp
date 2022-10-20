@@ -3,7 +3,7 @@
 package rdp.simulations.SimpleSimulation;
 
 @namespace(inet);
-@namespace(ndp);
+@namespace(rdp);
 
 
 import rdp.node.StandardHostRdp;

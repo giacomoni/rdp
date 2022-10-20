@@ -173,6 +173,8 @@ void RdpConnection::configureStateVariables()
     state->cwnd = state->IW;
     state->slowStartState = true;
     state->sentPullsInWindow = state->IW;
+    state->observeWindEnd = state->IW;
+    state->observeWindSize = state->IW;
     state->additiveIncreasePackets = rdpMain->par("additiveIncreasePackets");
     rdpMain->recordScalar("initialWindow=", state->IW);
 
