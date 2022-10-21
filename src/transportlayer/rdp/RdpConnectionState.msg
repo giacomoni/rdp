@@ -73,7 +73,7 @@ struct RdpStateVariables
     uint32_t receivedPacketsInWindow = 0;
     uint32_t sentPullsInWindow = 0;
     uint32_t additiveIncreasePackets = 1;
-    uint32_t outOfWindowPackets = 0;
+    int outOfWindowPackets = 0;
     uint32_t numPacketsToGet = 0;
     uint32_t numPacketsToSend = 0;
     
