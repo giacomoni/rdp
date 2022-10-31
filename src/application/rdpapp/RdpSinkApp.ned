@@ -26,6 +26,10 @@ simple RdpSinkApp like IApp
         @statistic[instThroughputNDP](title="instThroughputNDP"; source="throughputA(packetReceived)"; unit=bps; record=mean,vector); //ResultsFilter.cc
         @statistic[instThroughput](record=vector; interpolationmode=sample-hold);
         @signal[instThroughput](type=double);
+        
+        @statistic[rtt](unit=s; record=vector; interpolationmode=none);
+        @signal[rtt](type=double);
+        
         @signal[goodputSigNdp](type=double);
         @statistic[mohThroughputNDP](title="mohThroughputNDP"; source=goodputSigNdp; unit=bps; record=last); //ResultsFilter.cc
     gates:
