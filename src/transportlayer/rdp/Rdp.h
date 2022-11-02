@@ -36,7 +36,7 @@ namespace rdp {
 
 // Forward declarations:
 class RdpConnection;
-class RdpSendQueue;
+class RdpSendQueueOptimisation;
 class RdpReceiveQueue;
 
 class INET_API Rdp : public TransportProtocolBase
@@ -162,7 +162,7 @@ public:
     /**
      * To be called from RdpConnection: create a new send queue.
      */
-    virtual RdpSendQueue* createSendQueue();
+    virtual RdpSendQueueOptimisation* createSendQueue();
 
     virtual RdpReceiveQueue* createReceiveQueue();
 

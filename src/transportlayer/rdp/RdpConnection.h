@@ -72,8 +72,8 @@ protected:
     RdpStateVariables *state = nullptr;
 
     // RDP queues
-    RdpSendQueue *sendQueue = nullptr;
-    RdpSendQueue* getSendQueue() const
+    RdpSendQueueOptimisation *sendQueue = nullptr;
+    RdpSendQueueOptimisation* getSendQueue() const
     {
         return sendQueue;
     }
@@ -249,7 +249,7 @@ public:
     {
         return state;
     }
-    RdpSendQueue* getSendQueue()
+    RdpSendQueueOptimisation* getSendQueue()
     {
         return sendQueue;
     }

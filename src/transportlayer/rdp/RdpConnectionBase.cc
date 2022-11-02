@@ -6,7 +6,7 @@
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
-#include "RdpSendQueue.h"
+#include "RdpSendQueueOptimisation.h"
 #include "RdpReceiveQueue.h"
 
 using namespace std;

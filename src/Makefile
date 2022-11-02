@@ -46,6 +46,7 @@ OBJS = \
     $O/transportlayer/rdp/RdpConnectionUtil.o \
     $O/transportlayer/rdp/RdpReceiveQueue.o \
     $O/transportlayer/rdp/RdpSendQueue.o \
+    $O/transportlayer/rdp/RdpSendQueueOptimisation.o \
     $O/transportlayer/rdp/flavours/DumbRdp.o \
     $O/transportlayer/rdp/flavours/HrdpMark.o \
     $O/transportlayer/rdp/flavours/RdpAIAD.o \

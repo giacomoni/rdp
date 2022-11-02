@@ -12,7 +12,7 @@ cplusplus {{
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
-#include "RdpSendQueue.h"
+#include "RdpSendQueueOptimisation.h"
 #include "RdpReceiveQueue.h"
 #include "rdp_common/RdpHeader.h"
 }}
@@ -21,11 +21,11 @@ namespace inet::rdp;
 
 class RdpAlgorithm extends cObject { @existingClass; }
 
-class RdpSendQueue extends cObject
+class RdpSendQueueOptimisation extends cObject
 {
     @existingClass;
     @descriptor(readonly);
-    cPacketQueue dataToSendQueue;      // dataBuffer
+    //std::vector<int> seqNumToSendQueue;
 }
 
 class RdpReceiveQueue extends cObject
@@ -52,7 +52,7 @@ class RdpConnection extends cObject
     RdpStateVariables *state;
 
     // NDP queues
-    RdpSendQueue *sendQueue;
+    RdpSendQueueOptimisation *sendQueue;
 	RdpReceiveQueue *receiveQueue;
 	
     RdpAlgorithm *rdpAlgorithm;

@@ -42,7 +42,7 @@
 
 #include "Rdp.h"
 #include "RdpConnection.h"
-#include "RdpSendQueue.h"
+#include "RdpSendQueueOptimisation.h"
 #include "RdpReceiveQueue.h"
 #include "rdp_common/RdpHeader.h"
 #include "../common/L4ToolsRdp.h"
@@ -334,9 +334,9 @@ void Rdp::updateSockPair(RdpConnection *conn, L3Address localAddr, L3Address rem
     // localPort doesn't change (see ASSERT above), so there's no need to update usedEphemeralPorts[].
 }
 
-RdpSendQueue* Rdp::createSendQueue()
+RdpSendQueueOptimisation* Rdp::createSendQueue()
 {
-    return new RdpSendQueue();
+    return new RdpSendQueueOptimisation();
 }
 
 RdpReceiveQueue* Rdp::createReceiveQueue()
