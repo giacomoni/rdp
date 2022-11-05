@@ -1,26 +1,32 @@
 #
-# OMNeT++/OMNEST Makefile for $(LIB_PREFIX)rdp
+# OMNeT++/OMNEST Makefile for rdp
 #
 # This file was generated with the command:
-#  opp_makemake -M release --make-so -f --deep -KECMP_PROJ=.=/home/luca/ecmp -KINET4_PROJ=/home/luca/inet -DINET_IMPORT -I/home/luca/inet/src -L/home/luca/ecmp/src -L/home/luca/inet/src -lecmp -lINET
+#  opp_makemake -o rdp -f --deep --mode debug -I/home/luca/inet4/src -L/home/luca/inet4/src -I/home/luca/raynet/simlibs/ecmp -L/home/luca/raynet/simlibs/ecmp -lINET_dbg -lecmp_dbg
 #
 
 # Name of target to be created (-o option)
-TARGET = $(LIB_PREFIX)rdp$(D)$(SHARED_LIB_SUFFIX)
+TARGET = rdp$(D)$(EXE_SUFFIX)
 TARGET_DIR = .
 
+# User interface (uncomment one) (-u option)
+USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LIBS)
+#USERIF_LIBS = $(CMDENV_LIBS)
+#USERIF_LIBS = $(TKENV_LIBS)
+#USERIF_LIBS = $(QTENV_LIBS)
+
 # C++ include paths (with -I)
-INCLUDE_PATH = -I/home/luca/inet/src
+INCLUDE_PATH = -I/home/luca/inet4/src -I/home/luca/raynet/simlibs/ecmp
 
 # Additional object and library files to link with
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = $(LDFLAG_LIBPATH)/home/luca/ecmp/src $(LDFLAG_LIBPATH)/home/luca/inet/src  -lecmp -lINET
+LIBS = $(LDFLAG_LIBPATH)/home/luca/inet4/src $(LDFLAG_LIBPATH)/home/luca/raynet/simlibs/ecmp  -lINET_dbg -lecmp_dbg
 
 # Output directory
-PROJECT_OUTPUT_DIR = ../out
-PROJECTRELATIVE_PATH = src
+PROJECT_OUTPUT_DIR = out
+PROJECTRELATIVE_PATH =
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
@@ -61,12 +67,8 @@ SMFILES =
 
 # Default mode (-M option); can be overridden with make MODE=debug (or =release)
 ifndef MODE
-MODE = release
+MODE = debug
 endif
-
-# Other makefile variables (-K)
-ECMP_PROJ=.=/home/luca/ecmp
-INET4_PROJ=/home/luca/inet
 
 #------------------------------------------------------------------------------
 
@@ -89,12 +91,12 @@ endif
 include $(CONFIGFILE)
 
 # Simulation kernel and user interface libraries
-OMNETPP_LIBS = -loppenvir$D $(KERNEL_LIBS) $(SYS_LIBS)
+OMNETPP_LIBS = $(OPPMAIN_LIB) $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
 ifneq ($(TOOLCHAIN_NAME),clangc2)
-LIBS += -Wl,-rpath,$(abspath /home/luca/ecmp/src) -Wl,-rpath,$(abspath /home/luca/inet/src)
+LIBS += -Wl,-rpath,$(abspath /home/luca/inet4/src) -Wl,-rpath,$(abspath /home/luca/raynet/simlibs/ecmp)
 endif
 
-COPTS = $(CFLAGS) $(IMPORT_DEFINES) -DINET_IMPORT $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
+COPTS = $(CFLAGS) $(IMPORT_DEFINES)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
 MSGCOPTS = $(INCLUDE_PATH)
 SMCOPTS =
 
@@ -127,9 +129,8 @@ endif
 
 $O/$(TARGET): $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile $(CONFIGFILE)
 	@$(MKPATH) $O
-	@echo Creating shared library: $@
-	$(Q)$(SHLIB_LD) -o $O/$(TARGET) $(OBJS) $(EXTRA_OBJS) $(AS_NEEDED_OFF) $(WHOLE_ARCHIVE_ON) $(LIBS) $(WHOLE_ARCHIVE_OFF) $(OMNETPP_LIBS) $(LDFLAGS)
-	$(Q)$(SHLIB_POSTPROCESS) $O/$(TARGET)
+	@echo Creating executable: $@
+	$(Q)$(CXX) $(LDFLAGS) -o $O/$(TARGET) $(OBJS) $(EXTRA_OBJS) $(AS_NEEDED_OFF) $(WHOLE_ARCHIVE_ON) $(LIBS) $(WHOLE_ARCHIVE_OFF) $(OMNETPP_LIBS)
 
 .PHONY: all clean cleanall depend msgheaders smheaders
 
