@@ -1,0 +1,10 @@
+--- common/Protocol.cc	2021-05-18 11:25:41.000000000 +0100
++++ common/updateProtocol.cc	2022-11-05 22:49:07.083739779 +0000
+@@ -142,6 +142,7 @@
+ const Protocol Protocol::udp("udp", "UDP", Protocol::TransportLayer);
+ const Protocol Protocol::xmac("xmac", "X-MAC");
+ const Protocol Protocol::xtp("xtp", "XTP");
++const Protocol Protocol::rdp("rdp", "RDP", Protocol::TransportLayer)
+ 
+ // INET specific conceptual protocol identifiers
+ const Protocol Protocol::ackingMac("ackingmac", "Acking MAC");
