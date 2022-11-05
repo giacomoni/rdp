@@ -1,5 +1,8 @@
 # local and generated files not to be committed
 
+src/rdp
+src/rdp_dbg
+src/Makefile
 
 *_m.h
 *_m.cc
