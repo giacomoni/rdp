@@ -1,0 +1,11 @@
+--- networklayer/common/IpProtocolId.msg	2022-07-27 14:06:18.000000000 +0100
++++ networklayer/common/updatedIpProtocolId.msg	2022-11-08 10:37:11.380057403 +0000
+@@ -37,6 +37,8 @@
+     IP_PROT_SCTP = 132;
+     IP_PROT_DSR  = 48;
+     IP_PROT_MANET = 138;
++    
++    IP_PROT_RDP = 144;
+ 
+     IP_PROT_IPv6EXT_HOP = 0;       // Hop-by-hop option header.
+     IP_PROT_IPv6EXT_DEST = 60;     // Destination options header.

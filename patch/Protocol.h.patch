@@ -1,10 +1,11 @@
---- common/Protocol.h	2021-05-18 11:25:41.000000000 +0100
-+++ common/updateProtocol.h	2022-11-05 22:49:42.896438049 +0000
-@@ -119,6 +119,7 @@
+--- common/Protocol.h	2022-11-08 10:34:53.460547380 +0000
++++ common/updatedProtocol.h	2022-11-08 10:39:21.019278184 +0000
+@@ -117,7 +117,7 @@
      static const Protocol udp;
      static const Protocol xmac;
      static const Protocol xtp;
+-
 +    static const Protocol rdp;
- 
      // INET specific conceptual protocol identifiers (in alphanumeric order)
      static const Protocol ackingMac;
+     static const Protocol apskPhy;

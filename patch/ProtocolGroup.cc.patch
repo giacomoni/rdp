@@ -1,11 +1,10 @@
---- common/ProtocolGroup.cc	2021-05-18 11:25:41.000000000 +0100
-+++ common/updateProtocolGroup.cc	2022-11-05 22:50:19.261149384 +0000
-@@ -116,7 +116,7 @@
-     { 132, &Protocol::sctp },
-     { 135, &Protocol::mobileipv6 },
-     { 138, &Protocol::manet },
--
-+    { 144, &Protocol::rdp },
-     { 249, &Protocol::linkStateRouting },    // INET specific: Link State Routing Protocol
-     { 250, &Protocol::flooding },    // INET specific: Probabilistic Network Protocol
-     { 251, &Protocol::probabilistic },    // INET specific: Probabilistic Network Protocol
+--- common/ProtocolGroup.cc	2022-07-27 14:06:18.000000000 +0100
++++ common/updatedProtocolGroup.cc	2022-11-08 10:38:02.601337952 +0000
+@@ -119,6 +119,7 @@
+     { IP_PROT_SCTP, &Protocol::sctp },
+     { IP_PROT_IPv6EXT_MOB, &Protocol::mobileipv6 },
+     { IP_PROT_MANET, &Protocol::manet },
++    { IP_PROT_RDP, &Protocol::rdp },
+ 
+     { IP_PROT_LINK_STATE_ROUTING, &Protocol::linkStateRouting },
+     { IP_PROT_FLOODING, &Protocol::flooding },          // INET specific non-standard protocol
