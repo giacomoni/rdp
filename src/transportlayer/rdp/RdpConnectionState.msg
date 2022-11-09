@@ -8,7 +8,7 @@ import inet.common.INETDefs;
 import rdp_common.RdpHeader;
 
 cplusplus {{
-#inlude <common/utils/Estimator.h>
+#include <common/utils/Estimator.h>
 }}
 
 class Estimator
@@ -76,7 +76,7 @@ struct RdpStateVariables
     uint32_t internal_request_id = 0;
     
     double pacingTime = 0;
-    double lastPullTime = 0;
+    simtime_t lastPullTime = 0;
     
     uint32_t IW = 0;  //initial window size
     uint32_t cwnd = 0;
@@ -133,6 +133,8 @@ struct RdpStateVariables
     Estimator rttPropEstimator;
 
     bool isfinalReceivedPrintedOut = false;
+    bool connFinished = false;
+    simtime_t lastDataPacketArrived = 0;
     
 };
 
