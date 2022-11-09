@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include <inet/applications/common/SocketTag_m.h>
+#include <inet/common/socket/SocketTag_m.h>
 #include <inet/common/TimeTag_m.h>
 #include "../contract/rdp/RdpCommand_m.h"
 #include "../../application/rdpapp/GenericAppMsgRdp_m.h"
@@ -8,7 +8,7 @@
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
-#include "RdpSendQueue.h"
+#include "RdpSendQueueOptimisation.h"
 #include "RdpReceiveQueue.h"
 #include <iostream>
 #include <iomanip>
@@ -34,6 +34,7 @@ void RdpConnection::sendInitialWindow()
             EV_INFO << "Sending IW packet " << rdpseg->getDataSequenceNumber() << endl;
             rdpseg->setIsDataPacket(true);
             rdpseg->setIsPullPacket(false);
+            rdpseg->setMarkedBit(false);
             rdpseg->setIsHeader(false);
             rdpseg->setSynBit(true);
             rdpseg->setAckBit(false);
@@ -119,6 +120,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
                     EV_INFO << "Sending data packet - " << rdpseg->getDataSequenceNumber() << endl;
                     rdpseg->setIsDataPacket(true);
                     rdpseg->setIsPullPacket(false);
+                    rdpseg->setMarkedBit(false);
                     rdpseg->setIsHeader(false);
                     rdpseg->setAckBit(false);
                     rdpseg->setNackBit(false);
@@ -176,7 +178,7 @@ RdpEventCode RdpConnection::processSegment1stThru8th(Packet *packet, const Ptr<c
         state->lastDataPacketArrived = simTime();
         Packet* packClone = packet->dup();
         receiveQueue->addPacket(packClone);
-        rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber());
+        rdpAlgorithm->receivedData(rdpseg->getDataSequenceNumber(), rdpseg->getMarkedBit());
         
     }
 
@@ -194,6 +196,7 @@ void RdpConnection::addRequestToPullsQueue() //TODO remove pacePacket bool
     const auto &rdpseg = makeShared<RdpHeader>();
     rdpseg->setIsDataPacket(false);
     rdpseg->setIsPullPacket(true);
+    rdpseg->setMarkedBit(false);
     rdpseg->setIsHeader(false);
     rdpseg->setSynBit(false);
     rdpseg->setAckBit(false);
@@ -224,19 +227,9 @@ int RdpConnection::getPullsQueueLength()
     return len;
 }
 
-bool RdpConnection::isConnFinished()
-{
-    return state->connFinished;
-}
-
 int RdpConnection::getNumRcvdPackets()
 {
     return state->numberReceivedPackets;
-}
-
-void RdpConnection::setConnFinished()
-{
-    state->connFinished = true;
 }
 
 void RdpConnection::sendPacketToApp(unsigned int seqNum){

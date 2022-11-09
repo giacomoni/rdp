@@ -1,1 +1,17 @@
 MSGC:=$(MSGC) --msg6
+
+FEATURETOOL := opp_featuretool
+
+# disable anoying "... hides overloaded virtual function" warning
+CFLAGS += -Wno-overloaded-virtual
+
+#
+# pkg-config:
+#
+HAVE_PKGCFG := $(shell pkg-config --version 2>/dev/null)
+ifeq ($(strip $(HAVE_PKGCFG)),)
+  HAVE_PKGCFG := no
+else
+  HAVE_PKGCFG := yes
+  PKGCFG := $(shell which pkg-config)
+endif

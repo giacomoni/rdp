@@ -37,7 +37,7 @@ class INET_API RdpSwitchQueue : public PacketQueueBase, public cListener
   protected:
     // configuration
     int packetCapacity;
-
+    int mthresh;
     // state
     cPacketQueue dataQueue;
     cPacketQueue headersQueue;
@@ -52,10 +52,7 @@ class INET_API RdpSwitchQueue : public PacketQueueBase, public cListener
    unsigned int weight;
    int numTrimmedPkt ;
 
-   cGate *inputGate = nullptr;
    IActivePacketSource *producer = nullptr;
-
-   cGate *outputGate = nullptr;
    IActivePacketSink *collector = nullptr;
 
    b dataCapacity = b(-1);
@@ -67,7 +64,6 @@ class INET_API RdpSwitchQueue : public PacketQueueBase, public cListener
 
   protected:
     virtual void initialize(int stage) override;
-    virtual void handleMessage(cMessage *message) override;
     virtual bool isOverloaded() const;
 
   public:
@@ -75,26 +71,30 @@ class INET_API RdpSwitchQueue : public PacketQueueBase, public cListener
 
     virtual int getMaxNumPackets() const override { return packetCapacity; }
     virtual int getNumPackets() const override;
+    virtual int getSynAckQueueNumPackets() const;
+    virtual int getHeaderQueueNumPackets() const;
 
     virtual b getMaxTotalLength() const override { return dataCapacity; }
     virtual b getTotalLength() const override { return b(dataQueue.getBitLength()); }
+    virtual b getSynAckQueueTotalLength() const { return b(synAckQueue.getBitLength()); }
+    virtual b getHeaderQueueTotalLength() const { return b(headersQueue.getBitLength()); }
 
     virtual bool isEmpty() const override;
     virtual Packet *getPacket(int index) const override;
     virtual void removePacket(Packet *packet) override;
+    virtual void removeAllPackets() override;
 
-    virtual bool supportsPushPacket(cGate *gate) const override { return inputGate == gate; }
+    virtual bool supportsPacketPushing(cGate *gate) const override { return inputGate == gate; }
     virtual bool canPushSomePacket(cGate *gate) const override {return true;};
     virtual bool canPushPacket(Packet *packet, cGate *gate) const override {return true;};
     virtual void pushPacket(Packet *packet, cGate *gate) override;
 
-    virtual bool supportsPopPacket(cGate *gate) const override { return outputGate == gate; }
-    virtual bool canPopSomePacket(cGate *gate) const override { return !isEmpty(); }
-    virtual Packet *canPopPacket(cGate *gate) const override { return !isEmpty() ? getPacket(0) : nullptr; }
-    virtual Packet *popPacket(cGate *gate) override;
+    virtual bool supportsPacketPulling(cGate *gate) const override { return outputGate == gate; }
+    virtual bool canPullSomePacket(cGate *gate) const override { return !isEmpty(); }
+    virtual Packet *canPullPacket(cGate *gate) const override { return !isEmpty() ? getPacket(0) : nullptr; }
+    virtual Packet *pullPacket(cGate *gate) override;
 
     virtual void receiveSignal(cComponent *source, simsignal_t signal, cObject *object, cObject *details) override;
-    virtual void dropPacket(Packet *packet, PacketDropReason reason, int limit) override;
     virtual void finish() override;
 };
 

@@ -35,7 +35,7 @@ void DumbRdp::processTimer(cMessage *timer, RdpEventCode &event)
 
 }
 
-void DumbRdp::dataSent(uint32 fromseq)
+void DumbRdp::dataSent(uint32_t fromseq)
 {
 
 }
@@ -50,7 +50,7 @@ void DumbRdp::receivedHeader(unsigned int seqNum)
 
 }
 
-void DumbRdp::receivedData(unsigned int seqNum)
+void DumbRdp::receivedData(unsigned int seqNum, bool isMarked)
 {
 
 }

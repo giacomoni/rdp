@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <inet/networklayer/contract/IL3AddressType.h>
 #include <inet/networklayer/common/IpProtocolId_m.h>
-#include <inet/applications/common/SocketTag_m.h>
+#include <inet/common/socket/SocketTag_m.h>
 #include <inet/common/INETUtils.h>
 #include <inet/common/packet/Message.h>
 #include <inet/networklayer/common/EcnTag_m.h>
@@ -20,211 +20,13 @@
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
-#include "RdpSendQueue.h"
+#include "RdpSendQueueOptimisation.h"
 #include "RdpReceiveQueue.h"
 
 namespace inet {
 
 namespace rdp {
 
-Estimator::Estimator(){
-
-    flushCounter = 0;
-}
-
-
-
-void Estimator::setWindowSize(double _windowSize){
-    windowSize = _windowSize;
-}
-void Estimator::addSample(double measurement, simtime_t timestamp){
-    samples.emplace_back(measurement, timestamp);
-    if(!samples.empty()){
-        auto it = samples.begin();
-        while (it != samples.end() && (it->getTimestamp() + windowSize) < simTime())
-        {
-            // `erase()` invalidates the iterator, use returned iterator
-            it = samples.erase(it);
-     
-         }
-    }  
-}
-
-int Estimator::getFlushCounter(){
-    return flushCounter;
-}
-
-void Estimator::flush(){
-    flushCounter++;
-    samples.clear();
-}
-unsigned int Estimator::getSize(){
-    return samples.size();
-}
-
-double Estimator::getMean(){
-    if (samples.empty()) {
-        return 0;
-    }
- 
-    double sum = 0.0;
-    for (Measurement &i: samples) {
-        sum += i.getMeasurement();
-    }
-    return sum / samples.size();
-}
-
-
-double Estimator::getMax(){
-    if (samples.empty()) {
-        return 0;
-    }
- 
-    double _max = 0.0;
-    for (Measurement &i: samples) {
-        _max = std::max(_max, i.getMeasurement());
-    }
-    return _max;
-
-}
-double Estimator::getMin(){
-     if (samples.empty()) {
-        return 0;
-    }
- 
-    double _min = 0.0;
-    for (Measurement &i: samples) {
-        if(_min == 0.0)
-            _min = i.getMeasurement();
-
-        _min = std::min(_min, i.getMeasurement());
-    }
-    return _min;
-}
-
-double Estimator::getStd(){
-
-    if (samples.empty()) {
-        return 0;
-    }
-
-    double mean = getMean();
-    double variance = 0;
-
-     for (Measurement &i: samples) {
-        variance += pow(i.getMeasurement() - mean, 2);
-    }
-
-    return sqrt(variance / samples.size());
-}
-
- double Estimator::getMean(simtime_t subwindow){
-     std::vector<Measurement> subsamples;
-     if(!samples.empty()){
-        auto it = samples.begin();
-        while (it != samples.end())
-        {
-            if((it->getTimestamp() + subwindow) >= simTime())
-                subsamples.push_back(*it);
-            it++;
-        }
-    }  
-
-     if (subsamples.empty()) {
-        return 0;
-    }
- 
-    double sum = 0.0;
-    for (Measurement &i: subsamples) {
-        sum += i.getMeasurement();
-    }
-    return sum / subsamples.size();
-
-
- }
- double Estimator::getMax(simtime_t subwindow){
-     std::vector<Measurement> subsamples;
-     if(!samples.empty()){
-        auto it = samples.begin();
-        while (it != samples.end())
-        {
-            if((it->getTimestamp() + subwindow) >= simTime())
-                subsamples.push_back(*it);
-            it++;
-        }
-    }  
-
-    if (subsamples.empty()) {
-        return 0;
-    }
- 
-    double _max = 0.0;
-    for (Measurement &i: subsamples) {
-        _max = std::max(_max, i.getMeasurement());
-    }
-    return _max;
-
-
- }
- double Estimator::getMin(simtime_t subwindow){
-     std::vector<Measurement> subsamples;
-     if(!samples.empty()){
-        auto it = samples.begin();
-        while (it != samples.end())
-        {
-            if((it->getTimestamp() + subwindow) >= simTime())
-                subsamples.push_back(*it);
-            it++;
-        }
-    }  
-
-     if (subsamples.empty()) {
-        return 0;
-    }
- 
-    double _min = 0.0;
-    for (Measurement &i: subsamples) {
-        if(_min == 0.0)
-            _min = i.getMeasurement();
-
-        _min = std::min(_min, i.getMeasurement());
-    }
-    return _min;
-
-
- }
-
- double Estimator::getStd(simtime_t subwindow){
-     std::vector<Measurement> subsamples;
-     if(!samples.empty()){
-        auto it = samples.begin();
-        while (it != samples.end())
-        {
-            if((it->getTimestamp() + subwindow) >= simTime())
-                subsamples.push_back(*it);
-            it++;
-        }
-    }  
-
-    if (subsamples.empty()) {
-        return 0;
-    }
-
-    double mean = getMean(subwindow);
-    double variance = 0;
-
-     for (Measurement &i: subsamples) {
-        variance += pow(i.getMeasurement() - mean, 2);
-    }
-
-    return sqrt(variance / subsamples.size());
-
-
- }
-
-std::vector<Measurement> Estimator::getSamples(){
-    return samples;
-}
 
 //
 // helper functions
@@ -371,8 +173,9 @@ void RdpConnection::configureStateVariables()
     state->ssthresh = rdpMain->par("ssthresh");
     state->cwnd = state->IW;
     state->slowStartState = true;
-    state->slowStartPacketsToSend = 0;
     state->sentPullsInWindow = state->IW;
+    state->observeWindEnd = state->IW;
+    state->observeWindSize = state->IW;
     state->additiveIncreasePackets = rdpMain->par("additiveIncreasePackets");
     rdpMain->recordScalar("initialWindow=", state->IW);
 
@@ -389,6 +192,7 @@ void RdpConnection::sendNackRdp(unsigned int nackNum)
     rdpseg->setSynBit(false);
     rdpseg->setIsDataPacket(false);
     rdpseg->setIsPullPacket(false);
+    rdpseg->setMarkedBit(false);
     rdpseg->setIsHeader(false);
     std::string packetName = "RdpNack-" + std::to_string(nackNum);
     Packet *fp = new Packet(packetName.c_str());
@@ -406,6 +210,7 @@ void RdpConnection::sendAckRdp(unsigned int AckNum)
     rdpseg->setSynBit(false);
     rdpseg->setIsDataPacket(false);
     rdpseg->setIsPullPacket(false);
+    rdpseg->setMarkedBit(false);
     rdpseg->setIsHeader(false);
     std::string packetName = "RdpAck-" + std::to_string(AckNum);
     Packet *fp = new Packet(packetName.c_str());
@@ -540,14 +345,14 @@ void RdpConnection::computeRtt(unsigned int pullSeqNum, bool isHeader){
     }
 }
 
-uint32 RdpConnection::convertSimtimeToTS(simtime_t simtime)
+uint32_t RdpConnection::convertSimtimeToTS(simtime_t simtime)
 {
     ASSERT(SimTime::getScaleExp() <= -3);
-    uint32 timestamp = (uint32) (simtime.inUnit(SIMTIME_MS));
+    uint32_t timestamp = (uint32_t) (simtime.inUnit(SIMTIME_MS));
     return timestamp;
 }
 
-simtime_t RdpConnection::convertTSToSimtime(uint32 timestamp)
+simtime_t RdpConnection::convertTSToSimtime(uint32_t timestamp)
 {
     ASSERT(SimTime::getScaleExp() <= -3);
     simtime_t simtime(timestamp, SIMTIME_MS);
@@ -569,17 +374,35 @@ void RdpConnection::paceChanged(double newPace){
         // if sendingTime + newPace <= simTime(), else sendingTime + newPace.
         Enter_Method("paceChanged");
         if(paceTimerMsg->isScheduled()){
-            simtime_t sendingTime = paceTimerMsg->getSendingTime();
+            simtime_t arrivalTime = paceTimerMsg->getArrivalTime();
+            simtime_t sendingTime = arrivalTime-state->pacingTime;
+            simtime_t checkSendingTime = paceTimerMsg->getSendingTime();
+
+            std::cout << "\n Calculated sending time: " << arrivalTime-sendingTime << endl;
+            std::cout << "\n Actual sending time: " << checkSendingTime << endl;
+
+            std::cout << "\n Current pace should be: " << arrivalTime-sendingTime << endl;
+            std::cout << "\n State current pace (actual): " << state->pacingTime << endl;
+            std::cout << "\n New Pace: " << newPace << endl;
+            std::cout << "\n New sending time: " << arrivalTime-state->pacingTime << endl;
             simtime_t newArrivalTime;
             if (sendingTime + newPace <= simTime()){
                 newArrivalTime = simTime();
+                std::cout << "\n new Arrival time is right now" << endl;
             }else{
                 newArrivalTime = sendingTime + newPace;
             }
 
-            cancelEvent(paceTimerMsg);
-            take(paceTimerMsg);
-            scheduleAt(newArrivalTime, paceTimerMsg);
+            if(newPace < state->pacingTime){
+                std::cout << "\n newPace < oldPace" << endl;
+            }
+
+            if(newArrivalTime < arrivalTime){
+                std::cout << "\nScheduling new timer!" << endl;
+                cancelEvent(paceTimerMsg);
+                take(paceTimerMsg);
+                scheduleAt(newArrivalTime, paceTimerMsg);
+            }
         }
 }
 

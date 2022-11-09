@@ -36,8 +36,9 @@ namespace rdp {
 
 // Forward declarations:
 class RdpConnection;
-class RdpSendQueue;
+class RdpSendQueueOptimisation;
 class RdpReceiveQueue;
+
 class INET_API Rdp : public TransportProtocolBase
 {
 public:
@@ -161,7 +162,7 @@ public:
     /**
      * To be called from RdpConnection: create a new send queue.
      */
-    virtual RdpSendQueue* createSendQueue();
+    virtual RdpSendQueueOptimisation* createSendQueue();
 
     virtual RdpReceiveQueue* createReceiveQueue();
 
@@ -177,9 +178,6 @@ public:
     {
         return msl;
     }
-    virtual bool allConnFinished();
-    virtual void updateConnMap();
-    virtual void printConnRequestMap();
 };
 
 } // namespace rdp

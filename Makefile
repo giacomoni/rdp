@@ -10,10 +10,10 @@ cleanall: checkmakefiles
 	rm -f src/Makefile
 
 makefilesrelease:
-	cd src && opp_makemake -o rdp --make-so -f --deep --mode release -D${RAYNET_FEATURE} -I${HOME}/inet4.4/src -L${HOME}/inet4.4/src -I${RAYNET_HOME}/simlibs/ecmp -L${RAYNET_HOME}/simlibs/ecmp/src -lINET -lecmp
+	cd src && opp_makemake -o rdp --make-so -f --deep --mode release -D${RAYNET_FEATURE} -I${RAYNET_HOME}/simlibs/rdp/src  -I${HOME}/inet4.4/src -L${HOME}/inet4.4/src -I${RAYNET_HOME}/simlibs/ecmp -L${RAYNET_HOME}/simlibs/ecmp/src -lINET -lecmp
 
 makefilesdebug:
-	cd src && opp_makemake -o rdp --make-so -f --deep --mode debug -D${RAYNET_FEATURE} -I${HOME}/inet4.4/src -L${HOME}/inet4.4/src -I${RAYNET_HOME}/simlibs/ecmp -L${RAYNET_HOME}/simlibs/ecmp/src -lINET_dbg -lecmp_dbg
+	cd src && opp_makemake -o rdp --make-so -f --deep --mode debug -D${RAYNET_FEATURE} -I${RAYNET_HOME}/simlibs/rdp/src  -I${HOME}/inet4.4/src -L${HOME}/inet4.4/src -I${RAYNET_HOME}/simlibs/ecmp -L${RAYNET_HOME}/simlibs/ecmp/src -lINET_dbg -lecmp_dbg
 
 checkmakefiles:
 	@if [ ! -f src/Makefile ]; then \

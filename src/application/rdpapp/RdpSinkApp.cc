@@ -20,7 +20,8 @@ simsignal_t RdpSinkApp::rcvdPkSignalNDP = registerSignal("packetReceived");
 simsignal_t goodputSigNdp = NodeStatus::registerSignal("goodputSigNdp");  //data that is delivered - trimmed packets/lost should be ignored
 simsignal_t fctRecordv3 = NodeStatus::registerSignal("fctRecordv3");
 simsignal_t numRcvTrimmedHeaderSigNdp = NodeStatus::registerSignal("numRcvTrimmedHeaderSigNdp");
-
+simsignal_t instThroughputSignal = NodeStatus::registerSignal("instThroughput");
+simsignal_t rttSignal = NodeStatus::registerSignal("rtt");
 void RdpSinkApp::initialize(int stage)
 {
     EV_TRACE << "RdpSinkApp::initialize";
@@ -28,6 +29,7 @@ void RdpSinkApp::initialize(int stage)
     recordStatistics = par("recordStatistics");
     if (stage == INITSTAGE_LOCAL) {
         bytesRcvd = 0;
+        instantNumOfPackets = 0;
         WATCH(bytesRcvd);
     }
     else if (stage == INITSTAGE_APPLICATION_LAYER) {
@@ -54,7 +56,7 @@ void RdpSinkApp::handleMessage(cMessage *msg)
 
             RdpCommand *controlInfo = check_and_cast<RdpCommand*>(msg->getControlInfo());
             numRcvTrimmedHeader = controlInfo->getNumRcvTrimmedHeader();
-            cModule *centralMod =  this->getParentModule()->getModuleByPath("centralScheduler");
+            cModule *centralMod =  this->getParentModule()->findModuleByPath("centralScheduler");
             if (centralMod && recordStatistics == true) {
                 int numFinishedFlows = centralMod->par("numCompletedShortFlows");
                 int newNumFinishedFlows = numFinishedFlows + 1;
@@ -68,11 +70,24 @@ void RdpSinkApp::handleMessage(cMessage *msg)
         EV_TRACE << "RdpSinkApp:handleMessage Message RDP_I_DATA" << endl;
         if(recordStatistics == true){
             Packet *packet = check_and_cast<Packet*>(msg);
+            instantNumOfPackets += 1;
+            simtime_t endToEndDelay = simTime() - packet->getTag<CreationTimeTag>()->getCreationTime();
+            emit(rttSignal, endToEndDelay);
             bytesRcvd += packet->getByteLength();
             EV_INFO << "RDP DATA message arrived - bytesRcvd: " << bytesRcvd << endl;
+            //make instant throughput every 0.1s
+            instantBytesRcvd += packet->getByteLength();
+            if(instantNumOfPackets >= 50) {
+                double throughput = 8 * (double) instantBytesRcvd / (simTime() - instantStartTime.dbl());
+                emit(instThroughputSignal, throughput);
+                instantBytesRcvd = 0;
+                instantStartTime = simTime();
+                instantNumOfPackets = 0;
+            }
             emit(rcvdPkSignalNDP, packet);
             // Moh added: time stamp when receiving the first data packet (not the SYN, as the app wouldn't get that packet)
             if (firstDataReceived == true) {
+                instantStartTime = simTime();
                 tStartAdded = packet->getTag<CreationTimeTag>()->getCreationTime();
                 firstDataReceived = false;
             }
@@ -83,6 +98,7 @@ void RdpSinkApp::handleMessage(cMessage *msg)
                 }
             }
             EV_INFO << "Sink Application bytes received: " << bytesRcvd << " " << this->getFullPath() << std::endl;
+            delete msg;
         }
         else{
             //IGNORE

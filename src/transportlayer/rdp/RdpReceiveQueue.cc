@@ -33,12 +33,12 @@ std::string RdpReceiveQueue::str() const
     return out.str();
 }
 
-uint32 RdpReceiveQueue::getBufferStartSeq()
+uint32_t RdpReceiveQueue::getBufferStartSeq()
 {
     return begin;
 }
 
-uint32 RdpReceiveQueue::getBufferEndSeq()
+uint32_t RdpReceiveQueue::getBufferEndSeq()
 {
     return end;
 }

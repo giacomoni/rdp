@@ -49,13 +49,13 @@ class INET_API DumbRdp : public RdpAlgorithm
 
     virtual void processTimer(cMessage *timer, RdpEventCode& event) override;
 
-    virtual void dataSent(uint32 fromseq) override;
+    virtual void dataSent(uint32_t fromseq) override;
 
     virtual void ackSent() override;
 
     virtual void receivedHeader(unsigned int seqNum) override;
 
-    virtual void receivedData(unsigned int seqNum) override;
+    virtual void receivedData(unsigned int seqNum, bool isMarked) override;
 
 };
 

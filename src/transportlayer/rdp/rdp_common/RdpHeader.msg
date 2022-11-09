@@ -38,6 +38,7 @@ class RdpHeader extends TransportHeaderBase
 	unsigned int numPacketsToSend;
 	unsigned int pullSequenceNumber;
 	unsigned int dataSequenceNumber; //2 Bytes
+	bool markedBit;
 	bool ackBit;
 	bool nackBit;
     bool rstBit; // RST: reset the connection

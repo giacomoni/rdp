@@ -26,10 +26,10 @@ namespace rdp {
 /**
  * State variables for DumbRdp.
  */
-class INET_API RdpAIMDStateVariables : public RdpStateVariables
+class INET_API RdpAIMD2StateVariables : public RdpStateVariables
 {
   public:
-    RdpAIMDStateVariables();
+    RdpAIMD2StateVariables();
 };
 
 /**
@@ -39,10 +39,10 @@ class INET_API RdpAIMDStateVariables : public RdpStateVariables
  * timeout calculation, delayed acks, silly window avoidance,
  * congestion control, etc.
  */
-class INET_API RdpAIMD : public RdpAlgorithm
+class INET_API RdpAIMD2 : public RdpAlgorithm
 {
   protected:
-    RdpAIMDStateVariables *& state;    // alias to TCLAlgorithm's 'state'
+    RdpAIMD2StateVariables *& state;    // alias to TCLAlgorithm's 'state'
 
     static simsignal_t cwndSignal;    // will record changes to cwnd
     static simsignal_t ssthreshSignal;    // will record changes to ssthresh
@@ -51,14 +51,14 @@ class INET_API RdpAIMD : public RdpAlgorithm
     /** Creates and returns a DumbRdpStateVariables object. */
     virtual RdpStateVariables *createStateVariables() override
     {
-        return new RdpAIMDStateVariables();
+        return new RdpAIMD2StateVariables();
     }
 
   public:
     /** Ctor */
-    RdpAIMD();
+    RdpAIMD2();
 
-    virtual ~RdpAIMD();
+    virtual ~RdpAIMD2();
 
     virtual void initialize() override;
 

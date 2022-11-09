@@ -29,8 +29,10 @@ simple RdpSwitchQueue extends PacketQueueBase like IPacketQueue
         
         
         @display("i=block/queue");
-        @signal[packetPushed](type=inet::Packet);//<- @signal[rcvdPk](type=inet::Packet);
-        @signal[packetPopped](type=inet::Packet);
+        
+        @signal[packetPushStarted](type=inet::Packet);
+        @signal[packetPushEnded](type=inet::Packet?);
+        @signal[packetPulled](type=inet::Packet);
         @signal[packetRemoved](type=inet::Packet);
         @signal[packetDropped](type=inet::Packet);
         
@@ -38,12 +40,7 @@ simple RdpSwitchQueue extends PacketQueueBase like IPacketQueue
         @signal[headersQueueLength](type=long);
         @signal[numTrimmedPkt](type=long);
         
-        @statistic[packetPushed](title="packets pushed"; source=localSignal(packetPushed); record=count,sum(packetBytes),vector(packetBytes); interpolationmode=none);
-        @statistic[packetPopped](title="packets popped"; source=localSignal(packetPopped); record=count,sum(packetBytes),vector(packetBytes); interpolationmode=none);
-        @statistic[packetRemoved](title="packets removed"; source=localSignal(packetRemoved); record=count,sum(packetBytes),vector(packetBytes); interpolationmode=none);
-        @statistic[packetDropped](title="packets dropped: queue overflow"; source=packetDropReasonIsQueueOverflow(packetDropped); record=count,sum(packetBytes),vector(packetBytes); interpolationmode=none);
-        
-        @statistic[queueingTime](title="queueing times"; source=queueingTime(packetPopped); record=histogram,vector; unit=s; interpolationmode=none);
+        @statistic[queueingTime](title="queueing times"; source=queueingTime(localSignal(packetPulled)); record=histogram,vector; unit=s; interpolationmode=none);
         
         //@statistic[rcvdPk](title="received packets"; record=count,"sum(packetBytes)","vector(packetBytes)"; interpolationmode=none);
         //@statistic[dropPk](title="dropped packets"; source=dropPkByQueue; record=count,"sum(packetBytes)","vector(packetBytes)"; interpolationmode=none);

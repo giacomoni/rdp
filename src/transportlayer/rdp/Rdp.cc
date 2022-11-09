@@ -15,7 +15,6 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 
-#include <inet/applications/common/SocketTag_m.h>
 #include <inet/common/IProtocolRegistrationListener.h>
 #include <inet/common/ModuleAccess.h>
 #include <inet/common/ProtocolTag_m.h>
@@ -24,6 +23,7 @@
 #include <inet/common/lifecycle/ModuleOperations.h>
 #include <inet/common/lifecycle/NodeStatus.h>
 #include <inet/common/packet/Message.h>
+#include <inet/common/socket/SocketTag_m.h>
 #include <inet/networklayer/common/EcnTag_m.h>
 #include <inet/networklayer/common/IpProtocolId_m.h>
 #include <inet/networklayer/common/L3AddressTag_m.h>
@@ -41,10 +41,10 @@
 #define PACING_TIME 12  //    MTU/linkRate
 
 #include "Rdp.h"
-#include "../rdp/RdpConnection.h"
-#include "../rdp/RdpSendQueue.h"
-#include "../rdp/RdpReceiveQueue.h"
-#include "../rdp/rdp_common/RdpHeader.h"
+#include "RdpConnection.h"
+#include "RdpSendQueueOptimisation.h"
+#include "RdpReceiveQueue.h"
+#include "rdp_common/RdpHeader.h"
 #include "../common/L4ToolsRdp.h"
 #include "../contract/rdp/RdpCommand_m.h"
 namespace inet {
@@ -56,11 +56,11 @@ simsignal_t Rdp::numRequestsRTOs = registerSignal("numRequestsRTOs");
 
 Rdp::~Rdp()
 {
-    while (!rdpAppConnMap.empty()) {
-        auto i = rdpAppConnMap.begin();
-        i->second->deleteModule();
-        rdpAppConnMap.erase(i);
-    }
+//    while (!rdpAppConnMap.empty()) {
+//        auto i = rdpAppConnMap.begin();
+//        i->second->deleteModule();
+//        rdpAppConnMap.erase(i);
+//    }
 }
 
 void Rdp::initialize(int stage)
@@ -78,8 +78,8 @@ void Rdp::initialize(int stage)
         requestTimerMsg = new cMessage("requestTimerMsg");
         requestTimerMsg->setContextPointer(this);
 
-        registerService(Protocol::rdp, gate("appIn"), gate("ipIn"));
-        registerProtocol(Protocol::rdp, gate("ipOut"), gate("appOut"));
+        registerService(Protocol::rdp, gate("appIn"), gate("appOut"));
+        registerProtocol(Protocol::rdp, gate("ipOut"), gate("ipIn"));
     }
 }
 
@@ -106,7 +106,7 @@ void Rdp::handleSelfMessage(cMessage *msg)
 
 void Rdp::handleUpperCommand(cMessage *msg)
 {
-    int socketId = getTags(msg).getTag<SocketReq>()->getSocketId();
+    int socketId = check_and_cast<ITaggedObject *>(msg)->getTags().getTag<SocketReq>()->getSocketId();
     RdpConnection *conn = findConnForApp(socketId);
 
     if (!conn) {
@@ -125,8 +125,7 @@ void Rdp::handleUpperCommand(cMessage *msg)
 
 void Rdp::sendFromConn(cMessage *msg, const char *gatename, int gateindex)
 {
-    Enter_Method_Silent
-    ();
+    Enter_Method_Silent("sendFromConn");
     take(msg);
     send(msg, gatename, gateindex);
 }
@@ -335,9 +334,9 @@ void Rdp::updateSockPair(RdpConnection *conn, L3Address localAddr, L3Address rem
     // localPort doesn't change (see ASSERT above), so there's no need to update usedEphemeralPorts[].
 }
 
-RdpSendQueue* Rdp::createSendQueue()
+RdpSendQueueOptimisation* Rdp::createSendQueue()
 {
-    return new RdpSendQueue();
+    return new RdpSendQueueOptimisation();
 }
 
 RdpReceiveQueue* Rdp::createReceiveQueue()
@@ -437,50 +436,6 @@ void Rdp::refreshDisplay() const
         sprintf(buf2 + strlen(buf2), "closing:%d ", numCLOSING);
 
     getDisplayString().setTagArg("t", 0, buf2);
-}
-
-void Rdp::printConnRequestMap()
-{
-    auto iterrr = requestCONNMap.begin();
-    int index = 0;
-    while (iterrr != requestCONNMap.end()) {
-        index++;
-        iterrr++;
-    }
-
-}
-
-bool Rdp::allConnFinished()
-{
-    bool connDone;
-
-    auto iter = requestCONNMap.begin();
-    int ii = 0;
-    while (iter != requestCONNMap.end()) {
-        connDone = iter->second->isConnFinished();
-        if (connDone == false) {
-            return false;
-        }
-        ++iter;
-        ++ii;
-    }
-    //cancelRequestTimer();
-    return true;
-}
-
-void Rdp::updateConnMap()
-{
-    a: bool connDone;
-    auto iter = requestCONNMap.begin();
-
-    while (iter != requestCONNMap.end()) {
-        connDone = iter->second->isConnFinished();
-        if (connDone == true) {
-            requestCONNMap.erase(iter);
-            goto a;
-        }
-        ++iter;
-    }
 }
 
 std::ostream& operator<<(std::ostream &os, const Rdp::SockPair &sp)

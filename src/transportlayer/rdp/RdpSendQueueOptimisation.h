@@ -1,20 +1,22 @@
 //
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
+// Copyright (C) 2004 Andras Varga
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Lesser General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Lesser General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-// 
+// along with this program; if not, see <http://www.gnu.org/licenses/>.
+//
 
-#ifndef TRANSPORTLAYER_RDP_RDPRECEIVEQUEUE_H_
-#define TRANSPORTLAYER_RDP_RDPRECEIVEQUEUE_H_
+#ifndef __INET_RdpSendQueue_H
+#define __INET_RdpSendQueue_H
 
 #include <inet/common/INETDefs.h>
 #include <inet/common/packet/ChunkQueue.h>
@@ -22,35 +24,41 @@
 
 #include "../../application/rdpapp/GenericAppMsgRdp_m.h"
 #include "../rdp/RdpConnection.h"
+#include "../rdp/rdp_common/RdpHeader_m.h"
 #include "../rdp/rdp_common/RdpHeader.h"
-
+#include <tuple>
 namespace inet {
 
 namespace rdp {
 
-class INET_API RdpReceiveQueue : public cObject
+class INET_API RdpSendQueueOptimisation : public cObject
 {
 protected:
     RdpConnection *conn = nullptr;    // the connection that owns this queue
     uint32_t begin = 0;    // 1st sequence number stored
     uint32_t end = 0;    // last sequence number stored +1
 
-    cPacketQueue receiveBuffer;      // dataBuffer
+    cPacketQueue dataToSendQueue;      // dataBuffer
+    //cPacketQueue sentDataQueue;
+    //std::map<int, cPacket*> sentDataQueue;
+
+    std::vector<int> seqNumToSendQueue;
+    //std::vector<int> sentSeqNumQueue;
 
 public:
     /**
      * Ctor.
      */
-    RdpReceiveQueue();
+    RdpSendQueueOptimisation();
 
     /**
      * Virtual dtor.
      */
-    virtual ~RdpReceiveQueue();
+    virtual ~RdpSendQueueOptimisation();
 
-    virtual cPacketQueue& getReceiveBuffer()
+    virtual cPacketQueue& getDataToSendQueue()
     {
-        return receiveBuffer;
+        return dataToSendQueue;
     }
     /**
      * Set the connection that owns this queue.
@@ -64,9 +72,7 @@ public:
      * Initialize the object. The dataToSendQueue will be filled with data packets given the numPacketsToSend
      * value. This should only be called once for each flow.
      */
-    virtual void addPacket(Packet* packet);
-
-    virtual Packet* popPacket();
+    virtual void init(int numPacketsToSend, B mss);
 
     /**
      * Returns a string with the region stored.
@@ -84,6 +90,18 @@ public:
      */
     virtual uint32_t getBufferEndSeq();
 
+    virtual const std::tuple<Ptr<RdpHeader>, Packet*> getRdpHeader();
+
+    /**
+     * Called when an ACK has arrived at the sender. Frees the sentDataQueue buffer.
+     */
+    virtual void ackArrived(unsigned int ackNum);
+
+    /**
+     * Called when a NACK has arrived at the sender. Pushes the NACKed packet to the front of the dataToSendQueue.
+     */
+    virtual void nackArrived(unsigned int nackNum);
+
     /**
      * Utility function: returns how many bytes are available in the queue, from
      * (and including) the given sequence number.
@@ -94,12 +112,13 @@ public:
         return seqLess(fromSeq, bufEndSeq) ? bufEndSeq - fromSeq : 0;
     }
 
+//    void removeFromDataQueueToSentQueue(Chunk::Iterator iter);
+    void moveFrontDataQueue(unsigned int sequenceNumber);
 };
 
 } // namespace RDP
 
 } // namespace inet
 
-#endif // ifndef TRANSPORTLAYER_RDP_RDPRECEIVEQUEUE_H_
-
+#endif // ifndef __INET_RdpSendQueue_H
 

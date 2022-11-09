@@ -1,11 +1,12 @@
 #include <string.h>
 #include <assert.h>
 
+#include "../contract/rdp/RdpCommand_m.h"
 #include "../rdp/rdp_common/RdpHeader.h"
 #include "Rdp.h"
 #include "RdpAlgorithm.h"
 #include "RdpConnection.h"
-#include "RdpSendQueue.h"
+#include "RdpSendQueueOptimisation.h"
 #include "RdpReceiveQueue.h"
 
 using namespace std;
@@ -16,61 +17,8 @@ Define_Module(RdpConnection);
 
 simsignal_t RdpConnection::trimmedHeadersSignal = registerSignal("trimmedHeaders");
 
-RdpStateVariables::RdpStateVariables()
+RdpStateVariables::~RdpStateVariables()
 {
-    internal_request_id = 0;
-    request_id = 0;  // source block number (8-bit unsigned integer)
-
-    numPacketsToGet = 0;
-    numPacketsToSend = 0;
-    congestionInWindow = false;
-
-    lastPullTime = SIMTIME_ZERO;
-
-    numRcvTrimmedHeader = 0;
-    numberReceivedPackets = 0;
-    numberSentPackets = 0;
-    IW = 0; // send the initial window (12 Packets as in RDP) IWWWWWWWWWWWW
-    receivedPacketsInWindow = 0;
-    sentPullsInWindow = 0;
-    additiveIncreasePackets = 1;
-    slowStartState = true;
-    outOfWindowPackets = 0;
-    waitToStart = false;
-    ssthresh = 0;
-    connFinished = false;
-    isfinalReceivedPrintedOut = false;
-    numRcvdPkt = 0;
-    delayedNackNo = 0;
-    connNotAddedYet = true;
-    cwnd = 0;
-    sendPulls = true;
-    active = false;
-    pacingTime = 0;
-
-    sRtt = SIMTIME_ZERO;
-    minRtt  = SIMTIME_ZERO;
-    latestRtt = SIMTIME_ZERO;
-    rttvar = SIMTIME_ZERO;
-
-    sRttStep = SIMTIME_ZERO;
-    minRttStep = SIMTIME_ZERO;
-    rttvarStep = SIMTIME_ZERO;
-
-      //RTT - Header
-    sRttHeader = SIMTIME_ZERO;
-    minRttHeader = SIMTIME_ZERO;
-    latestRttHeader = SIMTIME_ZERO;
-    rttvarHeader = SIMTIME_ZERO;
-    //RTT Step - Header
-    sRttStepHeader = SIMTIME_ZERO;
-    minRttStepHeader = SIMTIME_ZERO;
-    rttvarStepHeader = SIMTIME_ZERO;
-
-    bandwidthEstimator.setWindowSize(10);
-    rttPropEstimator.setWindowSize(10);
-
-    lastDataPacketArrived = 0;
 }
 
 std::string RdpStateVariables::str() const
@@ -106,7 +54,7 @@ RdpConnection::~RdpConnection()
     std::list<PacketsToSend>::iterator iter;  // received iterator
 
     while (!receivedPacketsList.empty()) {
-        delete receivedPacketsList.front().msg;
+        //delete receivedPacketsList.front().msg;
         receivedPacketsList.pop_front();
     }
     delete sendQueue;
@@ -173,14 +121,15 @@ void RdpConnection::activatePullTimer()
         else{
             take(paceTimerMsg);
             scheduleAt(simTime(), paceTimerMsg);
+            //sendRequestFromPullsQueue();
         }
     }
 }
 
 bool RdpConnection::processrdpsegment(Packet *packet, const Ptr<const RdpHeader> &rdpseg, L3Address segSrcAddr, L3Address segDestAddr)
 {
-    Enter_Method_Silent();
-
+    Enter_Method("processTCPSegment");
+    take(packet);
     printConnBrief();
     RdpEventCode event = process_RCV_SEGMENT(packet, rdpseg, segSrcAddr, segDestAddr);
     // then state transitions
@@ -189,9 +138,8 @@ bool RdpConnection::processrdpsegment(Packet *packet, const Ptr<const RdpHeader>
 
 bool RdpConnection::processAppCommand(cMessage *msg)
 {
-    Enter_Method_Silent
-    ();
-
+    Enter_Method("processAppCommand");
+    take(msg);
     printConnBrief();
 
     RdpCommand *rdpCommand = check_and_cast_nullable<RdpCommand*>(msg->removeControlInfo());

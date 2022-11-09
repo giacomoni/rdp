@@ -18,6 +18,11 @@ class INET_API RdpSinkApp : public cSimpleModule
 {
 protected:
     long bytesRcvd;
+    long instantBytesRcvd;
+    short instantNumOfPackets;
+
+    simtime_t instantStartTime;
+
     RdpSocket socket;
     //statistics:
     static simsignal_t rcvdPkSignalNDP;

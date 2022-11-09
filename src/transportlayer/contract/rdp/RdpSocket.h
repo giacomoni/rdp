@@ -7,7 +7,7 @@
 #include <inet/common/packet/Packet.h>
 #include <inet/networklayer/common/L3Address.h>
 #include <inet/common/socket/ISocket.h>
-#include "../rdp/RdpCommand_m.h"
+#include "RdpCommand_m.h"
 
 namespace inet {
 
